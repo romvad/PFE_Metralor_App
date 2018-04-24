@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.rvadam.pfe">
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <uses-sdk
+    android:minSdkVersion="8"
+    android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -22,6 +29,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    </application>
+        <activity android:name=".TestDropbox.TestDropboxActivity"></activity>
+        <activity
+        android:name="com.dropbox.client2.android.AuthActivity"
+        android:configChanges="orientation|keyboard"
+        android:launchMode="singleTask" >
+
+        <intent-filter>
+            <data android:scheme="db-q43wgud66d6frpx" />
+            <action android:name="android.intent.action.VIEW" />
+
+
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+
+        </intent-filter>
+
+    </activity>
+
+</application>
 
 </manifest>

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -29,6 +30,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.TestDropbox.TestDropboxActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,7 +104,10 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                attemptLogin();
+               // attemptLogin(); TO DISCOMMENT later, comments in order to test the ListView Activities with Work Sites
+                Intent testDropboxActivityCall= new Intent(getActivity(), TestDropboxActivity.class);
+                startActivity(testDropboxActivityCall);
+
             }
         });
 
