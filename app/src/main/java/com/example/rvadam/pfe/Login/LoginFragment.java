@@ -31,6 +31,8 @@ import android.widget.TextView;
 
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.TestDropbox.TestDropboxActivity;
+import com.example.rvadam.pfe.TestOneDrive.TestOneDriveActivity;
+import com.example.rvadam.pfe.TestOneDrive.WebViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +88,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) getActivity().findViewById(R.id.email);
-        populateAutoComplete();
+        //populateAutoComplete();
 
         mPasswordView = (EditText) getActivity().findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -105,9 +107,10 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
             @Override
             public void onClick(View view) {
                // attemptLogin(); TO DISCOMMENT later, comments in order to test the ListView Activities with Work Sites
-                Intent testDropboxActivityCall= new Intent(getActivity(), TestDropboxActivity.class);
-                startActivity(testDropboxActivityCall);
-
+               // Intent testWebViewActivityCall= new Intent(getActivity(), WebViewActivity.class);
+                //startActivity(testWebViewActivityCall);
+                Intent testOneDriveActivityCall= new Intent(getActivity(), TestOneDriveActivity.class);
+                startActivity(testOneDriveActivityCall);
             }
         });
 
@@ -115,13 +118,13 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
         mProgressView = getActivity().findViewById(R.id.login_progress);
     }
 
-    private void populateAutoComplete() {
+    /*private void populateAutoComplete() {
         if (!mayRequestContacts()) {
             return;
         }
 
         getLoaderManager().initLoader(0, null, (android.app.LoaderManager.LoaderCallbacks<Object>) getActivity());
-    }
+    }*/
 
     private boolean mayRequestContacts() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
@@ -153,7 +156,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults.length == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                populateAutoComplete();
+                //populateAutoComplete();
             }
         }
     }

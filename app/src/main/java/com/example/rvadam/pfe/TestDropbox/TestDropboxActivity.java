@@ -13,6 +13,8 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View.OnClickListener;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -145,4 +147,16 @@ public class TestDropboxActivity extends AppCompatActivity implements OnClickLis
         listFilesBtn.setBackgroundColor(userLoggedIn ? Color.BLUE : Color.GRAY);
         loginBtn.setText(userLoggedIn ? "Logout" : "Log in");
     }
+
+   /* //Test WebView pdf display
+    String supportWebViewUrl="http://docs.google.com/viewer?url=";
+    String location="";
+    String doc="<iframe src="+supportWebViewUrl+location+ "width=\"100%\" height=\"100%\" style=\"border: none;\"></iframe>";
+
+    WebView  wv = (WebView) findViewById(R.id.webView1);
+    //wv.
+    wv.getSettings().setJavaScriptEnabled(true);
+    wv.getSettings().setPluginsEnabled(true);
+    wv.getSettings().setAllowFileAccess(true);
+    wv.loadUrl(doc);*/
 }
