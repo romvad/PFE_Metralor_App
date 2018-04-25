@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "432129909455",
+    "firebase_url": "https://pfe-metralor.firebaseio.com",
+    "project_id": "pfe-metralor",
+    "storage_bucket": "pfe-metralor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432129909455:android:de6f745f1f05aa4f",
+        "android_client_info": {
+          "package_name": "com.example.rvadam.pfe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "432129909455-cfdkul1rul688vno0003gfbdass2c4oe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_Rs8MTekJuWp7TuDOZbiSOhIEfY-tg9Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
