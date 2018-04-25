@@ -1,6 +1,8 @@
 package com.example.rvadam.pfe.TestOneDrive;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.Utils.DownloadTask;
 import com.microsoft.onedrivesdk.picker.IPicker;
 import com.microsoft.onedrivesdk.picker.IPickerResult;
 import com.microsoft.onedrivesdk.picker.LinkType;
@@ -108,6 +111,29 @@ public class TestOneDriveActivity extends Activity {
 
                 ((TextView) findViewById(R.id.pic_link))
                         .setText(result.getLink().toString());
+
+                // Launch donwload with the download link
+
+                // declare the dialog as a member field of your activity
+                ProgressDialog mProgressDialog;
+
+                // instantiate it within the onCreate method
+                mProgressDialog = new ProgressDialog(TestOneDriveActivity.this);
+                mProgressDialog.setMessage("A message");
+                mProgressDialog.setIndeterminate(true);
+                mProgressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                mProgressDialog.setCancelable(true);
+
+                // execute this when the downloader must be fired
+                final DownloadTask downloadTask = new DownloadTask(TestOneDriveActivity.this);
+                downloadTask.execute(result.getLink().toString());
+
+                mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface dialog) {
+                        downloadTask.cancel(true);
+                    }
+                });
 
                 return;
             }
