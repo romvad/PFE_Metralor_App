@@ -31,6 +31,7 @@ import android.widget.TextView;
 
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.TestDropbox.TestDropboxActivity;
+import com.example.rvadam.pfe.TestLoginWithMSAL.*;
 import com.example.rvadam.pfe.TestOneDrive.TestOneDriveActivity;
 import com.example.rvadam.pfe.TestOneDrive.WebViewActivity;
 
@@ -109,8 +110,10 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                // attemptLogin(); TO DISCOMMENT later, comments in order to test the ListView Activities with Work Sites
                // Intent testWebViewActivityCall= new Intent(getActivity(), WebViewActivity.class);
                 //startActivity(testWebViewActivityCall);
-                Intent testOneDriveActivityCall= new Intent(getActivity(), TestOneDriveActivity.class);
-                startActivity(testOneDriveActivityCall);
+                /*Intent testOneDriveActivityCall= new Intent(getActivity(), TestOneDriveActivity.class);
+                startActivity(testOneDriveActivityCall);*/
+                Intent testMSALLoginActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestLoginWithMSAL.LoginActivity.class);
+                startActivity(testMSALLoginActivityCall);
             }
         });
 

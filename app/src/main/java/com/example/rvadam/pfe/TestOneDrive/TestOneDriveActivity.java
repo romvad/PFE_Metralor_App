@@ -22,10 +22,12 @@ import com.microsoft.onedrivesdk.saver.SaverException;
 
 import java.io.File;
 
-public class TestOneDriveActivity extends AppCompatActivity {
+public class TestOneDriveActivity extends Activity {
 
+    private static final String TAG="TestOneDriveActivity";
     private IPicker mPicker;
-    private String ONEDRIVE_Client_ID = "46b2631c-ec3e-4920-a5dd-6586e5733adf";
+   //Test Rémi: private String ONEDRIVE_Client_ID = "46b2631c-ec3e-4920-a5dd-6586e5733adf";
+    private String ONEDRIVE_Client_ID ="28e52f7c-c97f-4296-ba95-ee04856a60f4";
     private ISaver mSaver;
     private boolean picker = false;
 
@@ -51,8 +53,10 @@ public class TestOneDriveActivity extends AppCompatActivity {
                 public void onClick(final View v) {
 
                     picker = true;
+                    Log.i(TAG,"before start picker");
                     mPicker = Picker.createPicker(ONEDRIVE_Client_ID);
-                    mPicker.startPicking((Activity)v.getContext(), LinkType.WebViewLink);
+                    Log.i(TAG,"after start picker"+picker);
+                    mPicker.startPicking((Activity)v.getContext(), LinkType.DownloadLink);
                 }
             };
 
@@ -87,7 +91,7 @@ public class TestOneDriveActivity extends AppCompatActivity {
                                     final int resultCode, final Intent data) {
 
         if(picker == true) {
-
+            Log.i(TAG,"OnActivity result after start picking");
             // Get the results from the picker
             IPickerResult result = mPicker
                     .getPickerResult(requestCode, resultCode, data);
