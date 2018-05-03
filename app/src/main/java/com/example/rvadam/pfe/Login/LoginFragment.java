@@ -31,7 +31,7 @@ import android.widget.TextView;
 
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.TestDropbox.TestDropboxActivity;
-import com.example.rvadam.pfe.TestLoginWithMSAL.*;
+//import com.example.rvadam.pfe.TestLoginWithMSAL.*;
 import com.example.rvadam.pfe.TestOneDrive.TestOneDriveActivity;
 import com.example.rvadam.pfe.TestOneDrive.WebViewActivity;
 
@@ -114,8 +114,16 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(testOneDriveActivityCall);*/
                 /*Intent testMSALLoginActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestLoginWithMSAL.LoginActivity.class);
                 startActivity(testMSALLoginActivityCall);*/
-                Intent FirebaseStorageActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.FirebaseStorageActivity.class);
-                startActivity(FirebaseStorageActivityCall);
+                /*Intent FirebaseStorageActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.FirebaseStorageActivity.class);
+                startActivity(FirebaseStorageActivityCall);*/
+                /*Intent testDLFirebaseStorageActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.TestDLFirebaseStorageActivity.class);
+                startActivity(testDLFirebaseStorageActivityCall);*/
+                /*Intent testFirebaseDBActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseDB.TestFirebaseDBActivity.class);
+                startActivity(testFirebaseDBActivityCall);*/
+                Intent testFirebaseStorageBisActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.TestFirebaseStorageBisActivity.class);
+                startActivity(testFirebaseStorageBisActivityCall);
+
+
             }
         });
 

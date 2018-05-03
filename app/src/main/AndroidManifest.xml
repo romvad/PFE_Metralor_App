@@ -65,7 +65,10 @@
         <activity android:name=".TestOneDrive.TestOneDriveActivity" />
         <activity android:name=".TestLoginWithMSAL.LoginActivity" />
         <activity android:name=".TestFirebaseStorage.FirebaseStorageActivity" />
-        <activity android:name=".WorkSite.WorkSiteActivity"></activity>
+        <activity android:name=".WorkSite.WorkSiteActivity" />
+        <activity android:name=".TestFirebaseStorage.TestDLFirebaseStorageActivity" />
+        <activity android:name=".TestFirebaseDB.TestFirebaseDBActivity" />
+        <activity android:name=".TestFirebaseStorage.TestFirebaseStorageBisActivity"></activity>
     </application>
 
 </manifest>

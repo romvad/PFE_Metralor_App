@@ -24,6 +24,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+//import static com.google.android.gms.common.GoogleApiAvailabilityLight.GOOGLE_PLAY_SERVICES_VERSION_CODE;
+//import static com.google.android.gms.common.GooglePlayServicesUtilLight.isGooglePlayServicesAvailable;
+
 public class WorkSiteActivity extends AppCompatActivity {
 
     Button uploadHuissier;
@@ -61,8 +64,27 @@ public class WorkSiteActivity extends AppCompatActivity {
             StorageReference storageRef=storage.getReference("ab/photos/adductions/energie");
             StorageReference storageRef2=storageRef.child(getFileName(selectedfile));
 
+            //Log.i(TAG,"google play available "+isGooglePlayServicesAvailable (getBaseContext(),21));
+            //Log.i (TAG, "gps version code : "+GOOGLE_PLAY_SERVICES_VERSION_CODE);
+
             Log.i(TAG,"directory downlaods "+getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS));
-            File file=new File("/root/sdcaezqesdfrd/Downloads/"+getFileName(selectedfile));
+            //File file=new File("/root/sdcaezqesdfrd/Downloads/"+getFileName(selectedfile));
+            UploadTask uploadTask=storageRef2.putFile(selectedfile);
+            // Register observers to listen for when the download is done or if it fails
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                    Log.i(TAG,"upload file failure: "+exception.toString());
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    Uri downloadUrl = taskSnapshot.getDownloadUrl();
+                    Log.i(TAG,"upload success");
+                }
+            });
             /*try {
                 //stream = new FileInputStream(new File(selectedfile.getPath().toString()));
                 //stream = new FileInputStream(new File("/root/sdcard/Downloads/"+getFileName(selectedfile)));
