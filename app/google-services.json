@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "432129909455-1cks69jcraam1j2q7ks6845jf42dbd75.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rvadam.pfe",
+            "certificate_hash": "6fadd8d4f42dab938301a5ef950d056096bc1f4a"
+          }
+        },
+        {
+          "client_id": "432129909455-bqkjenh2lr66uqiciid1s3o31obk1tid.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rvadam.pfe",
+            "certificate_hash": "883a5cc27ba8981afcf6e58c11e262d5e152bb22"
+          }
+        },
+        {
           "client_id": "432129909455-cfdkul1rul688vno0003gfbdass2c4oe.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +45,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "432129909455-cfdkul1rul688vno0003gfbdass2c4oe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
