@@ -13,4 +13,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="option_internal_choice_file">Parcourir l\'appareil</string>
+    <string name="option_onedrive_choice_file">Récupérer le fichier sur OneDrive</string>
+    <string name="title_choice_file">Comment récupérer mon fichier ?</string>
+    <string name="cancel_alert_dialog">Annuler</string>
 </resources>
