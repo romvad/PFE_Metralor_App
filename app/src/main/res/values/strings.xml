@@ -17,4 +17,11 @@
     <string name="option_onedrive_choice_file">Récupérer le fichier sur OneDrive</string>
     <string name="title_choice_file">Comment récupérer mon fichier ?</string>
     <string name="cancel_alert_dialog">Annuler</string>
+    <string name="label_choosed_file">Fichier choisi pour l\'upload</string>
+    <string name="label_status_choosed_file">Statut du fichier :</string>
+    <string name="status_choosed_file_READY">Prêt</string>
+    <string name="status_choosed_file_SEND">Prêt</string>
+    <string name="status_choosed_file_NOT_SELECTED">Non sélectionné</string>
+    <string name="status_choosed_file_WAIT_FOR_INTERNET_CONNECTION">Upload en cours (attente connexion internet)</string>
+
 </resources>
