@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Fragment;
-import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -30,16 +29,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.rvadam.pfe.R;
-import com.example.rvadam.pfe.TestDropbox.TestDropboxActivity;
-//import com.example.rvadam.pfe.TestLoginWithMSAL.*;
-import com.example.rvadam.pfe.TestOneDrive.TestOneDriveActivity;
-import com.example.rvadam.pfe.TestOneDrive.WebViewActivity;
+import com.example.rvadam.pfe.WelcomeListWorkSites.WelcomeListWorkSite;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static android.Manifest.permission.READ_CONTACTS;
 import static android.support.v4.content.PermissionChecker.checkSelfPermission;
+
+//import com.example.rvadam.pfe.TestLoginWithMSAL.*;
 
 /**
  * Created by rvadam on 04/04/2018.
@@ -77,7 +75,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
-        mActionsListener= new LoginPresenter(this);
+        mActionsListener = new LoginPresenter(this);
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
         return view;
@@ -107,8 +105,8 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // attemptLogin(); TO DISCOMMENT later, comments in order to test the ListView Activities with Work Sites
-               // Intent testWebViewActivityCall= new Intent(getActivity(), WebViewActivity.class);
+                // attemptLogin(); TO DISCOMMENT later, comments in order to test the ListView Activities with Work Sites
+                // Intent testWebViewActivityCall= new Intent(getActivity(), WebViewActivity.class);
                 //startActivity(testWebViewActivityCall);
                 /*Intent testOneDriveActivityCall= new Intent(getActivity(), TestOneDriveActivity.class);
                 startActivity(testOneDriveActivityCall);*/
@@ -120,8 +118,10 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(testDLFirebaseStorageActivityCall);*/
                 /*Intent testFirebaseDBActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseDB.TestFirebaseDBActivity.class);
                 startActivity(testFirebaseDBActivityCall);*/
-                Intent testFirebaseStorageBisActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.TestFirebaseStorageBisActivity.class);
-                startActivity(testFirebaseStorageBisActivityCall);
+                Intent welcomeListWorkSiteCall = new Intent(getActivity(), WelcomeListWorkSite.class);
+                startActivity(welcomeListWorkSiteCall);
+                /*Intent testFirebaseStorageBisActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.TestFirebaseStorageBisActivity.class);
+                startActivity(testFirebaseStorageBisActivityCall);*/
 
 
             }
@@ -143,7 +143,7 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             return true;
         }
-        if (checkSelfPermission(getActivity(),READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
+        if (checkSelfPermission(getActivity(), READ_CONTACTS) == PackageManager.PERMISSION_GRANTED) {
             return true;
         }
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
@@ -276,11 +276,11 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
     @Override
     public android.support.v4.content.Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
-        return new android.support.v4.content.CursorLoader(getActivity(),Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,ContactsContract.Contacts.Data.CONTENT_DIRECTORY),
+        return new android.support.v4.content.CursorLoader(getActivity(), Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI, ContactsContract.Contacts.Data.CONTENT_DIRECTORY),
                 LoginFragment.ProfileQuery.PROJECTION,
                 ContactsContract.Contacts.Data.MIMETYPE +
-                " = ?", new String[]{ContactsContract.CommonDataKinds.Email
-                .CONTENT_ITEM_TYPE},ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
+                        " = ?", new String[]{ContactsContract.CommonDataKinds.Email
+                .CONTENT_ITEM_TYPE}, ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
         /* return new CursorLoader(getContext(),
                 // Retrieve data rows for the device user's 'profile' contact.
                 Uri.withAppendedPath(ContactsContract.Profile.CONTENT_URI,
