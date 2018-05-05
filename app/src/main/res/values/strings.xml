@@ -18,10 +18,13 @@
     <string name="title_choice_file">Comment récupérer mon fichier ?</string>
     <string name="cancel_alert_dialog">Annuler</string>
     <string name="label_choosed_file">Fichier choisi pour l\'upload</string>
-    <string name="label_status_choosed_file">Statut du fichier :</string>
-    <string name="status_choosed_file_READY">Prêt</string>
-    <string name="status_choosed_file_SEND">Prêt</string>
-    <string name="status_choosed_file_NOT_SELECTED">Non sélectionné</string>
+    <string name="label_status_choosed_file">Statut du fichier : </string>
+    <string name="status_choosed_file_READY">Prêt pour upload</string>
+    <string name="status_choosed_file_UPLOADED">Uploadé</string>
+    <string name="status_choosed_file_NOT_UPLOADED">Non uploadé</string>
     <string name="status_choosed_file_WAIT_FOR_INTERNET_CONNECTION">Upload en cours (attente connexion internet)</string>
+    <string name="download_from_one_drive_offline_impossible">Récupération de fichier depuis OneDrive impossible hors connexion, veuillez rééssayer ultérieurement SVP</string>
+    <string name="upload_file_waiting_internet_connection_1">Appareil hors connexion: le fichier</string>
+    <string name="upload_file_waiting_internet_connection_2"> sera uploadé dès le rétablissement de la connexion internet</string>
 
 </resources>

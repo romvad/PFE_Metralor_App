@@ -34,6 +34,7 @@ import com.example.rvadam.pfe.Model.Constants;
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.TestOneDrive.TestOneDriveActivity;
 import com.example.rvadam.pfe.Utils.DownloadTask;
+import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.example.rvadam.pfe.Utils.MicrosoftLogin;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -85,7 +86,7 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
     private IPicker mPicker;
 
     //Name of file retrived from OneDrive
-    private String nameOfOneDriveFile="";
+    private String strNameOfChoosedFile="";
     private TextView nameChoosedFile;
     private TextView statusChoosedFile;
 
@@ -112,7 +113,7 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
         nameChoosedFile = (TextView) findViewById(R.id.nameChoosedFile);
         statusChoosedFile = (TextView) findViewById(R.id.statusChoosedFile);
 
-        statusChoosedFile.setText(R.string.status_choosed_file_NOT_SELECTED);
+        updateFileStatusTextView(R.string.status_choosed_file_NOT_UPLOADED);
 
         chooseButton.setOnClickListener(this);
         uploadButton.setOnClickListener(this);
@@ -136,16 +137,24 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
 
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Uploading...");
-            progressDialog.show();
 
-            StorageReference riversRef = storageReference.child("images/"+nameOfOneDriveFile);
+            if(InternetConnectionTools.isNetworkAvailable(getActivity())) {
+                progressDialog.show();
+
+            }else {
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.upload_file_waiting_internet_connection_1) +"\""+strNameOfChoosedFile+"\" "+getResources().getString(R.string.upload_file_waiting_internet_connection_2), Toast.LENGTH_LONG).show();
+                updateFileStatusTextView(R.string.status_choosed_file_WAIT_FOR_INTERNET_CONNECTION);
+            }
+
+
+            StorageReference riversRef = storageReference.child("images/"+strNameOfChoosedFile);
 
             riversRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Le fichier \""+nameOfOneDriveFile+"\" a été uploadé avec succès", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Le fichier \""+strNameOfChoosedFile+"\" a été uploadé avec succès", Toast.LENGTH_LONG).show();
 
                             //Case of an uploaded file from One Drive: temporary file deletion
                             if (constantsInstance.getTmpFileDLFromOneDrive().exists())
@@ -153,7 +162,8 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
 
                             //We disable the upload button and update the file status
                             uploadButton.setEnabled(false);
-                            statusChoosedFile.setText(R.string.status_choosed_file_SEND);
+                            updateFileStatusTextView(R.string.status_choosed_file_UPLOADED);
+                            //statusChoosedFile.setText(R.string.status_choosed_file_UPLOADED);
 
                         }
                     })
@@ -190,10 +200,11 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
             filePath = data.getData();
             //Toast.makeText(getApplicationContext(),filePath.toString(),Toast.LENGTH_LONG);
             Log.i(TAG, filePath.toString());
-            statusChoosedFile.setText(R.string.status_choosed_file_READY);
+            updateFileStatusTextView(R.string.status_choosed_file_READY);
+            //statusChoosedFile.setText(R.string.status_choosed_file_READY);
             uploadButton.setEnabled(true);
-            nameOfOneDriveFile=getFileName(filePath);
-            nameChoosedFile.setText(nameOfOneDriveFile);
+            strNameOfChoosedFile=getFileName(filePath);
+            nameChoosedFile.setText(strNameOfChoosedFile);
             /*try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 imageView.setImageBitmap(bitmap);
@@ -222,8 +233,8 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
                     Log.e("main", "Link to file '" + result
                             .getName() + ": " + result.getLink());
 
-                    nameOfOneDriveFile=result.getName();
-                    nameChoosedFile.setText(nameOfOneDriveFile);
+                    strNameOfChoosedFile=result.getName();
+                    nameChoosedFile.setText(strNameOfChoosedFile);
 
                     //((TextView) findViewById(R.id.pic_link))
                       //      .setText(result.getLink().toString());
@@ -262,7 +273,8 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
                         Log.i(TAG,"dltask status: "+downloadTask.getStatus());
                     }*/
 
-                    statusChoosedFile.setText(R.string.status_choosed_file_READY);
+                    updateFileStatusTextView(R.string.status_choosed_file_READY);
+                    //statusChoosedFile.setText(R.string.status_choosed_file_READY);
                     uploadButton.setEnabled(true);
 
                     //We store the file path of the temporary file (that has always the same name saved in Downloads directory in case of OneDrve selection
@@ -302,6 +314,10 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
                 });
     }
 
+    private AppCompatActivity getActivity(){
+        return this;
+    }
+
     private void buildAlertDialog() {
         List<String> listOptions = new ArrayList<String>();
         listOptions.add("Interne");
@@ -332,8 +348,13 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
                     case 1:
                         Toast.makeText(getApplicationContext(), "oneDrive", Toast.LENGTH_LONG);
                         Log.i(TAG,"oneDrive");
-                        microsoftAccountAuthentication();
-                        alertDialogCreated.dismiss();
+                        if(InternetConnectionTools.isNetworkAvailable(getActivity())){
+                            microsoftAccountAuthentication();
+                            alertDialogCreated.dismiss();
+                        }else {
+                            Toast.makeText(getApplicationContext(), R.string.download_from_one_drive_offline_impossible, Toast.LENGTH_LONG).show();
+                        }
+
                         break;
                     default:
                         ;
@@ -384,9 +405,12 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
     private void downloadFileFromOneDrive(){
         picker = true;
         Log.i(TAG,"before start picker");
-        mPicker = Picker.createPicker(constantsInstance.getOneDriveClientId());
-        Log.i(TAG,"after start picker"+picker);
-        mPicker.startPicking(this, LinkType.DownloadLink);
+        if(InternetConnectionTools.isNetworkAvailable(this)) {
+            mPicker = Picker.createPicker(constantsInstance.getOneDriveClientId());
+            Log.i(TAG, "after start picker" + picker);
+            mPicker.startPicking(this, LinkType.DownloadLink);
+
+        }
     }
 
     public String getFileName(Uri uri) {
@@ -409,6 +433,30 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
             }
         }
         return result;
+    }
+
+    private void updateFileStatusTextView(int statusResourceID){
+
+        switch (statusResourceID){
+            case R.string.status_choosed_file_NOT_UPLOADED:
+                statusChoosedFile.setText(R.string.status_choosed_file_NOT_UPLOADED);
+                statusChoosedFile.setBackgroundResource(R.color.colorStatusFileNotUploaded);
+                break;
+            case R.string.status_choosed_file_READY:
+                statusChoosedFile.setText(R.string.status_choosed_file_READY);
+                statusChoosedFile.setBackgroundResource(R.color.colorStatusFileReadyOrWaitingConnection);
+                break;
+            case R.string.status_choosed_file_WAIT_FOR_INTERNET_CONNECTION:
+                statusChoosedFile.setText(R.string.status_choosed_file_WAIT_FOR_INTERNET_CONNECTION);
+                statusChoosedFile.setBackgroundResource(R.color.colorStatusFileReadyOrWaitingConnection);
+                break;
+            case R.string.status_choosed_file_UPLOADED:
+                statusChoosedFile.setText(R.string.status_choosed_file_UPLOADED);
+                statusChoosedFile.setBackgroundResource(R.color.colorStatusFileUploaded);
+                break;
+            default:;
+
+        }
     }
 
     /* Handles the redirect from the System Browser */
