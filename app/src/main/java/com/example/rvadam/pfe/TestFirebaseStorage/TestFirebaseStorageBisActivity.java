@@ -36,11 +36,14 @@ import com.example.rvadam.pfe.TestOneDrive.TestOneDriveActivity;
 import com.example.rvadam.pfe.Utils.DownloadTask;
 import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.example.rvadam.pfe.Utils.MicrosoftLogin;
+import com.example.rvadam.pfe.operationTests.testFirebaseDB;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -95,6 +98,13 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_firebase_storage_bis);
+
+        //TEST ADDITION WORKSITE TO FIREBASE DB
+        testFirebaseDB.testInsertion();
+
+        //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase.child("workSites").push().setValue(1);
+
 
         FirebaseUser user = mAuth.getCurrentUser();
         //Log.i(TAG,"user current "+user.toString());

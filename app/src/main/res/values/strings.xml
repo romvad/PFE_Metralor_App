@@ -26,5 +26,8 @@
     <string name="download_from_one_drive_offline_impossible">Récupération de fichier depuis OneDrive impossible hors connexion, veuillez rééssayer ultérieurement SVP</string>
     <string name="upload_file_waiting_internet_connection_1">Appareil hors connexion: le fichier</string>
     <string name="upload_file_waiting_internet_connection_2"> sera uploadé dès le rétablissement de la connexion internet</string>
+    <string name="tab_other_documents">Autres documents</string>
+    <string name="tab_security_documents">Documents de sécurité</string>
+    <string name="tab_plan_documents">Plans</string>
 
 </resources>
