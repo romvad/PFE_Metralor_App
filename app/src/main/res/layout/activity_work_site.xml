@@ -131,12 +131,40 @@
         android:layout_marginTop="10dp"
         android:text="Localisation du chantier" />
 
-    <TextView
-        android:id="@+id/worksiteLocation"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:text="TextView" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude :" />
+
+        <TextView
+            android:id="@+id/worksiteLongitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Latitude :" />
+
+        <TextView
+            android:id="@+id/worksiteLatitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="TextView" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/textView30"

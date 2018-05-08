@@ -7,13 +7,15 @@ package com.example.rvadam.pfe.WelcomeListWorkSites;
 public class WorkSite {
     // ************* Variable declaration *************
     private String name;
-    private String location;
+    private double longitude;
+    private double latitude;
     private String type;
 
     // ************* Constructor with parameter *************
-    public WorkSite(String pName, String pLocation, String pType) {
+    public WorkSite(String pName, double pLongitude, double pLatitude, String pType) {
         this.name = pName;
-        this.location = pLocation;
+        this.longitude = pLongitude;
+        this.latitude = pLatitude;
         this.type = pType;
     }
 
@@ -22,8 +24,12 @@ public class WorkSite {
         return name;
     }
 
-    public String getWorksiteLocation() {
-        return location;
+    public double getWorksiteLongitude() {
+        return longitude;
+    }
+
+    public double getWorksiteLatitude() {
+        return latitude;
     }
 
     public String getWorksiteType() {
@@ -35,8 +41,12 @@ public class WorkSite {
         name = pName;
     }
 
-    public void setWorksiteLocation(String pLocation) {
-        location = pLocation;
+    public void setWorksiteLongitude(double pLongitude) {
+        longitude = pLongitude;
+    }
+
+    public void setWorksiteLatitude(double pLatitude) {
+        latitude = pLatitude;
     }
 
     public void setWorksiteDate(String pType) {

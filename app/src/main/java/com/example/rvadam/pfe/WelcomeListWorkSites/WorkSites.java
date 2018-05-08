@@ -12,13 +12,16 @@ public final class WorkSites {
 
     // ************* Constructor *************
     private WorkSites() {
-        WorkSite c1 = new WorkSite("Chantier 1", "Bordeaux", "type1");
+        WorkSite c1 = new WorkSite("Chantier 1", 48.85837, 2.294481, "type1");
+        listOfWorksites.add(c1);
+
+/*        WorkSite c1 = new WorkSite("Chantier 1", "Bordeaux", "type1");
         WorkSite c2 = new WorkSite("Chantier 2", "Talence", "type2");
         WorkSite c3 = new WorkSite("Chantier 3", "Pessac", "type3");
 
         listOfWorksites.add(c1);
         listOfWorksites.add(c2);
-        listOfWorksites.add(c3);
+        listOfWorksites.add(c3);*/
 
     }
 

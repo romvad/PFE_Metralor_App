@@ -38,11 +38,13 @@ public class WorkSiteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_work_site);
 
         TextView name = (TextView) findViewById(R.id.worksiteName);
-        TextView location = (TextView) findViewById(R.id.worksiteLocation);
+        TextView longitude = (TextView) findViewById(R.id.worksiteLongitude);
+        TextView latitude = (TextView) findViewById(R.id.worksiteLatitude);
         TextView type = (TextView) findViewById(R.id.worksiteType);
 
         name.setText(innerWorkSite.getWorksiteName());
-        location.setText(innerWorkSite.getWorksiteLocation());
+        longitude.setText(String.valueOf(innerWorkSite.getWorksiteLongitude()));
+        latitude.setText(String.valueOf(innerWorkSite.getWorksiteLatitude()));
         type.setText("" + innerWorkSite.getWorksiteType());
 
         uploadHuissier = (Button)

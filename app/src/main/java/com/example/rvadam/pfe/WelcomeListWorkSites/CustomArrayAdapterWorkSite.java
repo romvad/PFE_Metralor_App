@@ -17,22 +17,23 @@ import java.util.ArrayList;
 
 public class CustomArrayAdapterWorkSite extends ArrayAdapter<WorkSite> {
 
-    public CustomArrayAdapterWorkSite(Context context, ArrayList<WorkSite> listOfWorksites){
+    public CustomArrayAdapterWorkSite(Context context, ArrayList<WorkSite> listOfWorksites) {
         super(context, 0, listOfWorksites);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        if(convertView==null){
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_item ,parent, false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.row_item, parent, false);
         }
 
         TweetViewHolder viewHolder = (TweetViewHolder) convertView.getTag();
-        if(viewHolder == null){
+        if (viewHolder == null) {
             viewHolder = new TweetViewHolder();
             viewHolder.name = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.location = (TextView) convertView.findViewById(R.id.location);
+            viewHolder.longitude = (TextView) convertView.findViewById(R.id.longitude);
+            viewHolder.latitude = (TextView) convertView.findViewById(R.id.latitude);
             viewHolder.type = (TextView) convertView.findViewById(R.id.type);
             convertView.setTag(viewHolder);
         }
@@ -41,15 +42,17 @@ public class CustomArrayAdapterWorkSite extends ArrayAdapter<WorkSite> {
 
         assert workSite != null;
         viewHolder.name.setText(workSite.getWorksiteName());
-        viewHolder.location.setText(workSite.getWorksiteLocation());
+        viewHolder.longitude.setText(String.valueOf(workSite.getWorksiteLongitude()));
+        viewHolder.latitude.setText(String.valueOf(workSite.getWorksiteLatitude()));
         viewHolder.type.setText(workSite.getWorksiteType());
 
         return convertView;
     }
 
-    class TweetViewHolder{
+    class TweetViewHolder {
         public TextView name;
-        public TextView location;
+        public TextView longitude;
+        public TextView latitude;
         public TextView type;
     }
 }
