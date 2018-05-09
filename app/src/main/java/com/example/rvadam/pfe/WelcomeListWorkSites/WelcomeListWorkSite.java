@@ -2,12 +2,15 @@ package com.example.rvadam.pfe.WelcomeListWorkSites;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.rvadam.pfe.AddWorksite.AddWorksite;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.WorkSite.WorkSiteActivity;
@@ -27,6 +30,7 @@ public class WelcomeListWorkSite extends AppCompatActivity {
 
     private static final String TAG = "Get worksites from DB";
 
+    private FloatingActionButton buttonAdd;
     private ListView mListView;
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
@@ -40,6 +44,7 @@ public class WelcomeListWorkSite extends AppCompatActivity {
         setContentView(R.layout.activity_welcome_list_work_site);
 
         mListView = (ListView) findViewById(R.id.listViewWorkSites);
+        buttonAdd = (FloatingActionButton) findViewById(R.id.buttonAddWorksite);
 
         workSite = new WorkSite();
 
@@ -74,6 +79,14 @@ public class WelcomeListWorkSite extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(WelcomeListWorkSite.this, AddWorksite.class);
+                startActivity(intent);
             }
         });
 

@@ -30,5 +30,10 @@
     <string name="tab_security_documents">Documents de sécurité</string>
     <string name="tab_plan_documents">Plans</string>
     <string name="name_for_layout_mapping_worksite_info_from_db">Nom du chantier : </string>
+    <string name="add_name">Nom du chantier</string>
+    <string name="add_type">Type du chantier</string>
+    <string name="add_vic">Date de VIC</string>
+    <string name="add_adress">Adresse du chantier</string>
+
 
 </resources>

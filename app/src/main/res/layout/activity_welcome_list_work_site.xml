@@ -12,6 +12,7 @@
     </ListView>
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/buttonAddWorksite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
