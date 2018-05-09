@@ -37,15 +37,9 @@ public class WorkSiteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_work_site);
 
-        TextView name = (TextView) findViewById(R.id.worksiteName);
-        TextView longitude = (TextView) findViewById(R.id.worksiteLongitude);
-        TextView latitude = (TextView) findViewById(R.id.worksiteLatitude);
-        TextView type = (TextView) findViewById(R.id.worksiteType);
+        TextView nWorksite = (TextView) findViewById(R.id.worksiteName);
 
-        name.setText(innerWorkSite.getName());
-        longitude.setText(String.valueOf(innerWorkSite.getLongitude()));
-        latitude.setText(String.valueOf(innerWorkSite.getLattitude()));
-        type.setText("" + innerWorkSite.getType());
+        nWorksite.setText(innerWorkSite.getName());
 
         uploadHuissier = (Button)
 
@@ -65,7 +59,7 @@ public class WorkSiteActivity extends AppCompatActivity {
         });
     }
 
-    public static void setInnerWorkSite(com.example.rvadam.pfe.Model.WorkSite workSite) {
+    public static void setWorkSite(com.example.rvadam.pfe.Model.WorkSite workSite) {
         innerWorkSite = workSite;
     }
 
