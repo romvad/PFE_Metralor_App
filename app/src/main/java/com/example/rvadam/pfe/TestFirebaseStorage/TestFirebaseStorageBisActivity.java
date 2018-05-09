@@ -100,7 +100,7 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_test_firebase_storage_bis);
 
         //TEST ADDITION WORKSITE TO FIREBASE DB
-        testFirebaseDB.testInsertion();
+        //testFirebaseDB.testInsertion();
 
         //DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         //mDatabase.child("workSites").push().setValue(1);
@@ -117,7 +117,7 @@ public class TestFirebaseStorageBisActivity extends AppCompatActivity implements
         storageReference = FirebaseStorage.getInstance().getReference();
 
         Log.i(TAG, "storageReference " + storageReference.toString());
-        imageView = (ImageView) findViewById(R.id.imageView);
+        //imageView = (ImageView) findViewById(R.id.imageView);
         chooseButton = (Button) findViewById(R.id.chooseButton);
         uploadButton = (Button) findViewById(R.id.uploadButton);
         nameChoosedFile = (TextView) findViewById(R.id.nameChoosedFile);

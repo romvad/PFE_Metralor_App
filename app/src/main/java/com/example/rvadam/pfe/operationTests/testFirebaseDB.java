@@ -87,7 +87,7 @@ public class testFirebaseDB {
         //Test update worksite
         //WorkSite w2=null;
         //myRef.child("-LBw-rNjtmo9G90LUU2Z").addListenerForSingleValueEvent(new ValueEventListener() {
-        final DatabaseReference refOtherDocs=myRef.child("-LBw-rNjtmo9G90LUU2Z/otherDocuments");
+        /*final DatabaseReference refOtherDocs=myRef.child("-LBw-rNjtmo9G90LUU2Z/otherDocuments");
         refOtherDocs.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -129,6 +129,18 @@ public class testFirebaseDB {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG,"nb ppsps "+ dataSnapshot.getChildrenCount());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });*/
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
             }
 
             @Override

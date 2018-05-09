@@ -71,7 +71,7 @@
         <activity android:name=".TestFirebaseStorage.TestDLFirebaseStorageActivity" />
         <activity android:name=".TestFirebaseDB.TestFirebaseDBActivity" />
         <activity android:name=".TestFirebaseStorage.TestFirebaseStorageBisActivity" />
-        <activity android:name=".WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity"></activity>
+        <activity android:name=".WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

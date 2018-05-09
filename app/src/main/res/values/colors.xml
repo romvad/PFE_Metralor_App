@@ -7,4 +7,5 @@
     <color name="colorStatusFileReadyOrWaitingConnection">#fa7b05</color>
     <color name="colorStatusFileUploaded">#42e70b</color>
     <color name="colorWhite">#ffffff</color>
+    <color name="colorDividerListView">#d7d7e2</color>
 </resources>

@@ -20,8 +20,8 @@
     <string name="label_choosed_file">Fichier choisi pour l\'upload</string>
     <string name="label_status_choosed_file">Statut du fichier : </string>
     <string name="status_choosed_file_READY">Prêt pour upload</string>
-    <string name="status_choosed_file_UPLOADED">Uploadé</string>
-    <string name="status_choosed_file_NOT_UPLOADED">Non uploadé</string>
+    <string name="status_choosed_file_UPLOADED">Enregistré</string>
+    <string name="status_choosed_file_NOT_UPLOADED">Non enregistré</string>
     <string name="status_choosed_file_WAIT_FOR_INTERNET_CONNECTION">Upload en cours (attente connexion internet)</string>
     <string name="download_from_one_drive_offline_impossible">Récupération de fichier depuis OneDrive impossible hors connexion, veuillez rééssayer ultérieurement SVP</string>
     <string name="upload_file_waiting_internet_connection_1">Appareil hors connexion: le fichier</string>
@@ -29,5 +29,8 @@
     <string name="tab_other_documents">Autres documents</string>
     <string name="tab_security_documents">Documents de sécurité</string>
     <string name="tab_plan_documents">Plans</string>
+    <string name="button_search_file_text">Rechercher...</string>
+    <string name="button_upload_file_text">Enregistrer</string>
+    <string name="label_uploaded_file">Nom du fichier enrgistré :</string>
 
 </resources>
