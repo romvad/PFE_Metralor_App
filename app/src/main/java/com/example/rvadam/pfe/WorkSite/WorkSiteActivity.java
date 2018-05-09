@@ -13,8 +13,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
-import com.example.rvadam.pfe.WelcomeListWorkSites.WorkSite;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -42,10 +42,10 @@ public class WorkSiteActivity extends AppCompatActivity {
         TextView latitude = (TextView) findViewById(R.id.worksiteLatitude);
         TextView type = (TextView) findViewById(R.id.worksiteType);
 
-        name.setText(innerWorkSite.getWorksiteName());
-        longitude.setText(String.valueOf(innerWorkSite.getWorksiteLongitude()));
-        latitude.setText(String.valueOf(innerWorkSite.getWorksiteLatitude()));
-        type.setText("" + innerWorkSite.getWorksiteType());
+        name.setText(innerWorkSite.getName());
+        longitude.setText(String.valueOf(innerWorkSite.getLongitude()));
+        latitude.setText(String.valueOf(innerWorkSite.getLattitude()));
+        type.setText("" + innerWorkSite.getType());
 
         uploadHuissier = (Button)
 
@@ -65,7 +65,7 @@ public class WorkSiteActivity extends AppCompatActivity {
         });
     }
 
-    public static void setInnerWorkSite(WorkSite workSite) {
+    public static void setInnerWorkSite(com.example.rvadam.pfe.Model.WorkSite workSite) {
         innerWorkSite = workSite;
     }
 

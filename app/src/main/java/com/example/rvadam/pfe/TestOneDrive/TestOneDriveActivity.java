@@ -95,6 +95,8 @@ public class TestOneDriveActivity extends Activity {
 
         if(picker == true) {
             Log.i(TAG,"OnActivity result after start picking");
+            Log.i(TAG,"requestcode picker onedrive "+requestCode);
+            Log.i(TAG,"resultcode picker onedrive "+resultCode);
             // Get the results from the picker
             IPickerResult result = mPicker
                     .getPickerResult(requestCode, resultCode, data);
