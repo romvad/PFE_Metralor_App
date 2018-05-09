@@ -1,4 +1,4 @@
-package com.example.rvadam.pfe.WelcomeListWorkSites;
+package com.example.rvadam.pfe.ListWorkSites;
 
 import android.content.Context;
 import android.view.LayoutInflater;

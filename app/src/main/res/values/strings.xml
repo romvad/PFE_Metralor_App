@@ -34,6 +34,8 @@
     <string name="add_type">Type du chantier</string>
     <string name="add_vic">Date de VIC</string>
     <string name="add_adress">Adresse du chantier</string>
+    <string name="create_worksite">Créer ce chantier</string>
+    <string name="choose">Choisir</string>
 
 
 </resources>

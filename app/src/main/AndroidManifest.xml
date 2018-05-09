@@ -67,7 +67,7 @@
         <activity android:name=".TestLoginWithMSAL.LoginActivity" />
         <activity android:name=".TestFirebaseStorage.FirebaseStorageActivity" />
         <activity android:name=".WorkSite.WorkSiteActivity" />
-        <activity android:name=".WelcomeListWorkSites.WelcomeListWorkSite" />
+        <activity android:name=".ListWorkSites.ListWorkSite" />
         <activity android:name=".AddWorksite.AddWorksite"/>
         <activity android:name=".TestFirebaseStorage.TestDLFirebaseStorageActivity" />
         <activity android:name=".TestFirebaseDB.TestFirebaseDBActivity" />

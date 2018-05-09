@@ -1,4 +1,4 @@
-package com.example.rvadam.pfe.WelcomeListWorkSites;
+package com.example.rvadam.pfe.ListWorkSites;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,9 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.rvadam.pfe.AddWorksite.AddWorksite;
 import com.example.rvadam.pfe.Model.WorkSite;
@@ -26,16 +24,21 @@ import java.util.ArrayList;
  * Created by rdelfoss on 04/05/2018.
  */
 
-public class WelcomeListWorkSite extends AppCompatActivity {
+public class ListWorkSite extends AppCompatActivity {
 
     private static final String TAG = "Get worksites from DB";
 
+    // layout variables
     private FloatingActionButton buttonAdd;
     private ListView mListView;
+
+    // firebase variables
     private FirebaseDatabase mDB;
     private DatabaseReference mRef;
+
     private ArrayList<WorkSite> list;
     private CustomAdapter adapter;
+
     private WorkSite workSite;
 
     @Override
@@ -51,7 +54,7 @@ public class WelcomeListWorkSite extends AppCompatActivity {
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference("workSites");
         list = new ArrayList<WorkSite>();
-        adapter = new CustomAdapter(WelcomeListWorkSite.this, list);
+        adapter = new CustomAdapter(ListWorkSite.this, list);
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -68,8 +71,8 @@ public class WelcomeListWorkSite extends AppCompatActivity {
                         WorkSite worksiteSelected = (WorkSite) mListView.getItemAtPosition(itemPosition);
                         WorkSiteActivity.setWorkSite(worksiteSelected);
 
-                        //Toast.makeText(WelcomeListWorkSite.this, worksiteSelected.getName().toString(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(WelcomeListWorkSite.this, WorkSiteActivity.class);
+                        //Toast.makeText(ListWorkSite.this, worksiteSelected.getName().toString(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ListWorkSite.this, WorkSiteActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -85,7 +88,7 @@ public class WelcomeListWorkSite extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(WelcomeListWorkSite.this, AddWorksite.class);
+                Intent intent = new Intent(ListWorkSite.this, AddWorksite.class);
                 startActivity(intent);
             }
         });
