@@ -85,7 +85,7 @@ public class FirebaseDBDocumentsHelpers {
                 otherDocsBrowsed=true;
 
                 if(otherDocsBrowsed && securityDocsBrowsed && planDocsBrowsed && ppspsDocsBrowsed){
-                    activityCalling.setupFragment();
+                    activityCalling.refreshFragments();
                     otherDocsBrowsed=false;
                     securityDocsBrowsed=false;
                     ppspsDocsBrowsed=false;
@@ -131,7 +131,7 @@ public class FirebaseDBDocumentsHelpers {
                 securityDocsBrowsed=true;
 
                 if(otherDocsBrowsed && securityDocsBrowsed && planDocsBrowsed && ppspsDocsBrowsed){
-                    activityCalling.setupFragment();
+                    activityCalling.refreshFragments();
                     otherDocsBrowsed=false;
                     securityDocsBrowsed=false;
                     ppspsDocsBrowsed=false;
@@ -177,7 +177,7 @@ public class FirebaseDBDocumentsHelpers {
                 planDocsBrowsed=true;
 
                 if(otherDocsBrowsed && securityDocsBrowsed && planDocsBrowsed && ppspsDocsBrowsed){
-                    activityCalling.setupFragment();
+                    activityCalling.refreshFragments();
                     otherDocsBrowsed=false;
                     securityDocsBrowsed=false;
                     ppspsDocsBrowsed=false;
@@ -226,7 +226,7 @@ public class FirebaseDBDocumentsHelpers {
                 ppspsDocsBrowsed=true;
 
                 if(otherDocsBrowsed && securityDocsBrowsed && planDocsBrowsed && ppspsDocsBrowsed){
-                    activityCalling.setupFragment();
+                    activityCalling.refreshFragments();
                     otherDocsBrowsed=false;
                     securityDocsBrowsed=false;
                     ppspsDocsBrowsed=false;
@@ -307,6 +307,7 @@ final boolean snapShotBrowseFinish=false;
       // ArrayList<Document> result = new ArrayList<Document>();
         myRef.addValueEventListener(new ValueEventListener() {
              //result = new ArrayList<Document>();
+             ArrayList<Document> result = new ArrayList<Document>();
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Log.i(TAG,"datasnapshot "+dataSnapshot);
@@ -329,7 +330,7 @@ final boolean snapShotBrowseFinish=false;
 
                     Document doc = new Document(keyStr, str, status, "-");
                     Log.i(TAG,"before doc addition");
-                    getResult().add(doc);
+                    result.add(doc);
                     Log.i(TAG,"after doc addition");
                 }
                 //snapShotBrowseFinish=true;
@@ -355,6 +356,7 @@ final boolean snapShotBrowseFinish=false;
         for (Document d: getResult()){
             Log.i(TAG,"doc "+d);
         }
-       return getResult();
+        Log.i(TAG, "ref result"+ result.toString() + "type "+ typeOfDocuments);
+       return result;
     }
 }

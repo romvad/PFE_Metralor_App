@@ -42,6 +42,8 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
     TabsOfListOfDocumentsActivity tabsOfListOfDocumentsActivity;
     DocumentTypes typeOfDocs;
 
+    private int currentPosition=-1;
+
     private static final int PICK_IMAGE_REQUEST = 234;
     /* Azure AD Variables */
 
@@ -52,12 +54,18 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
         super(context, resource, listOfDocs);
         this.listOfDocs = listOfDocs;
         this.typeOfDocs=typeOfDocs;
+        this.context=context;
+    }
+
+    public int getCurrentPosition() {
+        return currentPosition;
     }
 
     @NonNull
     @Override
-    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView( int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //LayoutInflater inflater= ((Activity)context).getLayoutInflater();
+        currentPosition=position;
         View row;
         if (convertView == null) {
 
@@ -86,21 +94,21 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
         chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buildAlertDialog(position);
+                buildAlertDialog(getCurrentPosition());
             }
         });
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tabsOfListOfDocumentsActivity.uploadFile(typeOfDocs,position);
+                tabsOfListOfDocumentsActivity.uploadFile(typeOfDocs,getCurrentPosition());
             }
         });
 
         return row;
     }
 
-    private void buildAlertDialog(final int documentPosition) {
+    private void buildAlertDialog( int documentPosition) {
         List<String> listOptions = new ArrayList<String>();
         listOptions.add("Interne");
         listOptions.add("OneDrive");
@@ -125,14 +133,14 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
                     case 0:
                         //Toast.makeText(getApplicationContext(), "interne", Toast.LENGTH_LONG);
                         Log.i(TAG,"interne");
-                        showFileChooser(documentPosition);
+                        showFileChooser(getCurrentPosition());
                         alertDialogCreated.dismiss();
                         break;
                     case 1:
                         //Toast.makeText(getApplicationContext(), "oneDrive", Toast.LENGTH_LONG);
                         Log.i(TAG,"oneDrive");
                         if(InternetConnectionTools.isNetworkAvailable((AppCompatActivity)context)){
-                            tabsOfListOfDocumentsActivity.startDownloadFileFromOneDrive(documentPosition,typeOfDocs.getValue());
+                            tabsOfListOfDocumentsActivity.startDownloadFileFromOneDrive(getCurrentPosition(),typeOfDocs.getValue());
                             alertDialogCreated.dismiss();
                         }else {
                             Toast.makeText(tabsOfListOfDocumentsActivity, R.string.download_from_one_drive_offline_impossible, Toast.LENGTH_LONG).show();

@@ -93,6 +93,8 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
     int positionChoosedDocument;
     int typeOfChoosedDocument;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -123,15 +125,46 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         Log.i(TAG,"plan size "+otherDocumentsList.size());
         Log.i(TAG,"ppsps size "+otherDocumentsList.size());*/
 
+        //Lists initialization
+        planDocumentsList=new ArrayList<Document>();
+        otherDocumentsList=new ArrayList<Document>();
+        securityDocumentsList=new ArrayList<Document>();
+
+        //Instanciation of the fragments
+        planDocumentsFragment=new PlanDocumentsFragment();
+        Bundle planDocBundle=new Bundle();
+        planDocBundle.putParcelableArrayList("planList",planDocumentsList);
+        planDocumentsFragment.setArguments(planDocBundle);
+        securityDocumentsFragment= new SecurityDocumentsFragment();
+        Bundle securityDocBundle=new Bundle();
+        securityDocBundle.putParcelableArrayList("securityList",securityDocumentsList);
+        securityDocumentsFragment.setArguments(securityDocBundle);
+        otherDocumentsFragment = new OtherDocumentsFragment();
+        Bundle otherDocBundle=new Bundle();
+        otherDocBundle.putParcelableArrayList("otherList",otherDocumentsList);
+        otherDocumentsFragment.setArguments(otherDocBundle);
+
+        //setup of the tabs
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(viewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+        /*Log.i(TAG,"other size "+otherDocumentsList.size());
+        Log.i(TAG,"secu size "+securityDocumentsList.size());
+        Log.i(TAG,"plan size "+planDocumentsList.size());
+        Log.i(TAG,"ppsps size "+ppspsDocumentsList.size());*/
+
 
 
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        //adapter.addFragment(planDocumentsFragment, getResources().getString(R.string.tab_plan_documents));
-        //adapter.addFragment(securityDocumentsFragment, getResources().getString(R.string.tab_security_documents));
-        //adapter.addFragment(otherDocumentsFragment, getResources().getString(R.string.tab_other_documents));
+        adapter.addFragment(planDocumentsFragment, getResources().getString(R.string.tab_plan_documents));
+        adapter.addFragment(securityDocumentsFragment, getResources().getString(R.string.tab_security_documents));
+        adapter.addFragment(otherDocumentsFragment, getResources().getString(R.string.tab_other_documents));
         viewPager.setAdapter(adapter);
     }
 
@@ -490,8 +523,8 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         this.planDocumentsList = planDocumentsList;
     }
 
-    public void setupFragment(){
-        //Instanciation of the fragments
+    public void refreshFragments(){
+       /* //Instanciation of the fragments
         planDocumentsFragment=new PlanDocumentsFragment();
         Bundle planDocBundle=new Bundle();
         planDocBundle.putParcelableArrayList("planList",planDocumentsList);
@@ -515,7 +548,16 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         Log.i(TAG,"other size "+otherDocumentsList.size());
         Log.i(TAG,"secu size "+securityDocumentsList.size());
         Log.i(TAG,"plan size "+planDocumentsList.size());
-        Log.i(TAG,"ppsps size "+ppspsDocumentsList.size());
+        Log.i(TAG,"ppsps size "+ppspsDocumentsList.size());*/
+
+       if(securityDocumentsFragment.getAdapter()!=null)
+           securityDocumentsFragment.getAdapter().notifyDataSetChanged();
+
+       if(otherDocumentsFragment.getAdapter()!=null)
+           otherDocumentsFragment.getAdapter().notifyDataSetChanged();
+       if(planDocumentsFragment.getAdapter()!=null)
+           planDocumentsFragment.getAdapter().notifyDataSetChanged();
+
 
     }
 
