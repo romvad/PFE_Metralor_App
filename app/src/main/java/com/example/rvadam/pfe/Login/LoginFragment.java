@@ -28,8 +28,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.rvadam.pfe.ListWorkSites.ListWorkSite;
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.WelcomeScreen.WelcomeScreenActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -118,8 +118,10 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(testDLFirebaseStorageActivityCall);*/
                 /*Intent testFirebaseDBActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseDB.TestFirebaseDBActivity.class);
                 startActivity(testFirebaseDBActivityCall);*/
-                Intent welcomeListWorkSiteCall = new Intent(getActivity(), ListWorkSite.class);
-                startActivity(welcomeListWorkSiteCall);
+                /*Intent welcomeListWorkSiteCall = new Intent(getActivity(), ListWorkSite.class);
+                startActivity(welcomeListWorkSiteCall);*/
+                Intent welcomeScreenCall = new Intent(getActivity(), WelcomeScreenActivity.class);
+                startActivity(welcomeScreenCall);
                 /*Intent testFirebaseStorageBisActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.TestFirebaseStorageBisActivity.class);
                 startActivity(testFirebaseStorageBisActivityCall);*/
 

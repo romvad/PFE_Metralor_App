@@ -44,7 +44,7 @@ public class ListWorkSite extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome_list_work_site);
+        setContentView(R.layout.activity_list_work_site);
 
         mListView = (ListView) findViewById(R.id.listViewWorkSites);
         buttonAdd = (FloatingActionButton) findViewById(R.id.buttonAddWorksite);

@@ -36,6 +36,8 @@
     <string name="add_adress">Adresse du chantier</string>
     <string name="create_worksite">Créer ce chantier</string>
     <string name="choose">Choisir</string>
+    <string name="manage_worksites">Gérer les chantiers</string>
+    <string name="manage_people">Gérer les personnes</string>
 
 
 </resources>
