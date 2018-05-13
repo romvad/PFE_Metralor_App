@@ -134,7 +134,7 @@ public class AddWorksite extends AppCompatActivity {
                 Toast.makeText(AddWorksite.this, wCreate.getId().toString(), Toast.LENGTH_SHORT).show();
 
 
-                //Intent intent = new Intent(AddWorksite.this, ListWorkSite.class);
+                //Intent intent = new Intent(AddWorksite.this, ListWorkSiteActivity.class);
                 //startActivity(intent);
             }
         });

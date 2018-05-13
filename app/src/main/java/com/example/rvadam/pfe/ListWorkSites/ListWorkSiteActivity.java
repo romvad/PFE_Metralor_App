@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * Created by rdelfoss on 04/05/2018.
  */
 
-public class ListWorkSite extends AppCompatActivity {
+public class ListWorkSiteActivity extends AppCompatActivity {
 
     private static final String TAG = "Get worksites from DB";
 
@@ -37,7 +37,7 @@ public class ListWorkSite extends AppCompatActivity {
     private DatabaseReference mRef;
 
     private ArrayList<WorkSite> list;
-    private CustomAdapter adapter;
+    private WorksitesCustomAdapter adapter;
 
     private WorkSite workSite;
 
@@ -54,7 +54,7 @@ public class ListWorkSite extends AppCompatActivity {
         mDB = FirebaseDatabase.getInstance();
         mRef = mDB.getReference("workSites");
         list = new ArrayList<WorkSite>();
-        adapter = new CustomAdapter(ListWorkSite.this, list);
+        adapter = new WorksitesCustomAdapter(ListWorkSiteActivity.this, list);
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -71,8 +71,8 @@ public class ListWorkSite extends AppCompatActivity {
                         WorkSite worksiteSelected = (WorkSite) mListView.getItemAtPosition(itemPosition);
                         WorkSiteActivity.setWorkSite(worksiteSelected);
 
-                        //Toast.makeText(ListWorkSite.this, worksiteSelected.getName().toString(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(ListWorkSite.this, WorkSiteActivity.class);
+                        //Toast.makeText(ListWorkSiteActivity.this, worksiteSelected.getName().toString(), Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(ListWorkSiteActivity.this, WorkSiteActivity.class);
                         startActivity(intent);
                     }
                 });
@@ -88,7 +88,7 @@ public class ListWorkSite extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ListWorkSite.this, AddWorksite.class);
+                Intent intent = new Intent(ListWorkSiteActivity.this, AddWorksite.class);
                 startActivity(intent);
             }
         });

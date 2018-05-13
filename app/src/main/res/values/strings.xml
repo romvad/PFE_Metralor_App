@@ -30,6 +30,7 @@
     <string name="tab_security_documents">Documents de sécurité</string>
     <string name="tab_plan_documents">Plans</string>
     <string name="name_for_layout_mapping_worksite_info_from_db">Nom du chantier : </string>
+    <string name="name_for_layout_mapping_people_info_from_db">Nom de la personne : </string>
     <string name="add_name">Nom du chantier</string>
     <string name="add_type">Type du chantier</string>
     <string name="add_vic">Date de VIC</string>
@@ -38,6 +39,12 @@
     <string name="choose">Choisir</string>
     <string name="manage_worksites">Gérer les chantiers</string>
     <string name="manage_people">Gérer les personnes</string>
+    <string name="firstname">Prénom</string>
+    <string name="lastname">Nom de famille</string>
+    <string name="phone">Numéro</string>
+    <string name="idPeople">ID</string>
+    <string name="idCompany">Entreprise</string>
+    <string name="idRole">Rôle</string>
 
 
 </resources>

@@ -16,9 +16,9 @@ import java.util.ArrayList;
  * Created by rdelfoss on 09/05/2018.
  */
 
-public class CustomAdapter extends ArrayAdapter<WorkSite> {
+public class WorksitesCustomAdapter extends ArrayAdapter<WorkSite> {
 
-    public CustomAdapter(Context context, ArrayList<WorkSite> listOfWorksites) {
+    public WorksitesCustomAdapter(Context context, ArrayList<WorkSite> listOfWorksites) {
         super(context, 0, listOfWorksites);
     }
 

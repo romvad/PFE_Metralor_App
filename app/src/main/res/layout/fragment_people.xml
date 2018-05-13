@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/people_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/firstname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/firstname" />
+
+    <TextView
+        android:id="@+id/lastname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/lastname" />
+
+    <TextView
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/phone" />
+
+    <TextView
+        android:id="@+id/idPeople"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/idPeople" />
+
+    <TextView
+        android:id="@+id/idCompany"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/idCompany" />
+
+    <TextView
+        android:id="@+id/idRole"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/idRole" />
+
+</LinearLayout>
