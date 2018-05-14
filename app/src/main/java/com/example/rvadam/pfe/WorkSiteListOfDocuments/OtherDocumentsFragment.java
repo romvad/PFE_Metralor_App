@@ -11,11 +11,14 @@ import android.view.ViewGroup;
 
 import com.example.rvadam.pfe.Adapters.CustomDocumentsListAdapter;
 import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBDocumentsHelpers;
+import com.example.rvadam.pfe.Model.CurrentStatesWorkSites;
 import com.example.rvadam.pfe.Model.Document;
 import com.example.rvadam.pfe.Model.DocumentTypes;
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.Utils.WorkSitesManager;
 import com.example.rvadam.pfe.operationTests.SampleDocuments;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,8 +38,9 @@ public class OtherDocumentsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-         //bundle.getParcelableArrayList("otherList");
-        otherDocumentsList= SampleDocuments.getSampleOtherDocument();
+        String idWorksite= bundle.getString("idWorkSite");
+        //otherDocumentsList= SampleDocuments.getSampleOtherDocument();
+        otherDocumentsList= WorkSitesManager.getWorkSiteById(idWorksite).getOtherDocuments();
         String idWorkSite="-LBw-rNjtmo9G90LUU2Z";
         //otherDocumentsList= FirebaseDBDocumentsHelpers.getListOfDocuments("otherDocuments",idWorkSite);
 

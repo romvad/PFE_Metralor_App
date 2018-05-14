@@ -14,7 +14,9 @@ import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBDocumentsHelpers;
 import com.example.rvadam.pfe.Model.Document;
 import com.example.rvadam.pfe.Model.DocumentTypes;
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.Utils.WorkSitesManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,7 +28,7 @@ public class SecurityDocumentsFragment extends ListFragment {
     List<Document> securityDocumentsList;
     CustomDocumentsListAdapter adapter;
 
-    private static final String TAG="SecurityDocumentsFragment";
+    private static final String TAG="SecuDocumentsFragment";
 
     public SecurityDocumentsFragment() {
     }
@@ -34,9 +36,8 @@ public class SecurityDocumentsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        securityDocumentsList=bundle.getParcelableArrayList("securityList");
-        String idWorkSite="-LBw-rNjtmo9G90LUU2Z";
-        //securityDocumentsList= FirebaseDBDocumentsHelpers.getListOfDocuments("securityDocuments",idWorkSite);
+        String idWorkSite =bundle.getString("idWorkSite");
+        securityDocumentsList=  WorkSitesManager.getWorkSiteById(idWorkSite).getOtherDocuments();
 
         View view = inflater.inflate(R.layout.fragment_security_documents, container, false);
 

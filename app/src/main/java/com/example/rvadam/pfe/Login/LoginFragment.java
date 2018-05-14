@@ -122,8 +122,10 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(welcomeListWorkSiteCall);*/
                 /*Intent testFirebaseStorageBisActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.TestFirebaseStorageBisActivity.class);
                 startActivity(testFirebaseStorageBisActivityCall);*/
-                Intent testTabsOfListOfDocumentsActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity.class);
-                startActivity(testTabsOfListOfDocumentsActivityCall);
+                /*Intent testTabsOfListOfDocumentsActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity.class);
+                startActivity(testTabsOfListOfDocumentsActivityCall);*/
+                Intent fakeListOfWorksitesActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.FakeListWorksitesActivity.class);
+                startActivity(fakeListOfWorksitesActivityCall);
 
 
             }

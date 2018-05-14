@@ -14,7 +14,9 @@ import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBDocumentsHelpers;
 import com.example.rvadam.pfe.Model.Document;
 import com.example.rvadam.pfe.Model.DocumentTypes;
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.Utils.WorkSitesManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,14 +37,14 @@ public class PlanDocumentsFragment extends ListFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
-        String idWorkSite="-LBw-rNjtmo9G90LUU2Z";
+        String idWorkSite=bundle.getString("idWorkSite");
         //Retrivement of the lists of documents
         //FirebaseDBDocumentsHelpers dbDocumentsHelpers= new FirebaseDBDocumentsHelpers(idWorkSite,this);
         //securityDocumentsList= FirebaseDBHelpers.getListOfDocuments("securityDocuments",idWorkSite);
         //planDocumentsList= FirebaseDBDocumentsHelpers.getListOfDocuments("planDocuments",idWorkSite);
         //Log.i(TAG,"ref plan list "+planDocumentsList.toString());
         //ppspsDocumentsList= FirebaseDBHelpers.getListOfDocuments("ppspsDocuments",idWorkSite);
-        planDocumentsList=bundle.getParcelableArrayList("planList");
+        planDocumentsList= WorkSitesManager.getWorkSiteById(idWorkSite).getOtherDocuments();
 
         View view = inflater.inflate(R.layout.fragment_plan_documents, container, false);
 

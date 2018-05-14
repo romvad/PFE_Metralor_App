@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBDocumentsHelpers;
 import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBDocumentsHelpers;
+import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBWorkSitesHelper;
 import com.example.rvadam.pfe.Model.Constants;
 import com.example.rvadam.pfe.Model.Document;
 import com.example.rvadam.pfe.Model.DocumentTypes;
@@ -105,10 +106,11 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
+        //Retrivement of worksites list, normally called in List of Worksites activity
+       // FirebaseDBWorkSitesHelper.getListOfWorkSites();
 
         //we suppose we create this activity with the following work site ID
-        String idWorkSite="-LBw-rNjtmo9G90LUU2Z";
+        String idWorkSite="-LBw-rNjtmo9G70LUU2Z";
 
         //Store of our firebase DB reference
         //storageReference = FirebaseStorage.getInstance().getReference();
@@ -125,23 +127,23 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         Log.i(TAG,"plan size "+otherDocumentsList.size());
         Log.i(TAG,"ppsps size "+otherDocumentsList.size());*/
 
-        //Lists initialization
+       /* //Lists initialization
         planDocumentsList=new ArrayList<Document>();
         otherDocumentsList=new ArrayList<Document>();
-        securityDocumentsList=new ArrayList<Document>();
+        securityDocumentsList=new ArrayList<Document>();*/
 
         //Instanciation of the fragments
         planDocumentsFragment=new PlanDocumentsFragment();
         Bundle planDocBundle=new Bundle();
-        planDocBundle.putParcelableArrayList("planList",planDocumentsList);
+        planDocBundle.putString("idWorkSite",idWorkSite);
         planDocumentsFragment.setArguments(planDocBundle);
         securityDocumentsFragment= new SecurityDocumentsFragment();
         Bundle securityDocBundle=new Bundle();
-        securityDocBundle.putParcelableArrayList("securityList",securityDocumentsList);
+        securityDocBundle.putString("idWorkSite",idWorkSite);
         securityDocumentsFragment.setArguments(securityDocBundle);
         otherDocumentsFragment = new OtherDocumentsFragment();
         Bundle otherDocBundle=new Bundle();
-        otherDocBundle.putParcelableArrayList("otherList",otherDocumentsList);
+        otherDocBundle.putString("idWorkSite",idWorkSite);
         otherDocumentsFragment.setArguments(otherDocBundle);
 
         //setup of the tabs
@@ -523,7 +525,7 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         this.planDocumentsList = planDocumentsList;
     }
 
-    public void refreshFragments(){
+    public void refreshOtherDocumentFragment(){
        /* //Instanciation of the fragments
         planDocumentsFragment=new PlanDocumentsFragment();
         Bundle planDocBundle=new Bundle();
@@ -550,15 +552,45 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         Log.i(TAG,"plan size "+planDocumentsList.size());
         Log.i(TAG,"ppsps size "+ppspsDocumentsList.size());*/
 
-       if(securityDocumentsFragment.getAdapter()!=null)
+       /*if(securityDocumentsFragment.getAdapter()!=null){
            securityDocumentsFragment.getAdapter().notifyDataSetChanged();
+           Log.i(TAG,"notify security called");
+           Log.i(TAG,"adapter secu "+securityDocumentsFragment.getAdapter());
+       }*/
 
-       if(otherDocumentsFragment.getAdapter()!=null)
+
+       if(otherDocumentsFragment.getAdapter()!=null){
            otherDocumentsFragment.getAdapter().notifyDataSetChanged();
-       if(planDocumentsFragment.getAdapter()!=null)
+           Log.i(TAG,"other security called");
+           Log.i(TAG,"adapter secu "+securityDocumentsFragment.getAdapter());
+
+       }
+
+       /*if(planDocumentsFragment.getAdapter()!=null){
            planDocumentsFragment.getAdapter().notifyDataSetChanged();
+           Log.i(TAG,"plan security called");
+           Log.i(TAG,"adapter secu "+securityDocumentsFragment.getAdapter());
+       }*/
 
 
+
+
+    }
+
+    public void refreshSecurityDocumentFragment(){
+        if(securityDocumentsFragment.getAdapter()!=null){
+            securityDocumentsFragment.getAdapter().notifyDataSetChanged();
+            Log.i(TAG,"notify security called");
+            Log.i(TAG,"adapter secu "+securityDocumentsFragment.getAdapter());
+        }
+    }
+
+    public void refreshPlanDocumentFragment(){
+        if(planDocumentsFragment.getAdapter()!=null){
+            planDocumentsFragment.getAdapter().notifyDataSetChanged();
+            Log.i(TAG,"plan security called");
+            Log.i(TAG,"adapter secu "+securityDocumentsFragment.getAdapter());
+        }
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

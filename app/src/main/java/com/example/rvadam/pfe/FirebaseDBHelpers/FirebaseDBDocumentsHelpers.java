@@ -4,8 +4,11 @@ import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.example.rvadam.pfe.Model.CurrentStatesWorkSites;
 import com.example.rvadam.pfe.Model.Document;
 import com.example.rvadam.pfe.Model.FileStatus;
+import com.example.rvadam.pfe.Model.WorkSite;
+import com.example.rvadam.pfe.Utils.WorkSitesManager;
 import com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -45,18 +48,25 @@ public class FirebaseDBDocumentsHelpers {
     private boolean planDocsBrowsed=false;
     private boolean ppspsDocsBrowsed=false;
 
-    public FirebaseDBDocumentsHelpers(String workSiteID, final TabsOfListOfDocumentsActivity activityCalling) {
-        this.otherDocRef=database.getReference("workSites/"+workSiteID+"/otherDocuments");
-        this.securityDocRef=database.getReference("workSites/"+workSiteID+"/securityDocuments");
-        this.planDocRef=database.getReference("workSites/"+workSiteID+"/planDocuments");
-        this.ppspsDocRef=database.getReference("workSites/"+workSiteID+"/ppspsDocuments");
+    public FirebaseDBDocumentsHelpers(final String workSiteID, final TabsOfListOfDocumentsActivity activityCalling) {
+        this.otherDocRef=database.getReference("workSites/"+workSiteID+"/otherDocumentsMap");
+        this.securityDocRef=database.getReference("workSites/"+workSiteID+"/securityDocumentsMap");
+        this.planDocRef=database.getReference("workSites/"+workSiteID+"/planDocumentsMap");
+        this.ppspsDocRef=database.getReference("workSites/"+workSiteID+"/ppspsDocumentsMap");
         this.activityCalling=activityCalling;
 
         otherDocRef.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Document> result= new ArrayList<Document>();
+                //ArrayList<Document> result= new ArrayList<Document>();
+                List<Document> otherDocumentsList= new ArrayList<>();
+
+                WorkSite currentWorkSite=WorkSitesManager.getWorkSiteById(workSiteID);
+                if(currentWorkSite!=null)
+                    otherDocumentsList=currentWorkSite.getOtherDocuments();
+
+                otherDocumentsList.clear();
 
                 Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> it = dataList.iterator();
@@ -77,12 +87,15 @@ public class FirebaseDBDocumentsHelpers {
 
                     Document doc = new Document(keyStr, str, status, "-");
                     Log.i(TAG,"before doc addition");
-                    result.add(doc);
+                    //result.add(doc);
+                    otherDocumentsList.add(doc);
                     Log.i(TAG,"after doc addition");
                 }
 
-                activityCalling.setOtherDocumentsList(result);
-                otherDocsBrowsed=true;
+
+                //activityCalling.setOtherDocumentsList(result);
+                activityCalling.refreshOtherDocumentFragment();
+                /*otherDocsBrowsed=true;
 
                 if(otherDocsBrowsed && securityDocsBrowsed && planDocsBrowsed && ppspsDocsBrowsed){
                     activityCalling.refreshFragments();
@@ -90,7 +103,7 @@ public class FirebaseDBDocumentsHelpers {
                     securityDocsBrowsed=false;
                     ppspsDocsBrowsed=false;
                     planDocsBrowsed=false;
-                }
+                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -102,7 +115,15 @@ public class FirebaseDBDocumentsHelpers {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Document> result= new ArrayList<Document>();
+                //ArrayList<Document> result= new ArrayList<Document>();
+                List<Document> securityDocumentsList=new ArrayList<>();
+                WorkSite currentWorksite= WorkSitesManager.getWorkSiteById(workSiteID);
+                if(currentWorksite!=null)
+                    securityDocumentsList= currentWorksite.getSecurityDocuments();
+
+
+
+                securityDocumentsList.clear();
 
                 Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> it = dataList.iterator();
@@ -123,12 +144,13 @@ public class FirebaseDBDocumentsHelpers {
 
                     Document doc = new Document(keyStr, str, status, "-");
                     Log.i(TAG,"before doc addition");
-                    result.add(doc);
+                    securityDocumentsList.add(doc);
                     Log.i(TAG,"after doc addition");
                 }
 
-                activityCalling.setSecurityDocumentsList(result);
-                securityDocsBrowsed=true;
+                //activityCalling.setSecurityDocumentsList(result);
+                activityCalling.refreshSecurityDocumentFragment();
+                /*securityDocsBrowsed=true;
 
                 if(otherDocsBrowsed && securityDocsBrowsed && planDocsBrowsed && ppspsDocsBrowsed){
                     activityCalling.refreshFragments();
@@ -136,7 +158,7 @@ public class FirebaseDBDocumentsHelpers {
                     securityDocsBrowsed=false;
                     ppspsDocsBrowsed=false;
                     planDocsBrowsed=false;
-                }
+                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -148,7 +170,15 @@ public class FirebaseDBDocumentsHelpers {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Document> result= new ArrayList<Document>();
+               // ArrayList<Document> result= new ArrayList<Document>();
+                List<Document> planDocumentsList= new ArrayList<>();
+
+                WorkSite currentWorksite=WorkSitesManager.getWorkSiteById(workSiteID);
+
+                if(currentWorksite!=null)
+                    planDocumentsList= currentWorksite.getPlanDocuments();
+
+                planDocumentsList.clear();
 
                 Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> it = dataList.iterator();
@@ -169,12 +199,13 @@ public class FirebaseDBDocumentsHelpers {
 
                     Document doc = new Document(keyStr, str, status, "-");
                     Log.i(TAG,"before doc addition");
-                    result.add(doc);
+                    planDocumentsList.add(doc);
                     Log.i(TAG,"after doc addition");
                 }
 
-                activityCalling.setPlanDocumentsList(result);
-                planDocsBrowsed=true;
+                //activityCalling.setPlanDocumentsList(result);
+                activityCalling.refreshPlanDocumentFragment();
+               /* planDocsBrowsed=true;
 
                 if(otherDocsBrowsed && securityDocsBrowsed && planDocsBrowsed && ppspsDocsBrowsed){
                     activityCalling.refreshFragments();
@@ -182,7 +213,7 @@ public class FirebaseDBDocumentsHelpers {
                     securityDocsBrowsed=false;
                     ppspsDocsBrowsed=false;
                     planDocsBrowsed=false;
-                }
+                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -193,7 +224,14 @@ public class FirebaseDBDocumentsHelpers {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<Document> result= new ArrayList<Document>();
+               // ArrayList<Document> result= new ArrayList<Document>();
+                List<Document> ppspsDocumentsList= new ArrayList<>();
+                WorkSite currentWorksite= WorkSitesManager.getWorkSiteById(workSiteID);
+
+                if(currentWorksite!=null)
+                    ppspsDocumentsList=currentWorksite.getPpspsDocuments();
+
+                ppspsDocumentsList.clear();
 
                 Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
                 Iterator<DataSnapshot> it = dataList.iterator();
@@ -222,8 +260,10 @@ public class FirebaseDBDocumentsHelpers {
                 /*while(!(isSnapShotBrowseFinished())){
 
                 }*/
-                activityCalling.setPpspsDocumentsList(result);
-                ppspsDocsBrowsed=true;
+                //TODO contenation with security list and refrsh fragment security docs
+                /*activityCalling.setPpspsDocumentsList(result);
+                activityCalling.*/
+                /*ppspsDocsBrowsed=true;
 
                 if(otherDocsBrowsed && securityDocsBrowsed && planDocsBrowsed && ppspsDocsBrowsed){
                     activityCalling.refreshFragments();
@@ -231,7 +271,7 @@ public class FirebaseDBDocumentsHelpers {
                     securityDocsBrowsed=false;
                     ppspsDocsBrowsed=false;
                     planDocsBrowsed=false;
-                }
+                }*/
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {

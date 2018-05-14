@@ -1,5 +1,6 @@
 package com.example.rvadam.pfe.Model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +16,30 @@ public class WorkSite {
     private double lattitude;
     private double longitude;
     private String name;
-    private Map<String,String> otherDocuments;
-    private Map<String,String> planDocuments;
-    private Map<String,String> securityDocuments;
-    private Map<String,String> ppspsDocuments;
+    private Map<String,String> otherDocumentsMap;
+    private Map<String,String> planDocumentsMap;
+    private Map<String,String> securityDocumentsMap;
+    private Map<String,String> ppspsDocumentsMap;
+    private List<Document> otherDocuments=new ArrayList<Document>();
+    private List<Document> planDocuments=new ArrayList<Document>();
+    private List<Document> securityDocuments=new ArrayList<Document>();
+    private List<Document> ppspsDocuments=new ArrayList<Document>();
     private String type;
 
-    public WorkSite(String id,String name, long dateVIC, List<String> employees, double lattitude, double longitude, Map<String, String> otherDocuments, Map<String, String> planDocuments, Map<String, String> securityDocuments, Map<String, String> ppspsDocuments, String type) {
+    public WorkSite(String id, long dateVIC, double lattitude, double longitude, String name, Map<String, String> otherDocumentsMap, Map<String, String> planDocumentsMap, Map<String, String> securityDocumentsMap, Map<String, String> ppspsDocumentsMap, String type) {
+        this.id = id;
+        this.dateVIC = dateVIC;
+        this.lattitude = lattitude;
+        this.longitude = longitude;
+        this.name = name;
+        this.otherDocumentsMap = otherDocumentsMap;
+        this.planDocumentsMap = planDocumentsMap;
+        this.securityDocumentsMap = securityDocumentsMap;
+        this.ppspsDocumentsMap = ppspsDocumentsMap;
+        this.type = type;
+    }
+
+    public WorkSite(String id,String name, long dateVIC, List<String> employees, double lattitude, double longitude, List<Document> otherDocuments, List<Document> planDocuments, List<Document> securityDocuments, List<Document> ppspsDocuments, String type) {
         this.id = id;
         this.dateVIC = dateVIC;
         this.employees = employees;
@@ -35,7 +53,8 @@ public class WorkSite {
         this.type = type;
     }
 
-    public WorkSite(long dateVIC, List<String> employees, double lattitude, double longitude, String name, Map<String, String> otherDocuments, Map<String, String> planDocuments, Map<String, String> securityDocuments, Map<String, String> ppspsDocuments, String type) {
+    //Constructor without ID, used when we create a worksite to be able to generate a unique ID in Firebase DB
+    public WorkSite(long dateVIC, List<String> employees, double lattitude, double longitude, String name, List<Document> otherDocuments, List<Document> planDocuments, List<Document> securityDocuments, List<Document> ppspsDocuments, String type) {
         this.dateVIC = dateVIC;
         this.employees = employees;
         this.lattitude = lattitude;
@@ -51,19 +70,30 @@ public class WorkSite {
     public WorkSite() {
     }
 
+    public WorkSite(String id, long dateVIC, double lattitude, double longitude, String name, String type) {
+        this.id = id;
+        this.dateVIC = dateVIC;
+        this.lattitude = lattitude;
+        this.longitude = longitude;
+        this.name = name;
+        this.type = type;
+    }
+
+
+
     public long getDateVIC() {
         return dateVIC;
     }
 
-    public Map<String, String> getPlanDocuments() {
+    public List<Document> getPlanDocuments() {
         return planDocuments;
     }
 
-    public Map<String, String> getSecurityDocuments() {
+    public List<Document> getSecurityDocuments() {
         return securityDocuments;
     }
 
-    public Map<String, String> getPpspsDocuments() {
+    public List<Document> getPpspsDocuments() {
         return ppspsDocuments;
     }
 
@@ -91,11 +121,43 @@ public class WorkSite {
         return name;
     }
 
-    public Map<String, String> getOtherDocuments() {
+    public List<Document> getOtherDocuments() {
         return otherDocuments;
     }
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Map<String, String> getOtherDocumentsMap() {
+        return otherDocumentsMap;
+    }
+
+    public void setOtherDocumentsMap(Map<String, String> otherDocumentsMap) {
+        this.otherDocumentsMap = otherDocumentsMap;
+    }
+
+    public Map<String, String> getPlanDocumentsMap() {
+        return planDocumentsMap;
+    }
+
+    public void setPlanDocumentsMap(Map<String, String> planDocumentsMap) {
+        this.planDocumentsMap = planDocumentsMap;
+    }
+
+    public Map<String, String> getSecurityDocumentsMap() {
+        return securityDocumentsMap;
+    }
+
+    public void setSecurityDocumentsMap(Map<String, String> securityDocumentsMap) {
+        this.securityDocumentsMap = securityDocumentsMap;
+    }
+
+    public Map<String, String> getPpspsDocumentsMap() {
+        return ppspsDocumentsMap;
+    }
+
+    public void setPpspsDocumentsMap(Map<String, String> ppspsDocumentsMap) {
+        this.ppspsDocumentsMap = ppspsDocumentsMap;
     }
 }
