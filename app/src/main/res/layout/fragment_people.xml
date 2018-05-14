@@ -10,36 +10,31 @@
         android:id="@+id/firstname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/firstname" />
+        android:text="" />
 
     <TextView
         android:id="@+id/lastname"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/lastname" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/phone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/phone" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/idPeople"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/idPeople" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/idCompany"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/idCompany" />
+        android:layout_height="wrap_content" />
 
     <TextView
         android:id="@+id/idRole"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/idRole" />
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

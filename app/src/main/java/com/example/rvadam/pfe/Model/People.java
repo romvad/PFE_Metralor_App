@@ -1,10 +1,15 @@
 package com.example.rvadam.pfe.Model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
+
 /**
  * Created by rdelfoss on 13/05/2018.
  */
 
-public class People {
+public class People implements Serializable {
 
     private String id;
     private String firstname;
@@ -82,4 +87,5 @@ public class People {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
 }

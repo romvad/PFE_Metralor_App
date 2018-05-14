@@ -5,14 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.rvadam.pfe.People.PeopleFragment;
 import com.example.rvadam.pfe.R;
 
 /**
  * Created by rdelfoss on 11/05/2018.
  */
 
-public class ListPeopleActivity extends AppCompatActivity implements ListPeopleFragment.OnPeopleSelectedListener {
+public class ListPeopleActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,34 +42,4 @@ public class ListPeopleActivity extends AppCompatActivity implements ListPeopleF
 
     }
 
-    @Override
-    public void onPeopleSelected(int position) {
-        // The user selected the Person from the ListPeopleFragment
-
-        // Capture the article fragment from the activity layout
-        PeopleFragment peopleFragment = (PeopleFragment) getFragmentManager().findFragmentById(R.id.azerty);
-
-        if (peopleFragment != null) {
-            // If peopleFragment is available, we're in two-pane layout...
-
-            // Call a method in the PeopleFragment to update its content
-            peopleFragment.updatePeopleView(position);
-        } else {
-            // Otherwise, we're in the one-pane layout and must swap frags...
-
-            // Create fragment and give it an argument for the selected person
-            PeopleFragment newFragment = new PeopleFragment();
-            Bundle args = new Bundle();
-            args.putInt(PeopleFragment.ARG_POSITION, position);
-            newFragment.setArguments(args);
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-            // Replace whatever is in the fragment_container view with this fragment,
-            // and add the transaction to the back stack so the user can navigate back
-            transaction.replace(R.id.peopleFragment_container, newFragment);
-            transaction.addToBackStack(null);
-
-            // Commit the transaction
-            transaction.commit();
-    }
 }

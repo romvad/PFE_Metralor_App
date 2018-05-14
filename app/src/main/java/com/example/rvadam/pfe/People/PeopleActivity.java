@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.rvadam.pfe.Model.People;
 import com.example.rvadam.pfe.R;
 
 /**
@@ -12,6 +13,7 @@ import com.example.rvadam.pfe.R;
  */
 
 public class PeopleActivity extends AppCompatActivity {
+    private static People innerPeople;
     private static final String TAG = "PeopleActivity";
 
     @Override
@@ -25,10 +27,14 @@ public class PeopleActivity extends AppCompatActivity {
             }
 
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            PeopleFragment peopleFragment = new PeopleFragment();
-            peopleFragment.setArguments(getIntent().getExtras());
-            ft.add(R.id.peopleFragment_container, peopleFragment).commit();
+            PeopleFragment peopleFragment = PeopleFragment.newInstance(innerPeople);
+            ft.replace(R.id.peopleFragment_container, peopleFragment);
+            ft.commit();
         }
 
+    }
+
+    public static void setpeople(com.example.rvadam.pfe.Model.People people) {
+        innerPeople = people;
     }
 }
