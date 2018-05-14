@@ -44,7 +44,7 @@ public class PlanDocumentsFragment extends ListFragment {
         //planDocumentsList= FirebaseDBDocumentsHelpers.getListOfDocuments("planDocuments",idWorkSite);
         //Log.i(TAG,"ref plan list "+planDocumentsList.toString());
         //ppspsDocumentsList= FirebaseDBHelpers.getListOfDocuments("ppspsDocuments",idWorkSite);
-        planDocumentsList= WorkSitesManager.getWorkSiteById(idWorkSite).getOtherDocuments();
+        planDocumentsList= WorkSitesManager.getWorkSiteById(idWorkSite).getPlanDocuments();
 
         View view = inflater.inflate(R.layout.fragment_plan_documents, container, false);
 

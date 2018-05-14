@@ -37,7 +37,7 @@ public class SecurityDocumentsFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Bundle bundle = getArguments();
         String idWorkSite =bundle.getString("idWorkSite");
-        securityDocumentsList=  WorkSitesManager.getWorkSiteById(idWorkSite).getOtherDocuments();
+        securityDocumentsList=  WorkSitesManager.getWorkSiteById(idWorkSite).getSecurityDocuments();
 
         View view = inflater.inflate(R.layout.fragment_security_documents, container, false);
 

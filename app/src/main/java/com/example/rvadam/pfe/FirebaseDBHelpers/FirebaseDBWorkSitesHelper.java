@@ -2,6 +2,7 @@ package com.example.rvadam.pfe.FirebaseDBHelpers;
 
 import android.util.Log;
 
+import com.example.rvadam.pfe.Model.Constants;
 import com.example.rvadam.pfe.Model.CurrentStatesWorkSites;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.google.firebase.database.DataSnapshot;
@@ -24,6 +25,8 @@ public class FirebaseDBWorkSitesHelper {
     public static void getListOfWorkSites(){
         FirebaseDatabase database= FirebaseDatabase.getInstance();
 
+        //Flag for all worksites retrievement reset to false because we juste call the method for getting all the worksites
+        Constants.getInstance().setListOfWorksitesRetrieveFromDB(false);
         //DB reference to the worksites
         DatabaseReference ref=database.getReference("workSites/");
 
@@ -47,6 +50,8 @@ public class FirebaseDBWorkSitesHelper {
                     }
 
                 }
+                //We set the flag meaning that all the worksites have been retrived from db (falg is read by WorkSitesManager.getWorksiteById
+                Constants.getInstance().setListOfWorksitesRetrieveFromDB(true);
             }
 
             @Override

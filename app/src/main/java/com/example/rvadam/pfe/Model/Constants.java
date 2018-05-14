@@ -15,10 +15,20 @@ public class Constants {
     final static String ONE_DRIVE_CLIENT_ID = "28e52f7c-c97f-4296-ba95-ee04856a60f4";//App ID OneDrive
     final static String ONE_DRIVE_SCOPES [] = {"https://graph.microsoft.com/User.Read"};//Used for retrieve microsoft login token when already connected on microsoft account
 
+    private static boolean listOfWorksitesRetrieveFromDB=false;
+
     public Constants() {
         File path = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_DOWNLOADS);
         tmpFileDLFromOneDrive= new File(path, "tmpDLFromOneDrive.pdf");
+    }
+
+    public static boolean isListOfWorksitesRetrieveFromDB() {
+        return listOfWorksitesRetrieveFromDB;
+    }
+
+    public static void setListOfWorksitesRetrieveFromDB(boolean listOfWorksitesRetrieveFromDB) {
+        Constants.listOfWorksitesRetrieveFromDB = listOfWorksitesRetrieveFromDB;
     }
 
     public static Constants getInstance(){
