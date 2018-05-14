@@ -50,7 +50,7 @@ public class SecurityDocumentsFragment extends ListFragment {
 
         if(getActivity()!=null) {
             Log.i(TAG, "activité " + getActivity());
-            adapter = new CustomDocumentsListAdapter(getActivity(), R.layout.item_list_documents, securityDocumentsList, DocumentTypes.PLAN_DOCUMENTS);
+            adapter = new CustomDocumentsListAdapter(getActivity(), R.layout.item_list_documents, securityDocumentsList, DocumentTypes.SECURITY_DOCUMENTS);
             setListAdapter(adapter);
         }
     }

@@ -32,6 +32,7 @@ import com.example.rvadam.pfe.Utils.DocumentsManager;
 import com.example.rvadam.pfe.Utils.DownloadTask;
 import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.example.rvadam.pfe.Utils.MicrosoftLogin;
+import com.example.rvadam.pfe.Utils.WorkSitesManager;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -91,8 +92,10 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
 
     private IPicker mPicker;
 
-    int positionChoosedDocument;
-    int typeOfChoosedDocument;
+    int positionChoosedDocument=-1;
+    int typeOfChoosedDocument=-1;
+
+    String idWorkSite;
 
 
 
@@ -110,10 +113,10 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
        // FirebaseDBWorkSitesHelper.getListOfWorkSites();
 
         //we suppose we create this activity with the following work site ID
-        String idWorkSite="-LBw-rNjtmo9G70LUU2Z";
+        idWorkSite="-LBw-rNjtmo9G70LUU2Z";
 
         //Store of our firebase DB reference
-        //storageReference = FirebaseStorage.getInstance().getReference();
+        storageReference = FirebaseStorage.getInstance().getReference();
 
 
         //Retrivement of the lists of documents
@@ -174,20 +177,21 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.i(TAG,"onActivRes call with requestcode "+requestCode+" and resultcode "+resultCode+ " data "+data+" getData "+data.getData());
+        //Log.i(TAG,"onActivRes call with requestcode "+requestCode+" and resultcode "+resultCode+ " data "+data+" getData "+data.getData());
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             //filePath = data.getData();
             //Toast.makeText(getApplicationContext(),filePath.toString(),Toast.LENGTH_LONG);
             //Log.i(TAG, filePath.toString());
             //updateFileStatusTextView(R.string.status_choosed_file_READY);
-            positionChoosedDocument= data.getIntExtra("position doc",-1);
-            typeOfChoosedDocument= data.getIntExtra("type of doc",-1);
+           /* positionChoosedDocument= data.getIntExtra("position doc",-1);
+            typeOfChoosedDocument= data.getIntExtra("type of doc",-1);*/
+
             //strNameOfChoosedFile=getFileName(filePath);
             if(positionChoosedDocument!=-1 && typeOfChoosedDocument!=-1){
-                strNameOfChoosedFile=updateFilePathDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,data.getData(),true);
-                updateStatusDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,FileStatus.READY);
-                updateNameChooseFileDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,strNameOfChoosedFile);
+                strNameOfChoosedFile=updateFilePathDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,data.getData(),true,idWorkSite);
+                updateStatusDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,idWorkSite,FileStatus.READY);
+                updateNameChooseFileDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,idWorkSite,strNameOfChoosedFile);
             }
 
 
@@ -219,7 +223,7 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
                strNameOfChoosedFile=result.getName();
                // nameChoosedFile.setText(strNameOfChoosedFile);
                 if(positionChoosedDocument!=-1 && typeOfChoosedDocument!=-1){
-                    updateNameChooseFileDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,strNameOfChoosedFile);
+                    updateNameChooseFileDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,idWorkSite,strNameOfChoosedFile);
                 }
 
 
@@ -257,8 +261,8 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
 
                 //We update status and store the file path of the temporary file (that has always the same name saved in Downloads directory in case of OneDrve selection
                 if(positionChoosedDocument!=-1 && typeOfChoosedDocument!=-1){
-                    updateFilePathDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,Uri.fromFile(constantsInstance.getTmpFileDLFromOneDrive()),false);
-                    updateStatusDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,FileStatus.READY);
+                    updateFilePathDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,Uri.fromFile(constantsInstance.getTmpFileDLFromOneDrive()),false,idWorkSite);
+                    updateStatusDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,idWorkSite,FileStatus.READY);
                 }
 
                 return;
@@ -300,7 +304,7 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
 
     public void uploadFile(final DocumentTypes typeOfDoc, final int positionDocumentToUpload) {
         //Uri file = Uri.fromFile(new File("path/to/images/rivers.jpg"));
-        Document docToUpload=getDocumentByPositionAndType(typeOfDoc,positionDocumentToUpload);
+        final Document docToUpload=getDocumentByPositionAndType(typeOfDoc,positionDocumentToUpload,idWorkSite);
         Log.i(TAG, "uploadFile called");
         Uri filePath=docToUpload.getFilePath();
         if (docToUpload!=null &&filePath!= null) {
@@ -315,19 +319,20 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
 
             }else {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.upload_file_waiting_internet_connection_1) +"\""+DocumentsManager.getFileName(filePath,getContentResolver())+"\" "+getResources().getString(R.string.upload_file_waiting_internet_connection_2), Toast.LENGTH_LONG).show();
-                updateStatusDocument(typeOfDoc,positionDocumentToUpload,FileStatus.WAIT_FOR_INTERNET_CONNECTION);
+                updateStatusDocument(typeOfDoc,positionDocumentToUpload,idWorkSite,FileStatus.WAIT_FOR_INTERNET_CONNECTION);
                 //updateFileStatusTextView(R.string.status_choosed_file_WAIT_FOR_INTERNET_CONNECTION);
             }
 
+            String nameWorkSite= WorkSitesManager.getWorkSiteById(idWorkSite).getName();
 
-            StorageReference riversRef = storageReference.child("images/"+strNameOfChoosedFile);
+            StorageReference riversRef = storageReference.child(nameWorkSite+"/documents/"+String.valueOf(typeOfDoc)+"/"+docToUpload.getNameChoosedFile());
 
             riversRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "Le fichier \""+strNameOfChoosedFile+"\" a été uploadé avec succès", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Le fichier \""+docToUpload.getNameChoosedFile()+"\" a été uploadé avec succès", Toast.LENGTH_LONG).show();
 
                             //Case of an uploaded file from One Drive: temporary file deletion
                             if (constantsInstance.getTmpFileDLFromOneDrive().exists())
@@ -335,8 +340,8 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
 
                             //We disable the upload button and update the file status
                             //uploadButton.setEnabled(false);
-                            updateStatusDocument(typeOfDoc,positionDocumentToUpload,FileStatus.UPLOADED);
-                            updateFilePathDocument(typeOfDoc,positionDocumentToUpload,null,false);
+                            updateStatusDocument(typeOfDoc,positionDocumentToUpload,idWorkSite,FileStatus.UPLOADED);
+                            updateFilePathDocument(typeOfDoc,positionDocumentToUpload,null,false,idWorkSite);
                             ///updateFileStatusTextView(R.string.status_choosed_file_UPLOADED);
                             //statusChoosedFile.setText(R.string.status_choosed_file_UPLOADED);
 
@@ -361,151 +366,73 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         }
     }
 
-
-
-    private void updateStatusDocument(DocumentTypes type, int position, FileStatus status){
-
-        switch (type){
-            case OTHER_DOCUMENTS:
-                DocumentsManager.updateStatusDocument(otherDocumentsList,position,status);
-                otherDocumentsFragment.getAdapter().notifyDataSetChanged();
-                break;
-            case PLAN_DOCUMENTS:
-                DocumentsManager.updateStatusDocument(planDocumentsList,position,status);
-                planDocumentsFragment.getAdapter().notifyDataSetChanged();
-                break;
-            case SECURITY_DOCUMENTS:
-                DocumentsManager.updateStatusDocument(securityDocumentsList,position,status);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
-                break;
-            case PPSPS_DOCUMENTS:
-                DocumentsManager.updateStatusDocument(ppspsDocumentsList,position,status);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();//ppsp documents are displayed in security documents fragment
-                break;
-            default:;
-        }
+    public String getIdWorkSite() {
+        return idWorkSite;
     }
 
-    private void updateNameChooseFileDocument(DocumentTypes type, int position, String chooseFile){
-
-        switch (type){
-            case OTHER_DOCUMENTS:
-                DocumentsManager.updateNameChooseFileDocument(otherDocumentsList,position,chooseFile);
-                otherDocumentsFragment.getAdapter().notifyDataSetChanged();
-
-                break;
-            case PLAN_DOCUMENTS:
-                DocumentsManager.updateNameChooseFileDocument(planDocumentsList,position,chooseFile);
-                planDocumentsFragment.getAdapter().notifyDataSetChanged();
-
-                break;
-            case SECURITY_DOCUMENTS:
-                DocumentsManager.updateNameChooseFileDocument(securityDocumentsList,position,chooseFile);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
-
-                break;
-            case PPSPS_DOCUMENTS:
-                DocumentsManager.updateNameChooseFileDocument(ppspsDocumentsList,position,chooseFile);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
-
-                break;
-            default:;
-        }
+    public void setPositionChoosedDocument(int positionChoosedDocument) {
+        this.positionChoosedDocument = positionChoosedDocument;
     }
 
-    private String updateFilePathDocument(DocumentTypes type, int position, Uri filePath, boolean contentResolverNeeded){ //return the name of the document thanks to its URI
+    public void setTypeOfChoosedDocument(int typeOfChoosedDocument) {
+        this.typeOfChoosedDocument = typeOfChoosedDocument;
+    }
 
-        switch (type){
-            case OTHER_DOCUMENTS:
-                if(contentResolverNeeded){
-                    return DocumentsManager.updateFilePathDocument(otherDocumentsList,position,filePath,getContentResolver());
-                }
-               DocumentsManager.updateFilePathDocument(otherDocumentsList,position,filePath);
-                otherDocumentsFragment.getAdapter().notifyDataSetChanged();
+    private void updateStatusDocument(DocumentTypes type, int position, String idWorkSite, FileStatus status){
 
-                break;
-            case PLAN_DOCUMENTS:
-                if(contentResolverNeeded){
-                    return DocumentsManager.updateFilePathDocument(planDocumentsList,position,filePath,getContentResolver());
-                }
-                DocumentsManager.updateFilePathDocument(planDocumentsList,position,filePath);
-                planDocumentsFragment.getAdapter().notifyDataSetChanged();
+        DocumentsManager.updateStatusDocument(type,position,idWorkSite,status);
+        refreshFragmentByType(type);
+    }
 
+    private void updateNameChooseFileDocument(DocumentTypes type, int position, String idWorkSite, String chooseFile){
 
-                break;
-            case SECURITY_DOCUMENTS:
-                if(contentResolverNeeded){
-                    return DocumentsManager.updateFilePathDocument(securityDocumentsList,position,filePath,getContentResolver());
-                }
-                DocumentsManager.updateFilePathDocument(securityDocumentsList,position,filePath);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
+        DocumentsManager.updateNameChooseFileDocument(type,position,idWorkSite,chooseFile);
+        refreshFragmentByType(type);
+    }
 
-                break;
-            case PPSPS_DOCUMENTS:
-                if(contentResolverNeeded){
-                    return DocumentsManager.updateFilePathDocument(ppspsDocumentsList,position,filePath,getContentResolver());
-                }
-                DocumentsManager.updateFilePathDocument(ppspsDocumentsList,position,filePath);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
+    private String updateFilePathDocument(DocumentTypes type, int position, Uri filePath, boolean contentResolverNeeded,String idWorksite){ //return the name of the document thanks to its URI
 
-                break;
-            default:;
+        if(contentResolverNeeded){
+            String res= DocumentsManager.updateFilePathDocument(type,position,idWorksite,filePath,getContentResolver());
+            refreshFragmentByType(type);
+            return res;
+        }else {
+            DocumentsManager.updateFilePathDocument(type,position,idWorksite,filePath);
+            refreshFragmentByType(type);
         }
         return null;
     }
 
-    private void updateNameUploadedFileDocument(DocumentTypes type, int position, String nameFile){
+    private void refreshFragmentByType(DocumentTypes type) {
 
         switch (type){
             case OTHER_DOCUMENTS:
-                DocumentsManager.updateNameUploadedFileDocument(otherDocumentsList,position,nameFile);
-                otherDocumentsFragment.getAdapter().notifyDataSetChanged();
+                refreshOtherDocumentFragment();
 
                 break;
             case PLAN_DOCUMENTS:
-                DocumentsManager.updateNameUploadedFileDocument(planDocumentsList,position,nameFile);
-                planDocumentsFragment.getAdapter().notifyDataSetChanged();
-
+                refreshPlanDocumentFragment();
                 break;
             case SECURITY_DOCUMENTS:
-                DocumentsManager.updateNameUploadedFileDocument(securityDocumentsList,position,nameFile);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
-
+                refreshSecurityDocumentFragment();
                 break;
             case PPSPS_DOCUMENTS:
-                DocumentsManager.updateNameUploadedFileDocument(ppspsDocumentsList,position,nameFile);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
-
+                refreshSecurityDocumentFragment();
                 break;
             default:;
         }
     }
 
-    private Document getDocumentByPositionAndType(DocumentTypes type, int position){
+    private void updateNameUploadedFileDocument(DocumentTypes type, int position, String nameFile,String idWorksite){
+
+        DocumentsManager.updateNameUploadedFileDocument(type,position,nameFile,idWorksite);
+        refreshFragmentByType(type);
+    }
+
+    private Document getDocumentByPositionAndType(DocumentTypes type, int position,String idWorksite){
         Document res=null;
-        switch (type){
-            case OTHER_DOCUMENTS:
-                res=DocumentsManager.getDocumentByPositionAndType(otherDocumentsList,position);
-                otherDocumentsFragment.getAdapter().notifyDataSetChanged();
-
-                break;
-            case PLAN_DOCUMENTS:
-                res=DocumentsManager.getDocumentByPositionAndType(planDocumentsList,position);
-                planDocumentsFragment.getAdapter().notifyDataSetChanged();
-
-                break;
-            case SECURITY_DOCUMENTS:
-                res=DocumentsManager.getDocumentByPositionAndType(securityDocumentsList,position);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
-
-                break;
-            case PPSPS_DOCUMENTS:
-                res=DocumentsManager.getDocumentByPositionAndType(ppspsDocumentsList,position);
-                securityDocumentsFragment.getAdapter().notifyDataSetChanged();
-
-                break;
-            default:;
-        }
+        res=DocumentsManager.getDocumentByPositionAndType(type,position,idWorksite);
+        refreshFragmentByType(type);
         return res;
     }
 
@@ -526,38 +453,6 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
     }
 
     public void refreshOtherDocumentFragment(){
-       /* //Instanciation of the fragments
-        planDocumentsFragment=new PlanDocumentsFragment();
-        Bundle planDocBundle=new Bundle();
-        planDocBundle.putParcelableArrayList("planList",planDocumentsList);
-        planDocumentsFragment.setArguments(planDocBundle);
-        securityDocumentsFragment= new SecurityDocumentsFragment();
-        Bundle securityDocBundle=new Bundle();
-        securityDocBundle.putParcelableArrayList("securityList",securityDocumentsList);
-        securityDocumentsFragment.setArguments(securityDocBundle);
-        otherDocumentsFragment = new OtherDocumentsFragment();
-        Bundle otherDocBundle=new Bundle();
-        otherDocBundle.putParcelableArrayList("otherList",otherDocumentsList);
-        otherDocumentsFragment.setArguments(otherDocBundle);
-
-        //setup of the tabs
-        viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
-        Log.i(TAG,"other size "+otherDocumentsList.size());
-        Log.i(TAG,"secu size "+securityDocumentsList.size());
-        Log.i(TAG,"plan size "+planDocumentsList.size());
-        Log.i(TAG,"ppsps size "+ppspsDocumentsList.size());*/
-
-       /*if(securityDocumentsFragment.getAdapter()!=null){
-           securityDocumentsFragment.getAdapter().notifyDataSetChanged();
-           Log.i(TAG,"notify security called");
-           Log.i(TAG,"adapter secu "+securityDocumentsFragment.getAdapter());
-       }*/
-
 
        if(otherDocumentsFragment.getAdapter()!=null){
            otherDocumentsFragment.getAdapter().notifyDataSetChanged();
@@ -565,15 +460,6 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
            Log.i(TAG,"adapter secu "+securityDocumentsFragment.getAdapter());
 
        }
-
-       /*if(planDocumentsFragment.getAdapter()!=null){
-           planDocumentsFragment.getAdapter().notifyDataSetChanged();
-           Log.i(TAG,"plan security called");
-           Log.i(TAG,"adapter secu "+securityDocumentsFragment.getAdapter());
-       }*/
-
-
-
 
     }
 

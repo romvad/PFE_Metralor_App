@@ -63,7 +63,7 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
 
     @NonNull
     @Override
-    public View getView( int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         //LayoutInflater inflater= ((Activity)context).getLayoutInflater();
         currentPosition=position;
         View row;
@@ -94,21 +94,21 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
         chooseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                buildAlertDialog(getCurrentPosition());
+                buildAlertDialog(position);
             }
         });
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                tabsOfListOfDocumentsActivity.uploadFile(typeOfDocs,getCurrentPosition());
+                tabsOfListOfDocumentsActivity.uploadFile(typeOfDocs,position);
             }
         });
 
         return row;
     }
 
-    private void buildAlertDialog( int documentPosition) {
+    private void buildAlertDialog(final int documentPosition) {
         List<String> listOptions = new ArrayList<String>();
         listOptions.add("Interne");
         listOptions.add("OneDrive");
@@ -133,14 +133,14 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
                     case 0:
                         //Toast.makeText(getApplicationContext(), "interne", Toast.LENGTH_LONG);
                         Log.i(TAG,"interne");
-                        showFileChooser(getCurrentPosition());
+                        showFileChooser(documentPosition);
                         alertDialogCreated.dismiss();
                         break;
                     case 1:
                         //Toast.makeText(getApplicationContext(), "oneDrive", Toast.LENGTH_LONG);
                         Log.i(TAG,"oneDrive");
                         if(InternetConnectionTools.isNetworkAvailable((AppCompatActivity)context)){
-                            tabsOfListOfDocumentsActivity.startDownloadFileFromOneDrive(getCurrentPosition(),typeOfDocs.getValue());
+                            tabsOfListOfDocumentsActivity.startDownloadFileFromOneDrive(documentPosition,typeOfDocs.getValue());
                             alertDialogCreated.dismiss();
                         }else {
                             Toast.makeText(tabsOfListOfDocumentsActivity, R.string.download_from_one_drive_offline_impossible, Toast.LENGTH_LONG).show();
@@ -174,8 +174,10 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
         Intent intent = new Intent();
         intent.setType("*/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.putExtra("position doc",documentPosition);
-        intent.putExtra("type of doc", typeOfDocs.getValue());
+        tabsOfListOfDocumentsActivity.setPositionChoosedDocument(documentPosition);
+        tabsOfListOfDocumentsActivity.setTypeOfChoosedDocument(typeOfDocs.getValue());
+        /*intent.putExtra("position doc",documentPosition);
+        intent.putExtra("type of doc", typeOfDocs.getValue());*/
         //((Activity)context).startActivityForResult(Intent.createChooser(intent, "select an image"), PICK_IMAGE_REQUEST);
         tabsOfListOfDocumentsActivity.startActivityForResult(Intent.createChooser(intent, "select an image"), PICK_IMAGE_REQUEST);
     }
