@@ -2,22 +2,33 @@ package com.example.rvadam.pfe.Model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
+
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 /**
  * Created by rvadam on 15/05/2018.
  */
 
 public class SpacePhoto implements Parcelable {
-    private String mUrl;
+    private String mFBStorageUrl;
+    //private StorageReference mStorageReference;
     private String mTitle;
+    private static final String TAG="SpacePhoto";
 
     public SpacePhoto(String url, String title) {
-        mUrl = url;
+        mFBStorageUrl = url;
         mTitle = title;
     }
+    /*public SpacePhoto(StorageReference mStorageReference, String title) {
+        mStorageReference = mStorageReference;
+        mTitle = title;
+    }*/
 
     protected SpacePhoto(Parcel in) {
-        mUrl = in.readString();
+        mFBStorageUrl = in.readString();
+        //mStorageReference=in.readString();
         mTitle = in.readString();
     }
 
@@ -33,12 +44,28 @@ public class SpacePhoto implements Parcelable {
         }
     };
 
-    public String getUrl() {
+   /* public String getUrl() {
         return mUrl;
     }
 
     public void setUrl(String url) {
         mUrl = url;
+    }*/
+
+    /*public StorageReference getmStorageReference() {
+        return mStorageReference;
+    }
+
+    public void setmStorageReference(StorageReference mStorageReference) {
+        this.mStorageReference = mStorageReference;
+    }*/
+
+    public String getmFBStorageUrl() {
+        return mFBStorageUrl;
+    }
+
+    public void setmFBStorageUrl(String mFBStorageUrl) {
+        this.mFBStorageUrl = mFBStorageUrl;
     }
 
     public String getTitle() {
@@ -51,13 +78,15 @@ public class SpacePhoto implements Parcelable {
 
     public static  SpacePhoto[] getSpacePhotos() {
 
+        /*StorageReference mStorageRef= FirebaseStorage.getInstance().getReference("The other one/documents/SECURITY_DOCUMENTS");
+        Log.i(TAG,"storage ref SPacePhoto "+mStorageRef);*/
+
         return new SpacePhoto[]{
-                new SpacePhoto("http://i.imgur.com/zuG2bGQ.jpg", "Galaxy"),
-                new SpacePhoto("http://i.imgur.com/ovr0NAF.jpg", "Space Shuttle"),
-                new SpacePhoto("http://i.imgur.com/n6RfJX2.jpg", "Galaxy Orion"),
-                new SpacePhoto("http://i.imgur.com/qpr5LR2.jpg", "Earth"),
-                new SpacePhoto("http://i.imgur.com/pSHXfu5.jpg", "Astronaut"),
-                new SpacePhoto("http://i.imgur.com/3wQcZeY.jpg", "Satellite"),
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/GEM.png", "GEM.png"),
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/Avatar.png", "Avatar.png"),
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/rom.png", "rom.png"),
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/photo metralor.png", "photo metralor.png"),
+
         };
     }
 
@@ -68,7 +97,7 @@ public class SpacePhoto implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(mUrl);
+        //parcel.writeString(mFBStorageUrl);
         parcel.writeString(mTitle);
     }
 }

@@ -2,17 +2,25 @@ package com.example.rvadam.pfe.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+//import com.example.rvadam.pfe.AppGlideModule.GlideApp;
+import com.example.rvadam.pfe.AppGlideModule.GlideApp;
 import com.example.rvadam.pfe.Model.SpacePhoto;
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.PhotoGalleryActivity;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.SpacePhotoActivity;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 /**
@@ -23,6 +31,9 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
 
     private SpacePhoto[] mSpacePhotos;
     private Context mContext;
+    private static final String TAG="ImageGalleryAdapter";
+
+    ImageView imageView;
 
 
     @Override
@@ -42,11 +53,31 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         SpacePhoto spacePhoto = mSpacePhotos[position];
        // ImageView imageView = holder.mPhotoImageView;*/
        // SpacePhoto photo = mPhotoList.get(position);
-        ImageView imageView = holder.mPhotoImageView;
+        imageView = holder.mPhotoImageView;
 
-        Glide.with(mContext)
-                .load(spacePhoto.getUrl())
-                .placeholder(R.mipmap.ic_cloud_off_red)
+        StorageReference ref= FirebaseStorage.getInstance().getReference();
+        //String relativePath= spacePhoto.getmFBStorageUrl();
+        String relativePath= "images/Avatar.png";
+        StorageReference fullRef=ref.child(relativePath);
+        String strUrl="";
+        Log.i(TAG,"storage ref "+fullRef);
+
+        /*fullRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>(
+
+        ) {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(mContext)
+                        //.using(new FirebaseImageLoader())
+                        .load(uri.getPath())
+                        // .placeholder(R.mipmap.ic_cloud_off_red)
+                        .into(imageView);
+            }
+        });*/
+
+        GlideApp.with(mContext)
+                .load(fullRef)
+               // .placeholder(R.mipmap.ic_cloud_off_red)
                 .into(imageView);
     }
 
@@ -78,8 +109,6 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
             }
         }
     }
-
-
 
     public ImageGalleryAdapter(Context context, SpacePhoto[] spacePhotos) {
         mContext = context;
