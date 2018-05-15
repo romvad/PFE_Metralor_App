@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.WelcomeListWorkSites.WelcomeListWorkSite;
+import com.example.rvadam.pfe.WorkSitePhotoGallery.PhotoGalleryActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -124,8 +125,10 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(testFirebaseStorageBisActivityCall);*/
                 /*Intent testTabsOfListOfDocumentsActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity.class);
                 startActivity(testTabsOfListOfDocumentsActivityCall);*/
-                Intent fakeListOfWorksitesActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.FakeListWorksitesActivity.class);
-                startActivity(fakeListOfWorksitesActivityCall);
+                /*Intent fakeListOfWorksitesActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.FakeListWorksitesActivity.class);
+                startActivity(fakeListOfWorksitesActivityCall);*/
+                Intent photoGalleryActivityCall= new Intent(getActivity(), PhotoGalleryActivity.class);
+                startActivity(photoGalleryActivityCall);
 
 
             }
