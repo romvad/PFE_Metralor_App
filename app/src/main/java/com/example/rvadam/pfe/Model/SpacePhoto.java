@@ -84,7 +84,7 @@ public class SpacePhoto implements Parcelable {
         return new SpacePhoto[]{
                 new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/GEM.png", "GEM.png"),
                 new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/Avatar.png", "Avatar.png"),
-                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/rom.png", "rom.png"),
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/rom.jpg", "rom.jpg"),
                 new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/photo metralor.png", "photo metralor.png"),
 
         };
@@ -97,7 +97,7 @@ public class SpacePhoto implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        //parcel.writeString(mFBStorageUrl);
+        parcel.writeString(mFBStorageUrl);
         parcel.writeString(mTitle);
     }
 }

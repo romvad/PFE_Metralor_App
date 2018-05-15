@@ -35,8 +35,8 @@ public class SpacePhotoActivity extends AppCompatActivity {
 
         GlideApp.with(getApplicationContext())
                 .load(fullRef)
-                //.error(R.mipmap.ic_cloud_off_red)
-                //.diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .error(R.mipmap.ic_cloud_off_red)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(mImageView);
     }
 }

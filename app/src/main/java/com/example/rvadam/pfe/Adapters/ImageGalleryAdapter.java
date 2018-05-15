@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 //import com.example.rvadam.pfe.AppGlideModule.GlideApp;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rvadam.pfe.AppGlideModule.GlideApp;
 import com.example.rvadam.pfe.Model.SpacePhoto;
 import com.example.rvadam.pfe.R;
@@ -56,28 +57,16 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         imageView = holder.mPhotoImageView;
 
         StorageReference ref= FirebaseStorage.getInstance().getReference();
-        //String relativePath= spacePhoto.getmFBStorageUrl();
-        String relativePath= "images/Avatar.png";
+        String relativePath= spacePhoto.getmFBStorageUrl();
         StorageReference fullRef=ref.child(relativePath);
-        String strUrl="";
+
         Log.i(TAG,"storage ref "+fullRef);
 
-        /*fullRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>(
-
-        ) {
-            @Override
-            public void onSuccess(Uri uri) {
-                Glide.with(mContext)
-                        //.using(new FirebaseImageLoader())
-                        .load(uri.getPath())
-                        // .placeholder(R.mipmap.ic_cloud_off_red)
-                        .into(imageView);
-            }
-        });*/
 
         GlideApp.with(mContext)
                 .load(fullRef)
-               // .placeholder(R.mipmap.ic_cloud_off_red)
+                .placeholder(R.mipmap.ic_cloud_off_red)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     }
 
