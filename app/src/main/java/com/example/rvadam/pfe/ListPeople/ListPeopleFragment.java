@@ -1,8 +1,6 @@
 package com.example.rvadam.pfe.ListPeople;
 
-import android.app.Activity;
 import android.app.Fragment;
-import android.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,17 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
+import com.example.rvadam.pfe.Model.CurrentStatesPeopleList;
 import com.example.rvadam.pfe.Model.People;
 import com.example.rvadam.pfe.People.PeopleActivity;
-import com.example.rvadam.pfe.People.PeopleFragment;
 import com.example.rvadam.pfe.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -33,14 +25,10 @@ import java.util.ArrayList;
 public class ListPeopleFragment extends Fragment {
     private static final String TAG = "Get people from DB";
 
-    private static People innerPeople;
     private FloatingActionButton buttonAdd;
     private ListView mListView;
-    private FirebaseDatabase mDB;
-    private DatabaseReference mRef;
-    private ArrayList<People> list;
     private PeopleCustomAdapter adapter;
-    private People people;
+    ArrayList<People> listOfPeople;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -51,46 +39,32 @@ public class ListPeopleFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // Get the elements from the view
         mListView = (ListView) getActivity().findViewById(R.id.listViewPeople);
         buttonAdd = (FloatingActionButton) getActivity().findViewById(R.id.buttonAddPeople);
 
-        people = new People();
-        list = new ArrayList<People>();
+        // Setup the adapter with the list
+        listOfPeople = (ArrayList<People>) CurrentStatesPeopleList.getInstance().getCurrentPeopleList();
+        adapter = new PeopleCustomAdapter(getActivity(), listOfPeople);
+        mListView.setAdapter(adapter);
 
-        mDB = FirebaseDatabase.getInstance();
-        mRef = mDB.getReference("people");
-
-        // Create an array adapter for the list view
-        adapter = new PeopleCustomAdapter(getActivity(), list);
-
-        mRef.addValueEventListener(new ValueEventListener() {
+        // Setup the onClickListener
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    people = ds.getValue(People.class);
-                    list.add(people);
-                }
-                mListView.setAdapter(adapter);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Toast.makeText(getActivity(), "Nom : " + listOfPeople.get(position).getLastname(), Toast.LENGTH_SHORT).show();
+                People peopleSelected = (People) listOfPeople.get(position);
+                PeopleActivity.setpeople(peopleSelected);
 
-                mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                        int itemPosition = i;
-                        People peopleSelected = (People) mListView.getItemAtPosition(itemPosition);
-                        PeopleActivity.setpeople(peopleSelected);
-                        //Toast.makeText(getActivity(), peopleSelected.getFirstname().toString(), Toast.LENGTH_SHORT).show();
-
-                        Intent intent = new Intent(getActivity(), PeopleActivity.class);
-                        startActivity(intent);
-                    }
-                });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
+                Intent intent = new Intent(getActivity(), PeopleActivity.class);
+                startActivity(intent);
             }
         });
+
+    }
+
+    public PeopleCustomAdapter getAdapter() {
+        return adapter;
     }
 
 }

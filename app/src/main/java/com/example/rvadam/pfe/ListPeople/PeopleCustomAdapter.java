@@ -17,6 +17,7 @@ import java.util.ArrayList;
  */
 
 public class PeopleCustomAdapter extends ArrayAdapter<People> {
+    private ArrayAdapter<People> listOfPeople;
 
     public PeopleCustomAdapter(Context context, ArrayList<People> listOfPeople) {
         super(context, 0, listOfPeople);
@@ -32,20 +33,30 @@ public class PeopleCustomAdapter extends ArrayAdapter<People> {
         TweetViewHolder viewHolder = (TweetViewHolder) convertView.getTag();
         if (viewHolder == null) {
             viewHolder = new PeopleCustomAdapter.TweetViewHolder();
-            viewHolder.LastnamePeople = (TextView) convertView.findViewById(R.id.peopleInfo);
+
+            // Get our sub views
+            viewHolder.LastName = (TextView) convertView.findViewById(R.id.personLastName);
+            viewHolder.FirstName = (TextView) convertView.findViewById(R.id.personFirstName);
+            viewHolder.Company = (TextView) convertView.findViewById(R.id.personCompany);
+
+            // save the mini-controller in the view
             convertView.setTag(viewHolder);
         }
 
         People people = getItem(position);
 
         assert people != null;
-        viewHolder.LastnamePeople.setText(people.getLastname());
+        viewHolder.LastName.setText(people.getLastname());
+        viewHolder.FirstName.setText(people.getFirstname());
+        viewHolder.Company.setText(people.getIdCompany());
 
         return convertView;
     }
 
     class TweetViewHolder {
-        public TextView LastnamePeople;
+        public TextView LastName;
+        public TextView FirstName;
+        public TextView Company;
     }
 }
 

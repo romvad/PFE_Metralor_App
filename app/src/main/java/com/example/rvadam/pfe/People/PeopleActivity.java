@@ -31,7 +31,6 @@ public class PeopleActivity extends AppCompatActivity {
             ft.replace(R.id.peopleFragment_container, peopleFragment);
             ft.commit();
         }
-
     }
 
     public static void setpeople(com.example.rvadam.pfe.Model.People people) {
