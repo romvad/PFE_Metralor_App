@@ -13,13 +13,17 @@ import com.google.firebase.storage.StorageReference;
 
 public class SpacePhoto implements Parcelable {
     private String mFBStorageUrl;
+    private String mphotoType;
+    private String mIdWorkSite;
     //private StorageReference mStorageReference;
     private String mTitle;
     private static final String TAG="SpacePhoto";
 
-    public SpacePhoto(String url, String title) {
-        mFBStorageUrl = url;
+    public SpacePhoto(String FBStorageUrl, String title, String photoType, String idWorkSite ) {
+        mFBStorageUrl = FBStorageUrl;
         mTitle = title;
+        mphotoType=photoType;
+        mIdWorkSite=idWorkSite;
     }
     /*public SpacePhoto(StorageReference mStorageReference, String title) {
         mStorageReference = mStorageReference;
@@ -30,6 +34,8 @@ public class SpacePhoto implements Parcelable {
         mFBStorageUrl = in.readString();
         //mStorageReference=in.readString();
         mTitle = in.readString();
+        mphotoType = in.readString();
+        mIdWorkSite = in.readString();
     }
 
     public static final Creator<SpacePhoto> CREATOR = new Creator<SpacePhoto>() {
@@ -76,19 +82,36 @@ public class SpacePhoto implements Parcelable {
         mTitle = title;
     }
 
-    public static  SpacePhoto[] getSpacePhotos() {
+    public String getMphotoType() {
+        return mphotoType;
+    }
+
+    public void setMphotoType(String mphotoType) {
+        this.mphotoType = mphotoType;
+    }
+
+    public String getmIdWorkSite() {
+        return mIdWorkSite;
+    }
+
+    public void setmIdWorkSite(String mIdWorkSite) {
+        this.mIdWorkSite = mIdWorkSite;
+    }
+
+    /*public static  SpacePhoto[] getSpacePhotos() {
 
         /*StorageReference mStorageRef= FirebaseStorage.getInstance().getReference("The other one/documents/SECURITY_DOCUMENTS");
         Log.i(TAG,"storage ref SPacePhoto "+mStorageRef);*/
 
-        return new SpacePhoto[]{
-                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/GEM.png", "GEM.png"),
-                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/Avatar.png", "Avatar.png"),
-                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/rom.jpg", "rom.jpg"),
-                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/photo metralor.png", "photo metralor.png"),
+       /* return new SpacePhoto[]{
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/photo metralor.png", "GEM.png"),
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/vagur.jpg", "Avatar.png"),
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/bg.jpg", "rom.jpg"),
+                new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/homer.png", "photo metralor.png"),
+                //new SpacePhoto("The other one/documents/SECURITY_DOCUMENTS/Metralor - fiche PFE.pdf","yui"),
 
         };
-    }
+    }*/
 
     @Override
     public int describeContents() {
@@ -99,5 +122,7 @@ public class SpacePhoto implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(mFBStorageUrl);
         parcel.writeString(mTitle);
+        parcel.writeString(mphotoType);
+        parcel.writeString(mIdWorkSite);
     }
 }

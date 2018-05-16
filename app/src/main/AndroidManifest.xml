@@ -77,7 +77,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".WorkSiteListOfDocuments.FakeListWorksitesActivity" />
         <activity android:name=".WorkSitePhotoGallery.PhotoGalleryActivity" />
-        <activity android:name=".WorkSitePhotoGallery.SpacePhotoActivity"></activity>
+        <activity android:name=".WorkSitePhotoGallery.SpacePhotoActivity" />
+        <activity android:name=".WorkSitePhotoGallery.TabsOfPhotosActivity"></activity>
     </application>
 
 </manifest>

@@ -23,6 +23,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.List;
+
 
 /**
  * Created by rvadam on 15/05/2018.
@@ -30,7 +32,7 @@ import com.google.firebase.storage.StorageReference;
 
 public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapter.MyViewHolder>  {
 
-    private SpacePhoto[] mSpacePhotos;
+    private List<SpacePhoto> mSpacePhotos;
     private Context mContext;
     private static final String TAG="ImageGalleryAdapter";
 
@@ -51,7 +53,7 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
     @Override
     public void onBindViewHolder(ImageGalleryAdapter.MyViewHolder holder, int position) {
 
-        SpacePhoto spacePhoto = mSpacePhotos[position];
+        SpacePhoto spacePhoto = mSpacePhotos.get(position);
        // ImageView imageView = holder.mPhotoImageView;*/
        // SpacePhoto photo = mPhotoList.get(position);
         imageView = holder.mPhotoImageView;
@@ -72,7 +74,7 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
 
     @Override
     public int getItemCount() {
-        return (mSpacePhotos.length);
+        return (mSpacePhotos.size());
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -91,7 +93,7 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
 
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
-                SpacePhoto spacePhoto = mSpacePhotos[position];
+                SpacePhoto spacePhoto = mSpacePhotos.get(position);
                 Intent intent = new Intent(mContext, SpacePhotoActivity.class);
                 intent.putExtra(SpacePhotoActivity.EXTRA_SPACE_PHOTO, spacePhoto);
                 mContext.startActivity(intent);
@@ -99,7 +101,7 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         }
     }
 
-    public ImageGalleryAdapter(Context context, SpacePhoto[] spacePhotos) {
+    public ImageGalleryAdapter(Context context, List<SpacePhoto> spacePhotos) {
         mContext = context;
         mSpacePhotos = spacePhotos;
     }

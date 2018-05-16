@@ -31,6 +31,11 @@
     <string name="tab_plan_documents">Plans</string>
     <string name="button_search_file_text">Rechercher...</string>
     <string name="button_upload_file_text">Enregistrer</string>
-    <string name="label_uploaded_file">Nom du fichier enrgistré :</string>
+    <string name="label_uploaded_file">Nom du fichier enregistré :</string>
+    <string name="tab_course_access">Accès cheminement</string>
+    <string name="tab_general_view_access">Accès vue générale</string>
+    <string name="tab_technical_equipments">Equipements techniques</string>
+    <string name="tab_malt_adductions">Malt adductions</string>
+    <string name="tab_security">Sécurité</string>
 
 </resources>

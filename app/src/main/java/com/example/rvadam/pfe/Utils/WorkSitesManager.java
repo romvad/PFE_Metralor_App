@@ -2,6 +2,8 @@ package com.example.rvadam.pfe.Utils;
 
 import com.example.rvadam.pfe.Model.Constants;
 import com.example.rvadam.pfe.Model.CurrentStatesWorkSites;
+import com.example.rvadam.pfe.Model.ListOfPhotosSingleton;
+import com.example.rvadam.pfe.Model.SpacePhoto;
 import com.example.rvadam.pfe.Model.WorkSite;
 
 import java.util.List;
@@ -24,5 +26,28 @@ public class WorkSitesManager {
             }
         }
         return null;
+    }
+
+    public static void updateWorkSiteIdListOfPhotosSingleton(String idWorkSite){
+
+        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getCoursesAccessPhotos()){
+            photo.setmIdWorkSite(idWorkSite);
+        }
+
+        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getGeneralViewAccessPhotos()){
+            photo.setmIdWorkSite(idWorkSite);
+        }
+
+        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getMaltAdductionsPhotos()){
+            photo.setmIdWorkSite(idWorkSite);
+        }
+
+        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getSecurityPhotos()){
+            photo.setmIdWorkSite(idWorkSite);
+        }
+
+        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getTechnicalEquipmentsPhotos()){
+            photo.setmIdWorkSite(idWorkSite);
+        }
     }
 }

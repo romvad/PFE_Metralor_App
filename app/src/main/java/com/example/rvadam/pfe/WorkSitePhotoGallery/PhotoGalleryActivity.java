@@ -16,6 +16,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PhotoGalleryActivity extends AppCompatActivity {
 
     private static final String TAG ="PhotoGalleryActivity" ;
@@ -31,7 +34,8 @@ public class PhotoGalleryActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
 
-        ImageGalleryAdapter adapter = new ImageGalleryAdapter(this, SpacePhoto.getSpacePhotos());
+        List<SpacePhoto> l=new ArrayList<SpacePhoto>();
+        ImageGalleryAdapter adapter = new ImageGalleryAdapter(this, l /*SpacePhoto.getSpacePhotos()*/);
         recyclerView.setAdapter(adapter);
 
         FirebaseUser user = mAuth.getCurrentUser();

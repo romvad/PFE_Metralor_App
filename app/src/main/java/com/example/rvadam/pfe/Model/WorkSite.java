@@ -24,6 +24,11 @@ public class WorkSite {
     private List<Document> planDocuments=new ArrayList<Document>();
     private List<Document> securityDocuments=new ArrayList<Document>();
     private List<Document> ppspsDocuments=new ArrayList<Document>();
+    private List<SpacePhoto> coursesAccessPhotos= new ArrayList<SpacePhoto>();
+    private List<SpacePhoto> generalViewAccessPhotos=new ArrayList<SpacePhoto>();
+    private List<SpacePhoto> technicalEquipmentsPhotos=new ArrayList<SpacePhoto>();
+    private List<SpacePhoto> maltAdductionsPhotos=new ArrayList<SpacePhoto>();
+    private List<SpacePhoto> securityPhotos=new ArrayList<SpacePhoto>();
     private String type;
 
     public WorkSite(String id, long dateVIC, double lattitude, double longitude, String name, Map<String, String> otherDocumentsMap, Map<String, String> planDocumentsMap, Map<String, String> securityDocumentsMap, Map<String, String> ppspsDocumentsMap, String type) {
@@ -159,5 +164,25 @@ public class WorkSite {
 
     public void setPpspsDocumentsMap(Map<String, String> ppspsDocumentsMap) {
         this.ppspsDocumentsMap = ppspsDocumentsMap;
+    }
+
+    public List<SpacePhoto> getCoursesAccessPhotos() {
+        return coursesAccessPhotos;
+    }
+
+    public List<SpacePhoto> getGeneralViewAccessPhotos() {
+        return generalViewAccessPhotos;
+    }
+
+    public List<SpacePhoto> getTechnicalEquipmentsPhotos() {
+        return technicalEquipmentsPhotos;
+    }
+
+    public List<SpacePhoto> getMaltAdductionsPhotos() {
+        return maltAdductionsPhotos;
+    }
+
+    public List<SpacePhoto> getSecurityPhotos() {
+        return securityPhotos;
     }
 }
