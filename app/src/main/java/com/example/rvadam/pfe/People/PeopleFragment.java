@@ -18,6 +18,8 @@ import com.example.rvadam.pfe.R;
  */
 
 public class PeopleFragment extends Fragment {
+
+
     private static final String DESCRIBABLE_KEY = "describable_key";
     private People innerPeople;
 

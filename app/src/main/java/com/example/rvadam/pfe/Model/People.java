@@ -1,8 +1,5 @@
 package com.example.rvadam.pfe.Model;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 
 /**

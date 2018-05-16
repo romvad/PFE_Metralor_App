@@ -25,8 +25,6 @@ import java.util.ArrayList;
 public class ListPeopleFragment extends Fragment {
     private static final String TAG = "Get people from DB";
 
-    private FloatingActionButton buttonAdd;
-    private ListView mListView;
     private PeopleCustomAdapter adapter;
     ArrayList<People> listOfPeople;
 
@@ -40,8 +38,8 @@ public class ListPeopleFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         // Get the elements from the view
-        mListView = (ListView) getActivity().findViewById(R.id.listViewPeople);
-        buttonAdd = (FloatingActionButton) getActivity().findViewById(R.id.buttonAddPeople);
+        ListView mListView = (ListView) getActivity().findViewById(R.id.listViewPeople);
+        FloatingActionButton buttonAdd = (FloatingActionButton) getActivity().findViewById(R.id.buttonAddPeople);
 
         // Setup the adapter with the list
         listOfPeople = (ArrayList<People>) CurrentStatesPeopleList.getInstance().getCurrentPeopleList();

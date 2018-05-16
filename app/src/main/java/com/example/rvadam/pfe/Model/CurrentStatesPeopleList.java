@@ -1,7 +1,9 @@
 package com.example.rvadam.pfe.Model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rdelfoss on 15/05/2018.
@@ -21,4 +23,11 @@ public class CurrentStatesPeopleList {
     public List<People> getCurrentPeopleList() {
         return currentPeopleList;
     }
+
+    private static Map<String, String> companies = new HashMap<String, String>();
+
+    public Map<String, String> getCompaniesMap() {
+        return companies;
+    }
+
 }
