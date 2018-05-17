@@ -10,5 +10,10 @@
         android:scaleType="centerCrop"
         android:layout_margin="2dp"
         android:layout_width="match_parent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:id="@+id/photoTitle"/>
 
 </LinearLayout>

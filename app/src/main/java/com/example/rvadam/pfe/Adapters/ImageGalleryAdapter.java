@@ -58,16 +58,20 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
        // SpacePhoto photo = mPhotoList.get(position);
         imageView = holder.mPhotoImageView;
 
+        Log.i(TAG,"before getting storage reference");
         StorageReference ref= FirebaseStorage.getInstance().getReference();
         String relativePath= spacePhoto.getmFBStorageUrl();
-        StorageReference fullRef=ref.child(relativePath);
+        String photoIdWorksite=spacePhoto.getmIdWorkSite();
+        String absolutePath=photoIdWorksite+"/"+relativePath;
+        StorageReference fullRef=ref.child(absolutePath);
 
         Log.i(TAG,"storage ref "+fullRef);
 
 
         GlideApp.with(mContext)
                 .load(fullRef)
-                .placeholder(R.mipmap.ic_cloud_off_red)
+                .placeholder(R.mipmap.ic_image_not_available)
+                .error(R.mipmap.ic_image_not_available)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     }

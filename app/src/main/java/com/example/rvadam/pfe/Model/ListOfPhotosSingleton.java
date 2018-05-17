@@ -1,5 +1,7 @@
 package com.example.rvadam.pfe.Model;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import java.util.List;
 public class ListOfPhotosSingleton {
 
     private static final ListOfPhotosSingleton instance=new ListOfPhotosSingleton();
+    private static final String TAG ="ListOfPhotosSingleton" ;
     private List<SpacePhoto> coursesAccessPhotos= new ArrayList<SpacePhoto>();
     private List<SpacePhoto> generalViewAccessPhotos=new ArrayList<SpacePhoto>();
     private List<SpacePhoto> technicalEquipmentsPhotos=new ArrayList<SpacePhoto>();
@@ -19,7 +22,7 @@ public class ListOfPhotosSingleton {
     public ListOfPhotosSingleton() {
 
         //GENERAL VIEW ACCESS PHOTOS
-        for (String s: Constants.getGeneralViewAccessPhotoNames()){
+        for (String s: Constants.getInstance().getGeneralViewAccessPhotoNames()){
             String FBStorageURL=String.valueOf(PhotoCategories.GENERAL_VIEW_ACCESS)+"/"+s;
             generalViewAccessPhotos.add(new SpacePhoto(FBStorageURL,s,"",""));
         }
@@ -27,8 +30,10 @@ public class ListOfPhotosSingleton {
         //ACCESS COURSES PHOTOS
         for(int i=0;i<CoursesAccessPhotoTypes.values().length;i++){
             CoursesAccessPhotoTypes type= CoursesAccessPhotoTypes.values()[i];
-            List<String> list=Constants.getCoursesAccessPhotoNames().get(type);
-
+            Log.i(TAG,"type retrieved "+type);
+            Log.i(TAG,"size map courses access photos "+Constants.getInstance().getCoursesAccessPhotoNames().size());
+            List<String> list=Constants.getInstance().getCoursesAccessPhotoNames().get(type);
+            Log.i(TAG, "list retrieved "+list);
             for(String s : list){
                 String FBStorageURL=String.valueOf(PhotoCategories.COURSES_ACCESS)+"/"+String.valueOf(type)+"/"+s;
                 coursesAccessPhotos.add(new SpacePhoto(FBStorageURL,s,String.valueOf(type),""));
@@ -39,7 +44,7 @@ public class ListOfPhotosSingleton {
         // MAL ADDUCTIONS PHOTOS
         for(int i=0;i<MaltAdductionsPhotoTypes.values().length;i++){
             MaltAdductionsPhotoTypes type= MaltAdductionsPhotoTypes.values()[i];
-            List<String> list=Constants.getMaltAdductionsPhotoNames().get(type);
+            List<String> list=Constants.getInstance().getMaltAdductionsPhotoNames().get(type);
 
             for(String s : list){
                 String FBStorageURL=String.valueOf(PhotoCategories.MALT_ADDUCTIONS)+"/"+String.valueOf(type)+"/"+s;
@@ -51,7 +56,7 @@ public class ListOfPhotosSingleton {
         //SECURITY PHOTOS
         for(int i=0;i<SecurityPhotoTypes.values().length;i++){
             SecurityPhotoTypes type= SecurityPhotoTypes.values()[i];
-            List<String> list=Constants.getSecurityPhotoNames().get(type);
+            List<String> list=Constants.getInstance().getSecurityPhotoNames().get(type);
 
             for(String s : list){
                 String FBStorageURL=String.valueOf(PhotoCategories.SECURITY)+"/"+String.valueOf(type)+"/"+s;
@@ -63,7 +68,7 @@ public class ListOfPhotosSingleton {
         //TECHNICAL EQUIPMENTS PHOTOS
         for(int i=0;i<TechnicalEquipmentsPhotoTypes.values().length;i++){
             TechnicalEquipmentsPhotoTypes type= TechnicalEquipmentsPhotoTypes.values()[i];
-            List<String> list=Constants.getTechnicalEquipmentsPhotoNames().get(type);
+            List<String> list=Constants.getInstance().getTechnicalEquipmentsPhotoNames().get(type);
 
             for(String s : list){
                 String FBStorageURL=String.valueOf(PhotoCategories.TECHNICAL_EQUIPMENTS)+"/"+String.valueOf(type)+"/"+s;

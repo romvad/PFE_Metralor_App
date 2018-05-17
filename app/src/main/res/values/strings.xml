@@ -37,5 +37,22 @@
     <string name="tab_technical_equipments">Equipements techniques</string>
     <string name="tab_malt_adductions">Malt adductions</string>
     <string name="tab_security">Sécurité</string>
+    <string name="subtitle_worksite_access">Accès au chantier</string>
+    <string name="subtitle_means_of_access">Moyens d\'accès</string>
+    <string name="subtitle_air_access">Accès aux aériens</string>
+    <string name="subtitle_technical_zone_access">Accès à la zone technique</string>
+    <string name="subtitle_RF_modules">Modules RF</string>
+    <string name="subtitle_energy">Energie</string>
+    <string name="subtitle_transmission">Transmission</string>
+    <string name="subtitle_anti_intrusion">Anti intrusion</string>
+    <string name="subtitle_anti_fall">Anti chute</string>
+    <string name="subtitle_security_perimeter">Périmètre de sécurité</string>
+    <string name="subtitle_signaletics">Signalétique</string>
+    <string name="subtitle_lights">Lumières</string>
+    <string name="subtitle_grounds">Terres</string>
+    <string name="subtitle_divers">Divers</string>
+    <string name="subtitle_technical_equipments_places">Emplacements des équipements techniques</string>
+    <string name="subtitle_divisionary_board">tableau divisionnaire</string>
+    <string name="subtitle_courses_divers">Cheminement/divers</string>
 
 </resources>

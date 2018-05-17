@@ -5,5 +5,5 @@ package com.example.rvadam.pfe.Model;
  */
 
 public enum TechnicalEquipmentsPhotoTypes {
-    TECHNICAL_EQUIPMENTS_PLACES,DIVSIONARY_BOARD,COURSES_DIVERS
+    TECHNICAL_EQUIPMENTS_PLACES,DIVISIONARY_BOARD,COURSES_DIVERS
 }

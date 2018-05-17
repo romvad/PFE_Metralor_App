@@ -28,26 +28,5 @@ public class WorkSitesManager {
         return null;
     }
 
-    public static void updateWorkSiteIdListOfPhotosSingleton(String idWorkSite){
 
-        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getCoursesAccessPhotos()){
-            photo.setmIdWorkSite(idWorkSite);
-        }
-
-        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getGeneralViewAccessPhotos()){
-            photo.setmIdWorkSite(idWorkSite);
-        }
-
-        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getMaltAdductionsPhotos()){
-            photo.setmIdWorkSite(idWorkSite);
-        }
-
-        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getSecurityPhotos()){
-            photo.setmIdWorkSite(idWorkSite);
-        }
-
-        for(SpacePhoto photo : ListOfPhotosSingleton.getInstance().getTechnicalEquipmentsPhotos()){
-            photo.setmIdWorkSite(idWorkSite);
-        }
-    }
 }
