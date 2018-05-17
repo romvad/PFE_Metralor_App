@@ -29,6 +29,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.TestCamera.TestCameraActivity;
 import com.example.rvadam.pfe.WelcomeListWorkSites.WelcomeListWorkSite;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.PhotoGalleryActivity;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.TabsOfPhotosActivity;
@@ -130,8 +131,11 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(fakeListOfWorksitesActivityCall);*/
                 /*Intent photoGalleryActivityCall= new Intent(getActivity(), PhotoGalleryActivity.class);
                 startActivity(photoGalleryActivityCall);*/
-                Intent tabsOfPhotoActivityCall= new Intent(getActivity(), TabsOfPhotosActivity.class);
-                startActivity(tabsOfPhotoActivityCall);
+                /*Intent tabsOfPhotoActivityCall= new Intent(getActivity(), TabsOfPhotosActivity.class);
+                startActivity(tabsOfPhotoActivityCall);*/
+                Intent testCameraActivityCall= new Intent(getActivity(), TestCameraActivity.class);
+                startActivity(testCameraActivityCall);
+
 
 
             }
