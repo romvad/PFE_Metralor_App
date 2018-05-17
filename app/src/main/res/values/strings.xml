@@ -33,6 +33,8 @@
     <string name="personsLastname">Nom</string>
     <string name="personsFirstname">Prénom</string>
     <string name="personsCompany">Entreprise</string>
+    <string name="personsRole">Role</string>
+    <string name="personsPhone">Numero de téléphone</string>
     <string name="add_name">Nom du chantier</string>
     <string name="add_type">Type du chantier</string>
     <string name="add_vic">Date de VIC</string>
@@ -45,8 +47,8 @@
     <string name="lastname">Nom de famille</string>
     <string name="phone">Numéro</string>
     <string name="idPeople">ID</string>
-    <string name="idCompany">Entreprise</string>
-    <string name="idRole">Rôle</string>
-
+    <string name="company">Entreprise</string>
+    <string name="role">Rôle</string>
+    <string name="editPeople">Modifier</string>
 
 </resources>

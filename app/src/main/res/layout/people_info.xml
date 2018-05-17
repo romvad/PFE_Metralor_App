@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp">
@@ -26,12 +25,21 @@
 
     <TextView
         android:id="@+id/personCompany"
-        android:layout_marginRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/personRole"
+        android:layout_marginEnd="12dp"
+        android:text="@string/personsCompany"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/personRole"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/personLastName"
-        android:layout_alignParentEnd="true"
-        android:text="@string/personsCompany"
+        android:layout_alignRight="@+id/personCompany"
+        android:text="@string/personsRole"
         android:textColor="@android:color/black" />
 
 

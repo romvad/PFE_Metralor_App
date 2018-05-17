@@ -30,4 +30,9 @@ public class CurrentStatesPeopleList {
         return companies;
     }
 
+    private static Map<String, String> roles = new HashMap<String, String>();
+
+    public Map<String, String> getRolesMap() {
+        return roles;
+    }
 }

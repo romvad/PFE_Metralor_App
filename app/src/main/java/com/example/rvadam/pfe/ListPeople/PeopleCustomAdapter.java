@@ -43,6 +43,7 @@ public class PeopleCustomAdapter extends ArrayAdapter<People> {
             viewHolder.LastName = (TextView) convertView.findViewById(R.id.personLastName);
             viewHolder.FirstName = (TextView) convertView.findViewById(R.id.personFirstName);
             viewHolder.Company = (TextView) convertView.findViewById(R.id.personCompany);
+            viewHolder.Role = (TextView) convertView.findViewById(R.id.personRole);
 
             // save the mini-controller in the view
             convertView.setTag(viewHolder);
@@ -52,15 +53,18 @@ public class PeopleCustomAdapter extends ArrayAdapter<People> {
 
         CurrentStatesPeopleList currentStatesPeopleList = CurrentStatesPeopleList.getInstance();
         Map<String, String> companiesMap = currentStatesPeopleList.getCompaniesMap();
-
+        Map<String, String> rolesMap = currentStatesPeopleList.getRolesMap();
 
         assert people != null;
         String companyName = companiesMap.get(people.getIdCompany());
         Log.i(TAG, "companyName : " + companyName);
+        String roleTitle = rolesMap.get(people.getIdRole());
+        Log.i(TAG, "roleTitle : " + roleTitle);
 
         viewHolder.LastName.setText(people.getLastname());
         viewHolder.FirstName.setText(people.getFirstname());
         viewHolder.Company.setText(companyName);
+        viewHolder.Role.setText(roleTitle);
 
         return convertView;
     }
@@ -69,6 +73,7 @@ public class PeopleCustomAdapter extends ArrayAdapter<People> {
         TextView LastName;
         TextView FirstName;
         TextView Company;
+        TextView Role;
     }
 }
 

@@ -1,40 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/people_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp">
 
     <TextView
-        android:id="@+id/firstname"
-        android:layout_width="match_parent"
+        android:id="@+id/personLastName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="" />
+        android:text="@string/personsLastname"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lastname"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_toStartOf="@id/personLastName"
+        android:gravity="end"
+        android:hint="@string/personsLastname"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/personFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/personLastName"
+        android:text="@string/personsFirstname"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/firstname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/lastname"
+        android:layout_toStartOf="@id/personLastName"
+        android:gravity="end"
+        android:hint="@string/personsFirstname"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/personPhone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/personFirstName"
+        android:text="@string/personsPhone"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/phone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/firstname"
+        android:layout_toStartOf="@id/personPhone"
+        android:gravity="end"
+        android:hint="@string/personsPhone"
+        android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/idPeople"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/personCompany"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/personPhone"
+        android:text="@string/personsCompany"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/idCompany"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/company"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/phone"
+        android:layout_toStartOf="@id/personCompany"
+        android:gravity="end"
+        android:hint="@string/company"
+        android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/idRole"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:id="@+id/personRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/personCompany"
+        android:text="@string/personsRole"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@id/company"
+        android:layout_toStartOf="@id/personRole"
+        android:gravity="end"
+        android:hint="@string/role"
+        android:textColor="@android:color/black" />
+
+    <Button
+        android:id="@+id/editPeople"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:text="@string/editPeople" />
+
+</RelativeLayout>
