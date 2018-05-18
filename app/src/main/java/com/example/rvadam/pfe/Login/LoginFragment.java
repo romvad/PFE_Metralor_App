@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.rvadam.pfe.CameraFunctionality.CameraFunctionalityActivity;
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.TestCamera.TestCameraActivity;
 import com.example.rvadam.pfe.WelcomeListWorkSites.WelcomeListWorkSite;
@@ -133,8 +134,8 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(photoGalleryActivityCall);*/
                 /*Intent tabsOfPhotoActivityCall= new Intent(getActivity(), TabsOfPhotosActivity.class);
                 startActivity(tabsOfPhotoActivityCall);*/
-                Intent testCameraActivityCall= new Intent(getActivity(), TestCameraActivity.class);
-                startActivity(testCameraActivityCall);
+                Intent cameraFunctionalityActivityCall= new Intent(getActivity(), CameraFunctionalityActivity.class);
+                startActivity(cameraFunctionalityActivityCall);
 
 
 
