@@ -19,6 +19,7 @@
     <string name="cancel_alert_dialog">Annuler</string>
     <string name="label_choosed_file">Fichier choisi pour l\'upload</string>
     <string name="label_status_choosed_file">Statut du fichier : </string>
+    <string name="label_status_displayed_photo">Statut de la photo affichée : </string>
     <string name="status_choosed_file_READY">Prêt pour upload</string>
     <string name="status_choosed_file_UPLOADED">Enregistré</string>
     <string name="status_choosed_file_NOT_UPLOADED">Non enregistré</string>
@@ -54,5 +55,14 @@
     <string name="subtitle_technical_equipments_places">Emplacements des équipements techniques</string>
     <string name="subtitle_divisionary_board">tableau divisionnaire</string>
     <string name="subtitle_courses_divers">Cheminement/divers</string>
+    <string name="take_photo_button">Prendre une photo</string>
+    <string name="upload_taken_photo_button">Uploader cette photo</string>
+    <string name="back_to_camera_button">Reprendre une photo</string>
+    <string name="choose_existing_photo_button">Choisir une photo existante</string>
+
+    <string name="yes">OUI</string>
+    <string name="no">NON</string>
+    <string name="title_local_store_photo_alert_dialog">Conservation de la photo dans l\'appareil</string>
+    <string name="message_local_store_photo_alert_dialog">La photo sera sauvegardé dans le dossier \"Pictures\" de la carte SD</string>
 
 </resources>

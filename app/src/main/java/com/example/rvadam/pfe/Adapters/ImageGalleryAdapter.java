@@ -2,7 +2,6 @@ package com.example.rvadam.pfe.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,16 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 //import com.example.rvadam.pfe.AppGlideModule.GlideApp;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rvadam.pfe.AppGlideModule.GlideApp;
 import com.example.rvadam.pfe.Model.SpacePhoto;
 import com.example.rvadam.pfe.R;
-import com.example.rvadam.pfe.WorkSitePhotoGallery.PhotoGalleryActivity;
-import com.example.rvadam.pfe.WorkSitePhotoGallery.SpacePhotoActivity;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.rvadam.pfe.PhotoVisualization.PhotoVisualizationActivity;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -98,8 +93,8 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
             int position = getAdapterPosition();
             if(position != RecyclerView.NO_POSITION) {
                 SpacePhoto spacePhoto = mSpacePhotos.get(position);
-                Intent intent = new Intent(mContext, SpacePhotoActivity.class);
-                intent.putExtra(SpacePhotoActivity.EXTRA_SPACE_PHOTO, spacePhoto);
+                Intent intent = new Intent(mContext, PhotoVisualizationActivity.class);
+                intent.putExtra(PhotoVisualizationActivity.EXTRA_SPACE_PHOTO, spacePhoto);
                 mContext.startActivity(intent);
             }
         }

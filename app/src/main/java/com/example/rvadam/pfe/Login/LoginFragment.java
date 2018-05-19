@@ -30,7 +30,6 @@ import android.widget.TextView;
 
 import com.example.rvadam.pfe.CameraFunctionality.CameraFunctionalityActivity;
 import com.example.rvadam.pfe.R;
-import com.example.rvadam.pfe.TestCamera.TestCameraActivity;
 import com.example.rvadam.pfe.WelcomeListWorkSites.WelcomeListWorkSite;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.PhotoGalleryActivity;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.TabsOfPhotosActivity;
@@ -132,10 +131,10 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(fakeListOfWorksitesActivityCall);*/
                 /*Intent photoGalleryActivityCall= new Intent(getActivity(), PhotoGalleryActivity.class);
                 startActivity(photoGalleryActivityCall);*/
-                /*Intent tabsOfPhotoActivityCall= new Intent(getActivity(), TabsOfPhotosActivity.class);
-                startActivity(tabsOfPhotoActivityCall);*/
-                Intent cameraFunctionalityActivityCall= new Intent(getActivity(), CameraFunctionalityActivity.class);
-                startActivity(cameraFunctionalityActivityCall);
+                Intent tabsOfPhotoActivityCall= new Intent(getActivity(), TabsOfPhotosActivity.class);
+                startActivity(tabsOfPhotoActivityCall);
+                /*Intent cameraFunctionalityActivityCall= new Intent(getActivity(), CameraFunctionalityActivity.class);
+                startActivity(cameraFunctionalityActivityCall);*/
 
 
 

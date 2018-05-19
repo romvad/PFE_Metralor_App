@@ -1,5 +1,7 @@
 package com.example.rvadam.pfe.PhotoHandler;
 
+import android.net.Uri;
+
 import java.util.ArrayList;
 
 /**
@@ -27,5 +29,9 @@ public class PictureHistory {
 
     public String getLastPicturePath(){
         return history.get(history.size()-1);
+    }
+
+    public Uri getLastPicturePathUri(){
+        return Uri.parse(history.get(history.size()-1));
     }
 }

@@ -78,12 +78,14 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".WorkSiteListOfDocuments.FakeListWorksitesActivity" />
         <activity android:name=".WorkSitePhotoGallery.PhotoGalleryActivity" />
-        <activity android:name=".WorkSitePhotoGallery.SpacePhotoActivity" />
+        <activity android:name=".PhotoVisualization.SpacePhotoActivity" />
         <activity
             android:name=".WorkSitePhotoGallery.TabsOfPhotosActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".TestCamera.TestCameraActivity" />
-        <activity android:name=".CameraFunctionality.CameraFunctionalityActivity"></activity>
+        <activity android:name=".CameraFunctionality.CameraFunctionalityActivity" />
+        <activity android:name=".TakenPhotoVisualization.TakenPhotoVisualizationActivity" />
+        <activity android:name=".PhotoVisualization.PhotoVisualizationActivity"></activity>
     </application>
 
 </manifest>

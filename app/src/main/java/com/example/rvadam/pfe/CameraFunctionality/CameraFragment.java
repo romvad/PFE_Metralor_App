@@ -42,6 +42,7 @@ import android.widget.Toast;
 
 
 import com.example.rvadam.pfe.PhotoHandler.ImageSaver;
+import com.example.rvadam.pfe.PhotoVisualization.PhotoVisualizationFragment;
 import com.example.rvadam.pfe.R;
 
 import java.io.File;
@@ -88,6 +89,8 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         ORIENTATIONS.append(Surface.ROTATION_180, 270);
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
+
+    private String photoLocalName;
 
 
     private final TextureView.SurfaceTextureListener mSurfaceTextureListener = new TextureView.SurfaceTextureListener() {
@@ -168,6 +171,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
             try {
                 File image = createImageFileName();
                 mBackgroundHandler.post(new ImageSaver(reader.acquireNextImage(), image));
+                returnToPhotoVisualizationActivity();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -175,13 +179,22 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
 
     };
 
-    public static CameraFragment newInstance() {
-        return new CameraFragment();
+    private void returnToPhotoVisualizationActivity() {
+        Intent intent = new Intent(getActivity(), PhotoVisualizationFragment.class);
+        getActivity().setResult(Activity.RESULT_OK,intent);
+        getActivity().finish();
     }
+
+    /*public static CameraFragment newInstance() {
+        return new CameraFragment();
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        photoLocalName=getArguments().getString(PhotoVisualizationFragment.PHOTO_NAME_KEY);
+
     }
 
     @Override
@@ -524,7 +537,7 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
      */
     private File createImageFileName() throws IOException {
         String timestamp = new SimpleDateFormat("ddMMyyyy_HHmmss", Locale.FRANCE).format(new Date());
-        String imageName = "IMAGE_" + timestamp + ".jpg";
+        String imageName = photoLocalName;
         File path = Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES);
         File imageFile = new File(path, imageName);
