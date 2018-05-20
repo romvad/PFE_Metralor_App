@@ -34,6 +34,7 @@ import com.example.rvadam.pfe.TestLoginWithMSAL.LoginActivity;
 import com.example.rvadam.pfe.Utils.DocumentsManager;
 import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.example.rvadam.pfe.Utils.WorkSitesManager;
+import com.example.rvadam.pfe.WorkSiteListOfDocuments.FakeListWorksitesActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -98,11 +99,11 @@ public class PhotoVisualizationFragment extends Fragment {
         String relativePath= photoAtStake.getmFBStorageUrl();
         String photoIdWorksite=photoAtStake.getmIdWorkSite();
         final String absolutePath=photoIdWorksite+"/"+relativePath;
-        //fullRef=ref.child(absolutePath);
+        fullRef=ref.child(absolutePath);
         //Log.i(TAG,"storage ref "+fullRef);
 
-        //displayPhotoWithStorageReference(fullRef);
-        displayPhotoWithStorageReference(ref);
+        displayPhotoWithStorageReference(fullRef);
+        //displayPhotoWithStorageReference(ref);
         checkPhotoUploaded();
         if(isPhotoUploaded){
             updatePhotoStatus(FileStatus.UPLOADED);
@@ -115,13 +116,14 @@ public class PhotoVisualizationFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Log.i(TAG,"take photo button call");
-                Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+               Intent intent = new Intent(getActivity(), CameraFunctionalityActivity.class);
                 Log.i(TAG,"after new intent");
-                WorkSite w=WorkSitesManager.getWorkSiteById(photoAtStake.getmIdWorkSite());
-                photoLocalName= w.getName()+"-"+photoAtStake.getTitle();
-                intent.putExtra(PHOTO_NAME_KEY, photoLocalName);
-               // startActivityForResult(intent,TAKE_PHOTO_REQUEST);
-                startActivity(intent);
+                Log.i(TAG,"worksite id photo "+photoAtStake.getmIdWorkSite());
+               WorkSite w=WorkSitesManager.getWorkSiteById(photoAtStake.getmIdWorkSite());
+               photoLocalName= w.getName()+"-"+photoAtStake.getTitle();
+               intent.putExtra(PHOTO_NAME_KEY, photoLocalName);
+               startActivityForResult(intent,TAKE_PHOTO_REQUEST);
+                //startActivity(intent);
                 Log.i(TAG,"after start activity");
                /* Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 Log.i(TAG,"take picture intent");
@@ -153,7 +155,7 @@ public class PhotoVisualizationFragment extends Fragment {
 
     private void displayPhotoWithStorageReference(StorageReference fullRef) {
         GlideApp.with(getActivity().getApplicationContext())
-                .load("")
+                .load(fullRef)
                 .placeholder(R.mipmap.ic_image_not_available)
                 .error(R.mipmap.ic_image_not_available)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -293,12 +295,12 @@ public class PhotoVisualizationFragment extends Fragment {
     }
 
     private void checkPhotoUploaded() {
-        /*fullRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        fullRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 isPhotoUploaded = true;
             }
-        });*/
+        });
     }
 
 }

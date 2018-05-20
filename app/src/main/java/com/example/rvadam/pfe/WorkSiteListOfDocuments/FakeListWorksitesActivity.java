@@ -17,6 +17,7 @@ public class FakeListWorksitesActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fake_list_worksites);
 
         Button button=(Button) findViewById(R.id.buttonToListsofDocuments);
+        Button button1=(Button) findViewById(R.id.buttonToListsofPhotos);
         //Retrivement of worksites list, normally called in List of Worksites activity
         FirebaseDBWorkSitesHelper.getListOfWorkSites();
 
@@ -25,6 +26,13 @@ public class FakeListWorksitesActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent testTabsOfListOfDocumentsActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity.class);
                 startActivity(testTabsOfListOfDocumentsActivityCall);
+            }
+        });
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tabsOfPhotosActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSitePhotoGallery.TabsOfPhotosActivity.class);
+                startActivity(tabsOfPhotosActivityCall);
             }
         });
     }

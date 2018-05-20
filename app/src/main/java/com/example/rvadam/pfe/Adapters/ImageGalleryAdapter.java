@@ -59,13 +59,13 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         String relativePath= spacePhoto.getmFBStorageUrl();
         String photoIdWorksite=spacePhoto.getmIdWorkSite();
         String absolutePath=photoIdWorksite+"/"+relativePath;
-        //StorageReference fullRef=ref.child(absolutePath);
+        StorageReference fullRef=ref.child(absolutePath);
 
         //Log.i(TAG,"storage ref "+fullRef);
 
 
         GlideApp.with(mContext)
-                .load("")
+                .load(fullRef)
                 .placeholder(R.mipmap.ic_image_not_available)
                 .error(R.mipmap.ic_image_not_available)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
