@@ -33,6 +33,7 @@ import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.WelcomeListWorkSites.WelcomeListWorkSite;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.PhotoGalleryActivity;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.TabsOfPhotosActivity;
+import com.example.rvadam.pfe.WriteImagesInPDF.WriteImagesInPDFActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,14 +128,16 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
                 startActivity(testFirebaseStorageBisActivityCall);*/
                 /*Intent testTabsOfListOfDocumentsActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity.class);
                 startActivity(testTabsOfListOfDocumentsActivityCall);*/
-                Intent fakeListOfWorksitesActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.FakeListWorksitesActivity.class);
-                startActivity(fakeListOfWorksitesActivityCall);
+                /*Intent fakeListOfWorksitesActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.FakeListWorksitesActivity.class);
+                startActivity(fakeListOfWorksitesActivityCall);*/
                 /*Intent photoGalleryActivityCall= new Intent(getActivity(), PhotoGalleryActivity.class);
                 startActivity(photoGalleryActivityCall);*/
                 /*Intent tabsOfPhotoActivityCall= new Intent(getActivity(), TabsOfPhotosActivity.class);
                 startActivity(tabsOfPhotoActivityCall);*/
                 /*Intent cameraFunctionalityActivityCall= new Intent(getActivity(), CameraFunctionalityActivity.class);
                 startActivity(cameraFunctionalityActivityCall);*/
+                Intent writeImagesInPDFActivityCall= new Intent(getActivity(), WriteImagesInPDFActivity.class);
+                startActivity(writeImagesInPDFActivityCall);
 
 
 
