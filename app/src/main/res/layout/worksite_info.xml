@@ -1,13 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="10dp">
 
     <TextView
-        android:id="@+id/worksiteInfo"
-        android:layout_width="match_parent"
-        android:textSize="25dp"
-        android:layout_height="match_parent"
-        android:text="@string/name_for_layout_mapping_worksite_info_from_db" />
+        android:id="@+id/worksiteName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/worksite_name"
+        android:textColor="@android:color/black"
+        android:textSize="25sp"
+        android:textStyle="bold" />
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        tools:ignore="RelativeOverlap">
+
+        <TextView
+            android:id="@+id/worksiteType"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/worksite_type"
+            android:textColor="@android:color/black"
+            android:gravity="end" />
+
+        <TextView
+            android:id="@+id/worksiteVIC"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/worksite_vic"
+            android:textColor="@android:color/black"
+            android:gravity="end" />
+    </LinearLayout>
+
+</RelativeLayout>

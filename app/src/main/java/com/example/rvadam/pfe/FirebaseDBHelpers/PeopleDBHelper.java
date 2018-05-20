@@ -49,6 +49,7 @@ public class PeopleDBHelper {
         List<People> listPeople = currentStatesPeopleList.getCurrentPeopleList();
 
         Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
+        listPeople.clear();
 
         for (DataSnapshot snapshot : dataList) {
             People people = snapshot.getValue(People.class);

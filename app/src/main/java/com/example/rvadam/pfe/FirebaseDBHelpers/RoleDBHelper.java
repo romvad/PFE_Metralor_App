@@ -48,6 +48,7 @@ public class RoleDBHelper {
         Map<String, String> mapRoles = currentStatesPeopleList.getRolesMap();
 
         Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
+        mapRoles.clear();
 
         for (DataSnapshot snapshot : dataList) {
             Role role = snapshot.getValue(Role.class);

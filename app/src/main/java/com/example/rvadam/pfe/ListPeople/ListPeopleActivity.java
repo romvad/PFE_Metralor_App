@@ -15,6 +15,8 @@ import com.example.rvadam.pfe.R;
  */
 
 public class ListPeopleActivity extends AppCompatActivity {
+    private static final String TAG = "ListPeopleActivity";
+
     // Create an instance of ListPeopleFragment
     ListPeopleFragment listPeopleFragment = new ListPeopleFragment();
     PeopleDBHelper peopleDBHelper;
@@ -49,7 +51,7 @@ public class ListPeopleActivity extends AppCompatActivity {
 
             // Add the fragment to the 'fragment_container' FrameLayout
             FragmentTransaction ft = getFragmentManager().beginTransaction();
-            ft.add(R.id.listPeopleFragment_container, listPeopleFragment).commit();
+            ft.replace(R.id.listPeopleFragment_container, listPeopleFragment).commit();
         }
 
     }

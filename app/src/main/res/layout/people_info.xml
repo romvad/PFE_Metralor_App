@@ -8,19 +8,27 @@
         android:id="@+id/personLastName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
         android:text="@string/personsLastname"
         android:textColor="@android:color/black"
-        android:textSize="25dp"
+        android:textSize="25sp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/personFirstName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/personLastName"
+        android:layout_alignStart="@+id/personLastName"
         android:layout_below="@+id/personLastName"
         android:text="@string/personsFirstname"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/personRole"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/personLastName"
+        android:layout_alignEnd="@+id/personCompany"
+        android:text="@string/personsRole"
         android:textColor="@android:color/black" />
 
     <TextView
@@ -32,15 +40,5 @@
         android:layout_marginEnd="12dp"
         android:text="@string/personsCompany"
         android:textColor="@android:color/black" />
-
-    <TextView
-        android:id="@+id/personRole"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/personLastName"
-        android:layout_alignRight="@+id/personCompany"
-        android:text="@string/personsRole"
-        android:textColor="@android:color/black" />
-
 
 </RelativeLayout>

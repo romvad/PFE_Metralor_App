@@ -13,8 +13,9 @@ import com.example.rvadam.pfe.R;
  */
 
 public class PeopleActivity extends AppCompatActivity {
-    private static People innerPeople;
     private static final String TAG = "PeopleActivity";
+
+    private static People innerPeople;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

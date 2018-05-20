@@ -29,20 +29,31 @@
     <string name="tab_other_documents">Autres documents</string>
     <string name="tab_security_documents">Documents de sécurité</string>
     <string name="tab_plan_documents">Plans</string>
-    <string name="name_for_layout_mapping_worksite_info_from_db">Nom du chantier : </string>
+    <string name="choose">Choisir</string>
+
+    <!-- Strings related to worksite -->
+    <string name="worksite_name">Nom du chantier</string>
+    <string name="edit_worksite_name">XXX</string>
+    <string name="worksite_type">Type du chantier</string>
+    <string name="choose_worksite_type">Type</string>
+    <string name="worksite_adress">Adresse</string>
+    <string name="worksite_adress_number">Numéro de rue</string>
+    <string name="edit_worksite_adress_number">12</string>
+    <string name="worksite_adress_road">Nom de rue</string>
+    <string name="edit_worksite_adress_road">Rue ....</string>
+    <string name="worksite_adress_code">Code postal</string>
+    <string name="edit_worksite_adress_code">01234</string>
+
+    <string name="worksite_vic">VIC non renseignée</string>
+    <string name="create_worksite">Créer ce chantier</string>
+    <string name="manage_worksites">Gérer les chantiers</string>
+
+    <!-- Strings related to people -->
     <string name="personsLastname">Nom</string>
     <string name="personsFirstname">Prénom</string>
     <string name="personsCompany">Entreprise</string>
     <string name="personsRole">Role</string>
     <string name="personsPhone">Numero de téléphone</string>
-    <string name="add_name">Nom du chantier</string>
-    <string name="add_type">Type du chantier</string>
-    <string name="add_vic">Date de VIC</string>
-    <string name="add_adress">Adresse du chantier</string>
-    <string name="create_worksite">Créer ce chantier</string>
-    <string name="choose">Choisir</string>
-    <string name="manage_worksites">Gérer les chantiers</string>
-    <string name="manage_people">Gérer les personnes</string>
     <string name="firstname">Prénom</string>
     <string name="lastname">Nom de famille</string>
     <string name="phone">Numéro</string>
@@ -50,5 +61,8 @@
     <string name="company">Entreprise</string>
     <string name="role">Rôle</string>
     <string name="editPeople">Modifier</string>
+    <string name="manage_people">Gérer les personnes</string>
+
+    <string name="create">Créer</string>
 
 </resources>

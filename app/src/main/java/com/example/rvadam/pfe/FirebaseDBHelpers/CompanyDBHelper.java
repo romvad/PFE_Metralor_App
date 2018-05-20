@@ -48,6 +48,7 @@ public class CompanyDBHelper {
         Map<String, String> mapCompanies = currentStatesPeopleList.getCompaniesMap();
 
         Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
+        mapCompanies.clear();
 
         for (DataSnapshot snapshot : dataList) {
             Company company = snapshot.getValue(Company.class);
