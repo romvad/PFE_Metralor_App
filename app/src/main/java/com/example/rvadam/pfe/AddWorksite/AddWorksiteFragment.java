@@ -1,19 +1,8 @@
 package com.example.rvadam.pfe.AddWorksite;
 
-import android.Manifest;
 import android.app.Fragment;
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +17,6 @@ import com.example.rvadam.pfe.FirebaseDBHelpers.TypeWorksiteDBHelper;
 import com.example.rvadam.pfe.Model.CurrentStatesWorksitesList;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +37,7 @@ public class AddWorksiteFragment extends Fragment {
     private String addressRoad;
     private String addressCity;
     private String addressCode;
+    private String address;
     Spinner mWorksiteType;
     EditText mWorksiteName;
     EditText mWorksiteAddressNumber;
@@ -116,9 +102,7 @@ public class AddWorksiteFragment extends Fragment {
         createWorksite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getAddress();
-                String address = addressNumber+" "+addressRoad+", "+addressCity+", "+addressCode;
-                Toast.makeText(getActivity(), "Adresse : "+ address, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Adresse : " + address, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -146,5 +130,7 @@ public class AddWorksiteFragment extends Fragment {
         addressRoad = String.valueOf(mWorksiteAddressRoad.getText());
         addressCity = String.valueOf(mWorksiteAddressCity.getText());
         addressCode = String.valueOf(mWorksiteAddressCode.getText());
+
+        address = addressNumber + " " + addressRoad + ", " + addressCity + ", " + addressCode;
     }
 }
