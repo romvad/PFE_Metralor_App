@@ -3,6 +3,7 @@ package com.example.rvadam.pfe.PhotoVisualization;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -66,6 +67,8 @@ public class PhotoVisualizationFragment extends Fragment {
     private boolean isPhotoUploaded;
 
     private StorageReference fullRef;
+
+    private boolean isOffLineUploading=false;
 
     private ProgressDialog progressDialog;
 
@@ -195,21 +198,26 @@ public class PhotoVisualizationFragment extends Fragment {
 
     private void uploadPhoto() {
 
+        //Store context for displaying toast even if the activity is destroyed, especially when there is an offline uploading that is effective when network works again
+        final Context context=getActivity().getApplicationContext();
         displayUploadEvolution();
 
         fullRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 progressDialog.dismiss();
-                Toast.makeText(getActivity().getApplicationContext(), "Le fichier \"" + photoAtStake.getTitle() + "\" a été uploadé avec succès", Toast.LENGTH_LONG).show();
-                updatePhotoStatus(FileStatus.UPLOADED);
-                uploadChoosedPhotoButton.setEnabled(false);
+                Toast.makeText(context, "Le fichier \"" + photoAtStake.getTitle() + "\" a été uploadé avec succès", Toast.LENGTH_LONG).show();
+                if(!isOffLineUploading){
+                    updatePhotoStatus(FileStatus.UPLOADED);
+                    uploadChoosedPhotoButton.setEnabled(false);
+                }
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 progressDialog.dismiss();
-                Toast.makeText(getActivity().getApplicationContext(), exception.getMessage(), Toast.LENGTH_LONG);
+                Toast.makeText(context, exception.getMessage(), Toast.LENGTH_LONG);
             }
         }).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -286,9 +294,11 @@ public class PhotoVisualizationFragment extends Fragment {
         PhotoVisualizationActivity photoVisualizationActivity = (PhotoVisualizationActivity) getActivity();
 
         if(InternetConnectionTools.isNetworkAvailable(photoVisualizationActivity.getActivity())) {
+            isOffLineUploading=false;
             progressDialog.show();
 
         }else {
+            isOffLineUploading=true;
             Toast.makeText(photoVisualizationActivity.getApplicationContext(), getResources().getString(R.string.upload_file_waiting_internet_connection_1) +"\""+ photoAtStake.getTitle()+"\" "+getResources().getString(R.string.upload_file_waiting_internet_connection_2), Toast.LENGTH_LONG).show();
 
         }
