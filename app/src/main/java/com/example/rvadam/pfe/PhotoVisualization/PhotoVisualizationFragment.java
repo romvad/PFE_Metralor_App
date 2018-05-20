@@ -166,7 +166,7 @@ public class PhotoVisualizationFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.i(TAG,"onActivityResult called with request code "+requestCode+ "and resultCode "+resultCode);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             filePath=data.getData();

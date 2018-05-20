@@ -1,6 +1,7 @@
 package com.example.rvadam.pfe.PhotoHandler;
 
 import android.media.Image;
+import android.net.Uri;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,7 +36,7 @@ public class ImageSaver implements Runnable {
         try {
             output = new FileOutputStream(mFile);
             output.write(bytes);
-            PictureHistory.getInstance().addPath(mFile.getAbsolutePath());
+            PictureHistory.getInstance().addPath(Uri.fromFile(mFile));
         } catch (IOException e) {
             e.printStackTrace();
         } finally {

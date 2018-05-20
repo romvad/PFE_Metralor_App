@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 
 public class PictureHistory {
-    private static ArrayList<String> history;
+    private static ArrayList<Uri> history;
     private static PictureHistory instance;
 
     private PictureHistory(){
@@ -23,15 +23,15 @@ public class PictureHistory {
         return instance;
     }
 
-    public void addPath(String s){
-        history.add(s);
+    public void addPath(Uri uri){
+        history.add(uri);
     }
 
-    public String getLastPicturePath(){
+    /*public String getLastPicturePath(){
         return history.get(history.size()-1);
-    }
+    }*/
 
     public Uri getLastPicturePathUri(){
-        return Uri.parse(history.get(history.size()-1));
+        return history.get(history.size()-1);
     }
 }
