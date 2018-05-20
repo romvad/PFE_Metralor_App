@@ -36,13 +36,15 @@
     <string name="edit_worksite_name">XXX</string>
     <string name="worksite_type">Type du chantier</string>
     <string name="choose_worksite_type">Type</string>
-    <string name="worksite_adress">Adresse</string>
-    <string name="worksite_adress_number">Numéro de rue</string>
-    <string name="edit_worksite_adress_number">12</string>
-    <string name="worksite_adress_road">Nom de rue</string>
-    <string name="edit_worksite_adress_road">Rue ....</string>
-    <string name="worksite_adress_code">Code postal</string>
-    <string name="edit_worksite_adress_code">01234</string>
+    <string name="worksite_address">Adresse</string>
+    <string name="worksite_address_number">Numéro de rue</string>
+    <string name="edit_worksite_address_number">12</string>
+    <string name="worksite_address_road">Nom de rue</string>
+    <string name="edit_worksite_address_road">Rue ....</string>
+    <string name="worksite_address_city">Ville</string>
+    <string name="edit_worksite_address_city">Abcd</string>
+    <string name="worksite_address_code">Code postal</string>
+    <string name="edit_worksite_address_code">01234</string>
 
     <string name="worksite_vic">VIC non renseignée</string>
     <string name="create_worksite">Créer ce chantier</string>

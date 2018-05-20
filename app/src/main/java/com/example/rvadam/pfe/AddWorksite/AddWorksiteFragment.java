@@ -48,14 +48,16 @@ public class AddWorksiteFragment extends Fragment {
     ArrayAdapter<String> spinnerAdapter;
     private String name;
     private String type;
-    private String adressNumber;
-    private String adressRoad;
-    private String adressCode;
+    private String addressNumber;
+    private String addressRoad;
+    private String addressCity;
+    private String addressCode;
     Spinner mWorksiteType;
     EditText mWorksiteName;
-    EditText mWorksiteAdressNumber;
-    EditText mWorksiteAdressRoad;
-    EditText mWorksiteAdressCode;
+    EditText mWorksiteAddressNumber;
+    EditText mWorksiteAddressRoad;
+    EditText mWorksiteAddressCity;
+    EditText mWorksiteAddressCode;
     Button createWorksite;
     double lat;
     double lng;
@@ -83,9 +85,10 @@ public class AddWorksiteFragment extends Fragment {
 
         mWorksiteName = (EditText) getActivity().findViewById(R.id.editWorksiteName);
         mWorksiteType = (Spinner) getActivity().findViewById(R.id.addTypeSpinner);
-        mWorksiteAdressNumber = (EditText) getActivity().findViewById(R.id.editWorksiteAdressNumber);
-        mWorksiteAdressRoad = (EditText) getActivity().findViewById(R.id.editWorksiteAdressRoad);
-        mWorksiteAdressCode = (EditText) getActivity().findViewById(R.id.editWorksiteAdressCode);
+        mWorksiteAddressNumber = (EditText) getActivity().findViewById(R.id.editWorksiteAddressNumber);
+        mWorksiteAddressRoad = (EditText) getActivity().findViewById(R.id.editWorksiteAddressRoad);
+        mWorksiteAddressCity = (EditText) getActivity().findViewById(R.id.editWorksiteAddressCity);
+        mWorksiteAddressCode = (EditText) getActivity().findViewById(R.id.editWorksiteAddressCode);
         createWorksite = (Button) getActivity().findViewById(R.id.createWorksite);
 
         //wCreate = new WorkSite();
@@ -113,7 +116,9 @@ public class AddWorksiteFragment extends Fragment {
         createWorksite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getAddress();
+                String address = addressNumber+" "+addressRoad+", "+addressCity+", "+addressCode;
+                Toast.makeText(getActivity(), "Adresse : "+ address, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,7 +132,7 @@ public class AddWorksiteFragment extends Fragment {
         mWorksiteType.setAdapter(spinnerAdapter);
     }
 
-    public void createWorksite(String name, String type, String adressNumber, String adressRoad, String adressCode, List<String> listPeople) {
+    public void createWorksite(String name, String type, String addressNumber, String addressRoad, String addressCode, List<String> listPeople) {
 
     }
 
@@ -137,8 +142,9 @@ public class AddWorksiteFragment extends Fragment {
     }
 
     public void getAddress() {
-        adressNumber = String.valueOf(mWorksiteAdressNumber.getText());
-        adressRoad = String.valueOf(mWorksiteAdressRoad.getText());
-        adressCode = String.valueOf(mWorksiteAdressCode.getText());
+        addressNumber = String.valueOf(mWorksiteAddressNumber.getText());
+        addressRoad = String.valueOf(mWorksiteAddressRoad.getText());
+        addressCity = String.valueOf(mWorksiteAddressCity.getText());
+        addressCode = String.valueOf(mWorksiteAddressCode.getText());
     }
 }
