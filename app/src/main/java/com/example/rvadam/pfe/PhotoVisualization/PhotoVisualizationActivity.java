@@ -33,7 +33,9 @@ public class PhotoVisualizationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo_visualization);
 
-        SpacePhoto spacePhoto = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
+        //SpacePhoto spacePhoto = getIntent().getParcelableExtra(EXTRA_SPACE_PHOTO);
+        Bundle bundle1=getIntent().getBundleExtra(EXTRA_SPACE_PHOTO);
+        SpacePhoto spacePhoto=bundle1.getParcelable(EXTRA_SPACE_PHOTO);
         FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         PhotoVisualizationFragment photoVisualizationFragment = new PhotoVisualizationFragment();

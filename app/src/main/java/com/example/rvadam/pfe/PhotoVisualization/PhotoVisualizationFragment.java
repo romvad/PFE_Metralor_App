@@ -5,9 +5,11 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
@@ -28,6 +30,7 @@ import com.example.rvadam.pfe.Model.SpacePhoto;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.PhotoHandler.PictureHistory;
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.TestLoginWithMSAL.LoginActivity;
 import com.example.rvadam.pfe.Utils.DocumentsManager;
 import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.example.rvadam.pfe.Utils.WorkSitesManager;
@@ -52,6 +55,7 @@ public class PhotoVisualizationFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST =234 ;
     private static final int TAKE_PHOTO_REQUEST=100;
     public static final String PHOTO_NAME_KEY="photo name key";
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
     private ImageView mImageView;
     private Button takePhotoButton;
     private Button chooseExistingPhotoButton;
@@ -94,10 +98,11 @@ public class PhotoVisualizationFragment extends Fragment {
         String relativePath= photoAtStake.getmFBStorageUrl();
         String photoIdWorksite=photoAtStake.getmIdWorkSite();
         final String absolutePath=photoIdWorksite+"/"+relativePath;
-        fullRef=ref.child(absolutePath);
-        Log.i(TAG,"storage ref "+fullRef);
+        //fullRef=ref.child(absolutePath);
+        //Log.i(TAG,"storage ref "+fullRef);
 
-        displayPhotoWithStorageReference(fullRef);
+        //displayPhotoWithStorageReference(fullRef);
+        displayPhotoWithStorageReference(ref);
         checkPhotoUploaded();
         if(isPhotoUploaded){
             updatePhotoStatus(FileStatus.UPLOADED);
@@ -109,12 +114,20 @@ public class PhotoVisualizationFragment extends Fragment {
         takePhotoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), CameraFunctionalityActivity.class);
+                Log.i(TAG,"take photo button call");
+                Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
+                Log.i(TAG,"after new intent");
                 WorkSite w=WorkSitesManager.getWorkSiteById(photoAtStake.getmIdWorkSite());
                 photoLocalName= w.getName()+"-"+photoAtStake.getTitle();
                 intent.putExtra(PHOTO_NAME_KEY, photoLocalName);
-                //intent.putExtra(CameraFunctionalityActivity.FB_STORAGE_PATH, absolutePath);
-                startActivityForResult(intent,TAKE_PHOTO_REQUEST);
+               // startActivityForResult(intent,TAKE_PHOTO_REQUEST);
+                startActivity(intent);
+                Log.i(TAG,"after start activity");
+               /* Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Log.i(TAG,"take picture intent");
+                if (takePictureIntent.resolveActivity(getActivity().getPackageManager()) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                }*/
             }
         });
 
@@ -140,7 +153,7 @@ public class PhotoVisualizationFragment extends Fragment {
 
     private void displayPhotoWithStorageReference(StorageReference fullRef) {
         GlideApp.with(getActivity().getApplicationContext())
-                .load(fullRef)
+                .load("")
                 .placeholder(R.mipmap.ic_image_not_available)
                 .error(R.mipmap.ic_image_not_available)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -160,6 +173,10 @@ public class PhotoVisualizationFragment extends Fragment {
         }else if (requestCode==TAKE_PHOTO_REQUEST && resultCode == RESULT_OK){
             filePath=PictureHistory.getInstance().getLastPicturePathUri();
             displayPhotoWithUri(filePath);
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageView.setImageBitmap(imageBitmap);
         }
         uploadChoosedPhotoButton.setEnabled(true);
     }
@@ -276,12 +293,12 @@ public class PhotoVisualizationFragment extends Fragment {
     }
 
     private void checkPhotoUploaded() {
-        fullRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+        /*fullRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 isPhotoUploaded = true;
             }
-        });
+        });*/
     }
 
 }

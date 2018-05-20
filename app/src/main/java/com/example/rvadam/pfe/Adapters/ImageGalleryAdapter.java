@@ -2,6 +2,7 @@ package com.example.rvadam.pfe.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -58,13 +59,13 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         String relativePath= spacePhoto.getmFBStorageUrl();
         String photoIdWorksite=spacePhoto.getmIdWorkSite();
         String absolutePath=photoIdWorksite+"/"+relativePath;
-        StorageReference fullRef=ref.child(absolutePath);
+        //StorageReference fullRef=ref.child(absolutePath);
 
-        Log.i(TAG,"storage ref "+fullRef);
+        //Log.i(TAG,"storage ref "+fullRef);
 
 
         GlideApp.with(mContext)
-                .load(fullRef)
+                .load("")
                 .placeholder(R.mipmap.ic_image_not_available)
                 .error(R.mipmap.ic_image_not_available)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -94,7 +95,9 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
             if(position != RecyclerView.NO_POSITION) {
                 SpacePhoto spacePhoto = mSpacePhotos.get(position);
                 Intent intent = new Intent(mContext, PhotoVisualizationActivity.class);
-                intent.putExtra(PhotoVisualizationActivity.EXTRA_SPACE_PHOTO, spacePhoto);
+                Bundle bundle=new Bundle();
+                bundle.putParcelable(PhotoVisualizationActivity.EXTRA_SPACE_PHOTO,spacePhoto);
+                intent.putExtra(PhotoVisualizationActivity.EXTRA_SPACE_PHOTO, bundle);
                 mContext.startActivity(intent);
             }
         }
