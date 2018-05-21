@@ -70,5 +70,6 @@
     <string name="select">Selectionner</string>
     <string name="select_people">Choisir des personnes</string>
     <string name="choose_persons">Valider mon choix</string>
+    <string name="worksite_people">Personnes</string>
 
 </resources>

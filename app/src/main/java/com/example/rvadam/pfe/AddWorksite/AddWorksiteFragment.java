@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.example.rvadam.pfe.LocationHelper.LocationHelper;
 import com.example.rvadam.pfe.Model.CurrentStatesWorksitesList;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.Utils.PeopleManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -51,6 +53,7 @@ public class AddWorksiteFragment extends Fragment {
     EditText mWorksiteAddressRoad;
     EditText mWorksiteAddressCity;
     EditText mWorksiteAddressCode;
+    ListView mWorksiteListOfPeople;
     Button createWorksite;
     Button selectPeople;
 
@@ -82,6 +85,7 @@ public class AddWorksiteFragment extends Fragment {
         mWorksiteAddressRoad = (EditText) getActivity().findViewById(R.id.editWorksiteAddressRoad);
         mWorksiteAddressCity = (EditText) getActivity().findViewById(R.id.editWorksiteAddressCity);
         mWorksiteAddressCode = (EditText) getActivity().findViewById(R.id.editWorksiteAddressCode);
+        mWorksiteListOfPeople = (ListView) getActivity().findViewById(R.id.listOfPeopleSelected);
         selectPeople = (Button) getActivity().findViewById(R.id.select_people_button);
         createWorksite = (Button) getActivity().findViewById(R.id.createWorksite);
 
@@ -123,6 +127,13 @@ public class AddWorksiteFragment extends Fragment {
         if (requestCode == CHOOSE_PERSON_REQUEST && resultCode == RESULT_OK && data != null) {
             String[] aaaa = data.getStringArrayExtra(ListPeopleActivity.transfertLoPeople);
             Log.i(TAG, "Array of people selected : " + Arrays.toString(aaaa));
+            String[] listOfPeopleSelected = new String[aaaa.length];
+            for (int i = 0; i < aaaa.length; i++) {
+                listOfPeopleSelected[i] = PeopleManager.getPeopleLastNameByPeople(aaaa[i]) + " " + PeopleManager.getPeopleFirstNameById(aaaa[i]);
+            }
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfPeopleSelected);
+            mWorksiteListOfPeople.setAdapter(adapter);
         }
 
     }

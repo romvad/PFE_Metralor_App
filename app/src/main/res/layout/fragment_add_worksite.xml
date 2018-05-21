@@ -221,6 +221,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wAddress">
 
+        <TextView
+            android:id="@+id/worksitePeople"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/worksite_people"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <ListView
+            android:id="@+id/listOfPeopleSelected"
+            android:layout_width="match_parent"
+            android:layout_height="100dp">
+
+        </ListView>
+
         <Button
             android:id="@+id/select_people_button"
             android:layout_width="match_parent"
