@@ -64,5 +64,6 @@
     <string name="no">NON</string>
     <string name="title_local_store_photo_alert_dialog">Conservation de la photo dans l\'appareil</string>
     <string name="message_local_store_photo_alert_dialog">La photo sera sauvegardé dans le dossier \"Pictures\" de la carte SD</string>
+    <string name="progress_dialog_photos_retrivement">Récupération des photos</string>
 
 </resources>

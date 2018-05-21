@@ -1,13 +1,16 @@
 package com.example.rvadam.pfe.WriteImagesInPDF;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.CancellationSignal;
 import android.os.ParcelFileDescriptor;
 import android.print.PageRange;
@@ -16,12 +19,19 @@ import android.print.PrintDocumentAdapter;
 import android.print.PrintDocumentInfo;
 import android.print.PrintManager;
 import android.print.pdf.PrintedPdfDocument;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.rvadam.pfe.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,6 +45,13 @@ import java.util.concurrent.ExecutionException;
 public class WriteImagesInPDFActivity extends Activity {
 private List<Bitmap> bitmap;
 private  Button button;
+private ProgressDialog progressDialog;
+private static final String TAG = "WriteImagesInPDFAc";
+private boolean isWholeUrlsDownloadsRetrieved=false;
+
+    public ProgressDialog getProgressDialog() {
+        return progressDialog;
+    }
 
     public Button getButton() {
         return button;
@@ -51,22 +68,50 @@ private  Button button;
 
         bitmap=new ArrayList<Bitmap>();
         button= (Button) findViewById(R.id.buttonPrint);
-        button.setEnabled(false);
+       // button.setEnabled(false);
 
-        String[] strArray= {"https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2014/05/IMG_6424-1300x866.jpg"};
-        ImageRetriever ir= new ImageRetriever(this);
-        try {
-           ir.execute(strArray).get();
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                StorageReference ref = FirebaseStorage.getInstance().getReference();
+                StorageReference refPhoto=ref.child("-LBw-rNjtmo9G70LUU2Z/COURSES_ACCESS/MEANS_OF_ACCESS/boite_a_cles.jpg");
+                Log.i(TAG,"refPhoto "+refPhoto);
+                final String[] strArray = new String[1];
+                refPhoto.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        Log.i(TAG,"getDownloadUrl successfull");
+                        strArray[0]=uri.toString();
+                        isWholeUrlsDownloadsRetrieved=true;
 
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+                        if(isWholeUrlsDownloadsRetrieved){
+                            ImageRetriever ir= new ImageRetriever(getActivity());
+                            ir.execute(strArray);
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(),"Erreur de récupération de la photo depuis le cloud",Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                //String[] strArray= {"https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2014/05/IMG_6424-1300x866.jpg"};
+
+
+            }
+        });
+
+
+    }
+
+    WriteImagesInPDFActivity getActivity(){
+        return this;
     }
 
 
-        public void printDocument(View view)
+        public void printDocument()
         {//First method executed
 
             PrintManager printManager = (PrintManager) this
@@ -138,8 +183,9 @@ private  Button button;
                 //Test with images
 
                 Paint p =new Paint();
-                canvas.drawBitmap(bitmap.get(0),0,10,p);
-                canvas.drawBitmap(bitmap.get(0),0,10,p);
+                Rect rectDest= new Rect(leftMargin,0,100,100);
+                canvas.drawBitmap(bitmap.get(0),null,rectDest,p);
+                //canvas.drawBitmap(bitmap.get(0),0,10,p);
 
                 /*canvas.drawCircle(pageInfo.getPageWidth()/2,
                         pageInfo.getPageHeight()/2,
