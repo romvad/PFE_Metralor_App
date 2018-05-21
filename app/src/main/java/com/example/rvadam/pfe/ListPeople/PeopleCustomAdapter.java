@@ -1,16 +1,19 @@
 package com.example.rvadam.pfe.ListPeople;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.example.rvadam.pfe.Model.CurrentStatesPeopleList;
 import com.example.rvadam.pfe.Model.People;
+import com.example.rvadam.pfe.People.PeopleActivity;
 import com.example.rvadam.pfe.R;
 
 import java.util.ArrayList;
@@ -22,9 +25,11 @@ import java.util.Map;
 
 public class PeopleCustomAdapter extends ArrayAdapter<People> {
     private static final String TAG = "PeopleCustomAdapter";
+    private Context context;
 
     PeopleCustomAdapter(Context context, ArrayList<People> listOfPeople) {
         super(context, 0, listOfPeople);
+        this.context = context;
     }
 
     @NonNull
@@ -40,16 +45,17 @@ public class PeopleCustomAdapter extends ArrayAdapter<People> {
             viewHolder = new PeopleCustomAdapter.TweetViewHolder();
 
             // Get our sub views
-            viewHolder.LastName = (TextView) convertView.findViewById(R.id.personLastName);
-            viewHolder.FirstName = (TextView) convertView.findViewById(R.id.personFirstName);
-            viewHolder.Company = (TextView) convertView.findViewById(R.id.personCompany);
-            viewHolder.Role = (TextView) convertView.findViewById(R.id.personRole);
+            viewHolder.lastName = (TextView) convertView.findViewById(R.id.personLastName);
+            viewHolder.firstName = (TextView) convertView.findViewById(R.id.personFirstName);
+            viewHolder.company = (TextView) convertView.findViewById(R.id.personCompany);
+            viewHolder.role = (TextView) convertView.findViewById(R.id.personRole);
+            viewHolder.personCheckBox = (CheckBox) convertView.findViewById(R.id.personCheckBox);
 
             // save the mini-controller in the view
             convertView.setTag(viewHolder);
         }
 
-        People people = getItem(position);
+        final People people = getItem(position);
 
         CurrentStatesPeopleList currentStatesPeopleList = CurrentStatesPeopleList.getInstance();
         Map<String, String> companiesMap = currentStatesPeopleList.getCompaniesMap();
@@ -61,19 +67,34 @@ public class PeopleCustomAdapter extends ArrayAdapter<People> {
         String roleTitle = rolesMap.get(people.getIdRole());
         Log.i(TAG, "roleTitle : " + roleTitle);
 
-        viewHolder.LastName.setText(people.getLastname());
-        viewHolder.FirstName.setText(people.getFirstname());
-        viewHolder.Company.setText(companyName);
-        viewHolder.Role.setText(roleTitle);
+        viewHolder.lastName.setText(people.getLastname());
+        viewHolder.firstName.setText(people.getFirstname());
+        viewHolder.company.setText(companyName);
+        viewHolder.role.setText(roleTitle);
 
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                People peopleSelected = (People) people;
+                PeopleActivity.setpeople(peopleSelected);
+
+                Intent intent = new Intent(context, PeopleActivity.class);
+                context.startActivity(intent);
+            }
+        });
+        
         return convertView;
     }
 
+
     class TweetViewHolder {
-        TextView LastName;
-        TextView FirstName;
-        TextView Company;
-        TextView Role;
+        TextView lastName;
+        TextView firstName;
+        TextView company;
+        TextView role;
+        CheckBox personCheckBox;
     }
+
+
 }
 

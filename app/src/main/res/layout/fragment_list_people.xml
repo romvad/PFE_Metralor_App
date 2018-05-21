@@ -7,21 +7,21 @@
     <ListView
         android:id="@+id/listViewPeople"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_choose_persons">
 
     </ListView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/buttonAddPeople"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/button_choose_persons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:src="@drawable/ic_add_black_24dp"
-        android:tint="@android:color/background_light"
-        app:backgroundTint="@color/colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:text="@string/choose_persons"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
 
 </android.support.constraint.ConstraintLayout>

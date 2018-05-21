@@ -66,5 +66,9 @@
     <string name="manage_people">Gérer les personnes</string>
 
     <string name="create">Créer</string>
+    <string name="deselect">Desélectionner</string>
+    <string name="select">Selectionner</string>
+    <string name="select_people">Choisir des personnes</string>
+    <string name="choose_persons">Valider mon choix</string>
 
 </resources>

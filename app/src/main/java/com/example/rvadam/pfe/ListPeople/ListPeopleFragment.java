@@ -4,16 +4,15 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
+import com.example.rvadam.pfe.AddWorksite.AddWorksiteActivity;
 import com.example.rvadam.pfe.Model.CurrentStatesPeopleList;
 import com.example.rvadam.pfe.Model.People;
-import com.example.rvadam.pfe.People.PeopleActivity;
 import com.example.rvadam.pfe.R;
 
 import java.util.ArrayList;
@@ -39,22 +38,17 @@ public class ListPeopleFragment extends Fragment {
 
         // Get the elements from the view
         ListView mListView = (ListView) getActivity().findViewById(R.id.listViewPeople);
-        FloatingActionButton buttonAdd = (FloatingActionButton) getActivity().findViewById(R.id.buttonAddPeople);
+        Button buttonValidate = (Button) getActivity().findViewById(R.id.button_choose_persons);
 
         // Setup the adapter with the list
         listOfPeople = (ArrayList<People>) CurrentStatesPeopleList.getInstance().getCurrentPeopleList();
         adapter = new PeopleCustomAdapter(getActivity(), listOfPeople);
         mListView.setAdapter(adapter);
 
-        // Setup the onClickListener
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        buttonValidate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //Toast.makeText(getActivity(), "Nom : " + listOfPeople.get(position).getLastname(), Toast.LENGTH_SHORT).show();
-                People peopleSelected = (People) listOfPeople.get(position);
-                PeopleActivity.setpeople(peopleSelected);
-
-                Intent intent = new Intent(getActivity(), PeopleActivity.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), AddWorksiteActivity.class);
                 startActivity(intent);
             }
         });

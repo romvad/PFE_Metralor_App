@@ -1,6 +1,7 @@
 package com.example.rvadam.pfe.AddWorksite;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rvadam.pfe.FirebaseDBHelpers.TypeWorksiteDBHelper;
+import com.example.rvadam.pfe.ListPeople.ListPeopleActivity;
 import com.example.rvadam.pfe.LocationHelper.LocationHelper;
 import com.example.rvadam.pfe.Model.CurrentStatesWorksitesList;
 import com.example.rvadam.pfe.Model.WorkSite;
@@ -32,13 +34,11 @@ public class AddWorksiteFragment extends Fragment {
     ArrayList<String> listOfTypes;
     TypeWorksiteDBHelper typeWorksiteDBHelper;
     ArrayAdapter<String> spinnerAdapter;
-    private String name;
     private String type;
-    private String addressNumber;
-    private String addressRoad;
-    private String addressCity;
-    private String addressCode;
     public String address;
+    double lat = 0.0;
+    double lng = 0.0;
+
     Spinner mWorksiteType;
     EditText mWorksiteName;
     EditText mWorksiteAddressNumber;
@@ -46,8 +46,8 @@ public class AddWorksiteFragment extends Fragment {
     EditText mWorksiteAddressCity;
     EditText mWorksiteAddressCode;
     Button createWorksite;
-    double lat = 0.0;
-    double lng = 0.0;
+    Button selectPeople;
+
 
     //Worksite object to create
     private WorkSite wCreate;
@@ -76,14 +76,8 @@ public class AddWorksiteFragment extends Fragment {
         mWorksiteAddressRoad = (EditText) getActivity().findViewById(R.id.editWorksiteAddressRoad);
         mWorksiteAddressCity = (EditText) getActivity().findViewById(R.id.editWorksiteAddressCity);
         mWorksiteAddressCode = (EditText) getActivity().findViewById(R.id.editWorksiteAddressCode);
+        selectPeople = (Button) getActivity().findViewById(R.id.select_people_button);
         createWorksite = (Button) getActivity().findViewById(R.id.createWorksite);
-
-        //wCreate = new WorkSite();
-
-        // set id
-        //typeWorksiteDBHelper.pushDBRefToGetId(wCreate);
-
-        name = String.valueOf(mWorksiteName.getText());
 
         mWorksiteType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
@@ -99,18 +93,18 @@ public class AddWorksiteFragment extends Fragment {
             }
         });
 
+        selectPeople.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ListPeopleActivity.class);
+                startActivity(intent);
+            }
+        });
 
         createWorksite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getAddress();
-                //Toast.makeText(getActivity(), "Adresse : " + address, Toast.LENGTH_SHORT).show();
-                LocationHelper locationHelper = new LocationHelper(getActivity());
-                String latlng = locationHelper.getLocationFromAddress(address);
-                String[] latlngSplit =  latlng.split(",");
-                lat = Double.parseDouble(latlngSplit[0]);
-                lng = Double.parseDouble(latlngSplit[1]);
-                Toast.makeText(getActivity(), "latitude : " + lat + " longitude : " + lng, Toast.LENGTH_SHORT).show();
+                getLocation();
             }
         });
 
@@ -129,15 +123,22 @@ public class AddWorksiteFragment extends Fragment {
     }
 
     public void getLocation() {
-        //Toast.makeText(getActivity(), "lat : " + lat + " lng : " + lng, Toast.LENGTH_SHORT).show();
+        getAddress();
+        //Toast.makeText(getActivity(), "Adresse : " + address, Toast.LENGTH_SHORT).show();
+        LocationHelper locationHelper = new LocationHelper(getActivity());
+        String latlng = locationHelper.getLocationFromAddress(address);
+        String[] latlngSplit = latlng.split(",");
+        lat = Double.parseDouble(latlngSplit[0]);
+        lng = Double.parseDouble(latlngSplit[1]);
+        Toast.makeText(getActivity(), "latitude : " + lat + " longitude : " + lng, Toast.LENGTH_SHORT).show();
 
     }
 
     public void getAddress() {
-        addressNumber = String.valueOf(mWorksiteAddressNumber.getText());
-        addressRoad = String.valueOf(mWorksiteAddressRoad.getText());
-        addressCity = String.valueOf(mWorksiteAddressCity.getText());
-        addressCode = String.valueOf(mWorksiteAddressCode.getText());
+        String addressNumber = String.valueOf(mWorksiteAddressNumber.getText());
+        String addressRoad = String.valueOf(mWorksiteAddressRoad.getText());
+        String addressCity = String.valueOf(mWorksiteAddressCity.getText());
+        String addressCode = String.valueOf(mWorksiteAddressCode.getText());
 
         address = addressNumber + " " + addressRoad + ", " + addressCity + ", " + addressCode;
     }

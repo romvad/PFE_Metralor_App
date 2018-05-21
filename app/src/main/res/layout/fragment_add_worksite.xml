@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/people_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingTop="16dp">
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/wName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/worksiteName"
@@ -23,6 +26,7 @@
             android:layout_weight="1"
             android:text="@string/worksite_name"
             android:textColor="@android:color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <EditText
@@ -32,14 +36,21 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:hint="@string/edit_worksite_name"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="14sp" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/wType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wName">
 
         <TextView
             android:id="@+id/worksiteType"
@@ -49,6 +60,7 @@
             android:layout_weight="1"
             android:text="@string/worksite_type"
             android:textColor="@android:color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <Spinner
@@ -64,8 +76,13 @@
         android:id="@+id/wAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:orientation="vertical">
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wType">
 
         <TextView
             android:id="@+id/worksiteAddress"
@@ -73,6 +90,7 @@
             android:layout_height="wrap_content"
             android:text="@string/worksite_address"
             android:textColor="@android:color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -103,7 +121,8 @@
                     android:layout_weight="1"
                     android:hint="@string/edit_worksite_address_number"
                     android:inputType="number"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -129,7 +148,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:hint="@string/edit_worksite_address_road"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -155,7 +175,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:hint="@string/edit_worksite_address_city"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
             </LinearLayout>
 
@@ -181,26 +202,57 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1"
                     android:hint="@string/edit_worksite_address_code"
-                    android:textColor="@android:color/black" />
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
 
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/select_people"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:gravity="bottom"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wAddress">
+
+        <Button
+            android:id="@+id/select_people_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/select_people"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/creeee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
             android:id="@+id/createWorksite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal|center"
-            android:text="@string/create" />
+            android:text="@string/create"
+            android:textColor="@android:color/black" />
 
     </LinearLayout>
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
