@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rvadam.pfe.FirebaseDBHelpers.TypeWorksiteDBHelper;
+import com.example.rvadam.pfe.LocationHelper.LocationHelper;
 import com.example.rvadam.pfe.Model.CurrentStatesWorksitesList;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
@@ -37,7 +38,7 @@ public class AddWorksiteFragment extends Fragment {
     private String addressRoad;
     private String addressCity;
     private String addressCode;
-    private String address;
+    public String address;
     Spinner mWorksiteType;
     EditText mWorksiteName;
     EditText mWorksiteAddressNumber;
@@ -45,8 +46,8 @@ public class AddWorksiteFragment extends Fragment {
     EditText mWorksiteAddressCity;
     EditText mWorksiteAddressCode;
     Button createWorksite;
-    double lat;
-    double lng;
+    double lat = 0.0;
+    double lng = 0.0;
 
     //Worksite object to create
     private WorkSite wCreate;
@@ -102,7 +103,14 @@ public class AddWorksiteFragment extends Fragment {
         createWorksite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Adresse : " + address, Toast.LENGTH_SHORT).show();
+                getAddress();
+                //Toast.makeText(getActivity(), "Adresse : " + address, Toast.LENGTH_SHORT).show();
+                LocationHelper locationHelper = new LocationHelper(getActivity());
+                String latlng = locationHelper.getLocationFromAddress(address);
+                String[] latlngSplit =  latlng.split(",");
+                lat = Double.parseDouble(latlngSplit[0]);
+                lng = Double.parseDouble(latlngSplit[1]);
+                Toast.makeText(getActivity(), "latitude : " + lat + " longitude : " + lng, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -116,7 +124,7 @@ public class AddWorksiteFragment extends Fragment {
         mWorksiteType.setAdapter(spinnerAdapter);
     }
 
-    public void createWorksite(String name, String type, String addressNumber, String addressRoad, String addressCode, List<String> listPeople) {
+    public void createWorksite(String name, String type, double latitude, double longitude, List<String> listPeople) {
 
     }
 

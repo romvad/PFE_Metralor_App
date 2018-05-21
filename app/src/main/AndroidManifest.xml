@@ -77,6 +77,15 @@
         <activity android:name=".TestFirebaseDB.TestFirebaseDBActivity" />
         <activity android:name=".TestFirebaseStorage.TestFirebaseStorageBisActivity" />
         <activity android:name=".WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity"></activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC_Rs8MTekJuWp7TuDOZbiSOhIEfY-tg9Y" />
+
+        <!--       <meta-data
+                   android:name="com.google.android.gms.version"
+                   android:value="@integer/google_play_services_version" />-->
+
     </application>
 
 </manifest>

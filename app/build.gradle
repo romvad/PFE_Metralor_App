@@ -39,5 +39,8 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:15.0.0'
     compile 'com.firebaseui:firebase-ui-storage:0.6.0'
 
+    compile 'com.android.support:design:26.1.0' //Library need for material tabs
+    compile 'com.android.support:recyclerview-v7:26.1.0' //Library need for recycler view
+
 }
 apply plugin: 'com.google.gms.google-services'

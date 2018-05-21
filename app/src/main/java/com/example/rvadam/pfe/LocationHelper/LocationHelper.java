@@ -3,6 +3,7 @@ package com.example.rvadam.pfe.LocationHelper;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.util.Log;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
  */
 
 public class LocationHelper {
+    private static final String TAG = "LocationHelper";
 
     private Context mContext;
 
@@ -26,10 +28,12 @@ public class LocationHelper {
      */
     public String getLocationFromAddress(String strAddress) {
 
+        Log.i(TAG,strAddress);
         Geocoder coder = new Geocoder(mContext);
         List<Address> address;
 
         try {
+
             address = coder.getFromLocationName(strAddress, 1);
             if (address == null) {
                 return null;
