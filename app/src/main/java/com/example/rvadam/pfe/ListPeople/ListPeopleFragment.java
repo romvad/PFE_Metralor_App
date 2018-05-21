@@ -1,5 +1,6 @@
 package com.example.rvadam.pfe.ListPeople;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -49,7 +50,11 @@ public class ListPeopleFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddWorksiteActivity.class);
-                startActivity(intent);
+                ListPeopleActivity lPA = ((ListPeopleActivity) getActivity());
+                String[] mTab = lPA.getLoPeople();
+                intent.putExtra(lPA.transfertLoPeople, mTab);
+                getActivity().setResult(Activity.RESULT_OK, intent);
+                getActivity().finish();
             }
         });
 

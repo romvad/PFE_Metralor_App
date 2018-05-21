@@ -26,15 +26,17 @@ import java.util.Map;
 public class PeopleCustomAdapter extends ArrayAdapter<People> {
     private static final String TAG = "PeopleCustomAdapter";
     private Context context;
+    private ListPeopleActivity listPeopleActivity;
 
     PeopleCustomAdapter(Context context, ArrayList<People> listOfPeople) {
         super(context, 0, listOfPeople);
         this.context = context;
+        this.listPeopleActivity = (ListPeopleActivity) context;
     }
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.people_info, parent, false);
@@ -82,7 +84,16 @@ public class PeopleCustomAdapter extends ArrayAdapter<People> {
                 context.startActivity(intent);
             }
         });
-        
+
+        viewHolder.personCheckBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "people added : " + people.getId() + " position : " + position);
+                listPeopleActivity.addIdPeopleSelected(position);
+            }
+        });
+
+
         return convertView;
     }
 
@@ -94,7 +105,6 @@ public class PeopleCustomAdapter extends ArrayAdapter<People> {
         TextView role;
         CheckBox personCheckBox;
     }
-
 
 }
 

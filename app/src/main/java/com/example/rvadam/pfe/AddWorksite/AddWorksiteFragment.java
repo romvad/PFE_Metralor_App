@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +23,10 @@ import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+
+import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by rdelfoss on 17/05/2018.
@@ -30,6 +34,8 @@ import java.util.List;
 
 public class AddWorksiteFragment extends Fragment {
     private static final String TAG = "AddWorksiteFragment";
+
+    private static final int CHOOSE_PERSON_REQUEST = 1234;
 
     ArrayList<String> listOfTypes;
     TypeWorksiteDBHelper typeWorksiteDBHelper;
@@ -97,7 +103,7 @@ public class AddWorksiteFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), ListPeopleActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, CHOOSE_PERSON_REQUEST);
             }
         });
 
@@ -107,6 +113,17 @@ public class AddWorksiteFragment extends Fragment {
                 getLocation();
             }
         });
+
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "req : " + requestCode + " res : " + resultCode);
+        if (requestCode == CHOOSE_PERSON_REQUEST && resultCode == RESULT_OK && data != null) {
+            String[] aaaa = data.getStringArrayExtra(ListPeopleActivity.transfertLoPeople);
+            Log.i(TAG, "Array of people selected : " + Arrays.toString(aaaa));
+        }
 
     }
 

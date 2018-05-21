@@ -4,11 +4,16 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.example.rvadam.pfe.FirebaseDBHelpers.CompanyDBHelper;
 import com.example.rvadam.pfe.FirebaseDBHelpers.PeopleDBHelper;
 import com.example.rvadam.pfe.FirebaseDBHelpers.RoleDBHelper;
+import com.example.rvadam.pfe.Model.CurrentStatesPeopleList;
+import com.example.rvadam.pfe.Model.People;
 import com.example.rvadam.pfe.R;
+
+import java.util.List;
 
 /**
  * Created by rdelfoss on 11/05/2018.
@@ -17,11 +22,20 @@ import com.example.rvadam.pfe.R;
 public class ListPeopleActivity extends AppCompatActivity {
     private static final String TAG = "ListPeopleActivity";
 
+    public static final String transfertLoPeople = "transfertLoPeople";
+
+    String[] loPeople;
+    List<People> aa;
+
     // Create an instance of ListPeopleFragment
     ListPeopleFragment listPeopleFragment = new ListPeopleFragment();
     PeopleDBHelper peopleDBHelper;
     CompanyDBHelper companyDBHelper;
     RoleDBHelper roleDBHelper;
+
+    public String[] getLoPeople() {
+        return loPeople;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,8 +72,16 @@ public class ListPeopleActivity extends AppCompatActivity {
 
     public void refreshListOfPeople() {
         if (listPeopleFragment.getAdapter() != null) {
+            aa = CurrentStatesPeopleList.getInstance().getCurrentPeopleList();
+            loPeople = new String[aa.size()];
             listPeopleFragment.getAdapter().notifyDataSetChanged();
         }
     }
 
+    public void addIdPeopleSelected(int position) {
+        if (loPeople[position] == null) {
+            Log.i(TAG, "Position dan la liste Current : " + aa.get(position).getId());
+            loPeople[position] = aa.get(position).getId();
+        }
+    }
 }
