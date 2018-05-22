@@ -1,13 +1,16 @@
 package com.example.rvadam.pfe.AddWorksite;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -79,6 +82,8 @@ public class AddWorksiteFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        setupUI(getActivity().findViewById(R.id.people_fragment));
+
         mWorksiteName = (EditText) getActivity().findViewById(R.id.editWorksiteName);
         mWorksiteType = (Spinner) getActivity().findViewById(R.id.addTypeSpinner);
         mWorksiteAddressNumber = (EditText) getActivity().findViewById(R.id.editWorksiteAddressNumber);
@@ -114,7 +119,8 @@ public class AddWorksiteFragment extends Fragment {
         createWorksite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getLocation();
+                getAddress();
+                getLocation(address);
             }
         });
 
@@ -126,9 +132,9 @@ public class AddWorksiteFragment extends Fragment {
         Log.i(TAG, "req : " + requestCode + " res : " + resultCode);
         if (requestCode == CHOOSE_PERSON_REQUEST && resultCode == RESULT_OK && data != null) {
             String[] aaaa = data.getStringArrayExtra(ListPeopleActivity.transfertLoPeople);
-            Log.i(TAG, "Array of people selected : " + Arrays.toString(aaaa));
-            String[] listOfPeopleSelected = new String[aaaa.length];
-            for (int i = 0; i < aaaa.length; i++) {
+            String[] listOfPeopleSelected = removeNullValue(aaaa);
+            Log.i(TAG, "Array of people selected : " + Arrays.toString(listOfPeopleSelected));
+            for (int i = 0; i < listOfPeopleSelected.length; i++) {
                 listOfPeopleSelected[i] = PeopleManager.getPeopleLastNameByPeople(aaaa[i]) + " " + PeopleManager.getPeopleFirstNameById(aaaa[i]);
             }
 
@@ -150,8 +156,8 @@ public class AddWorksiteFragment extends Fragment {
 
     }
 
-    public void getLocation() {
-        getAddress();
+    public void getLocation(String address) {
+
         //Toast.makeText(getActivity(), "Adresse : " + address, Toast.LENGTH_SHORT).show();
         LocationHelper locationHelper = new LocationHelper(getActivity());
         String latlng = locationHelper.getLocationFromAddress(address);
@@ -170,4 +176,49 @@ public class AddWorksiteFragment extends Fragment {
 
         address = addressNumber + " " + addressRoad + ", " + addressCity + ", " + addressCode;
     }
+
+    public static void hideSoftKeyboard(Activity activity) {
+        InputMethodManager inputMethodManager =
+                (InputMethodManager) activity.getSystemService(
+                        Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(
+                activity.getCurrentFocus().getWindowToken(), 0);
+    }
+
+    public void setupUI(View view) {
+
+        // Set up touch listener for non-text box views to hide keyboard.
+        if (!(view instanceof EditText)) {
+            view.setOnTouchListener(new View.OnTouchListener() {
+                public boolean onTouch(View v, MotionEvent event) {
+                    hideSoftKeyboard(getActivity());
+                    return false;
+                }
+            });
+        }
+
+        //If a layout container, iterate over children and seed recursion.
+        if (view instanceof ViewGroup) {
+            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+                View innerView = ((ViewGroup) view).getChildAt(i);
+                setupUI(innerView);
+            }
+        }
+    }
+
+    public String[] removeNullValue(String[] str) {
+        String[] firstArray;
+
+        List<String> list = new ArrayList<String>();
+
+        for (String s : str) {
+            if (s != null && s.length() > 0) {
+                list.add(s);
+            }
+        }
+
+        firstArray = list.toArray(new String[list.size()]);
+        return firstArray;
+    }
 }
+
