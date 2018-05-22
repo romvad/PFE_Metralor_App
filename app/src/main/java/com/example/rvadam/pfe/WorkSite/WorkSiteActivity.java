@@ -35,7 +35,7 @@ public class WorkSiteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_work_site);
+        setContentView(R.layout.activity_worksite);
 
         TextView nWorksite = (TextView) findViewById(R.id.worksiteName);
 
