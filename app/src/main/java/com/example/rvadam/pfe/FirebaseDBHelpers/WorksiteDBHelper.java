@@ -1,10 +1,14 @@
 package com.example.rvadam.pfe.FirebaseDBHelpers;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.rvadam.pfe.ListWorkSites.ListWorkSiteActivity;
 import com.example.rvadam.pfe.Model.CurrentStatesWorksitesList;
 import com.example.rvadam.pfe.Model.WorkSite;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +30,24 @@ public class WorksiteDBHelper {
     public WorksiteDBHelper(String node, ListWorkSiteActivity listWorkSiteActivity) {
         this.myWorksitesRef = FirebaseDatabase.getInstance().getReference(node);
         WorksiteDBHelper.listWorkSiteActivity = listWorkSiteActivity;
+    }
+
+    // Write
+    public void pushWorksite(WorkSite workSite) {
+        DatabaseReference newRef = myWorksitesRef.push();
+        workSite.setId(newRef.getKey());
+        newRef.setValue(workSite).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.i(TAG, "onComplete");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "onCancelled");
+            }
+        });
+
     }
 
     // Read

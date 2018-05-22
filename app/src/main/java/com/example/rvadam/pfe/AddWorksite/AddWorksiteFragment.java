@@ -20,7 +20,9 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.rvadam.pfe.FirebaseDBHelpers.TypeWorksiteDBHelper;
+import com.example.rvadam.pfe.FirebaseDBHelpers.WorksiteDBHelper;
 import com.example.rvadam.pfe.ListPeople.ListPeopleActivity;
+import com.example.rvadam.pfe.ListWorkSites.ListWorkSiteActivity;
 import com.example.rvadam.pfe.LocationHelper.LocationHelper;
 import com.example.rvadam.pfe.Model.CurrentStatesWorksitesList;
 import com.example.rvadam.pfe.Model.WorkSite;
@@ -29,7 +31,10 @@ import com.example.rvadam.pfe.Utils.PeopleManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -44,11 +49,14 @@ public class AddWorksiteFragment extends Fragment {
 
     ArrayList<String> listOfTypes;
     TypeWorksiteDBHelper typeWorksiteDBHelper;
+    WorksiteDBHelper worksiteDBHelper;
     ArrayAdapter<String> spinnerAdapter;
     private String type;
     public String address;
     double lat = 0.0;
     double lng = 0.0;
+    String[] listOfIdSelected;
+    String[] listOfPeopleSelected;
 
     Spinner mWorksiteType;
     EditText mWorksiteName;
@@ -72,6 +80,10 @@ public class AddWorksiteFragment extends Fragment {
         // Call the DBHelper that we need
         typeWorksiteDBHelper = new TypeWorksiteDBHelper("types/", this);
         typeWorksiteDBHelper.retrieveType();
+
+        ListWorkSiteActivity listWorkSiteActivity = new ListWorkSiteActivity();
+
+        worksiteDBHelper = new WorksiteDBHelper("workSites/", listWorkSiteActivity);
 
         return v;
 
@@ -121,6 +133,10 @@ public class AddWorksiteFragment extends Fragment {
             public void onClick(View view) {
                 getAddress();
                 getLocation(address);
+                createWorksite(String.valueOf(mWorksiteName.getText()), type, lat, lng, listOfIdSelected);
+
+                Intent intent = new Intent(getActivity(), ListWorkSiteActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -132,10 +148,11 @@ public class AddWorksiteFragment extends Fragment {
         Log.i(TAG, "req : " + requestCode + " res : " + resultCode);
         if (requestCode == CHOOSE_PERSON_REQUEST && resultCode == RESULT_OK && data != null) {
             String[] aaaa = data.getStringArrayExtra(ListPeopleActivity.transfertLoPeople);
-            String[] listOfPeopleSelected = removeNullValue(aaaa);
-            Log.i(TAG, "Array of people selected : " + Arrays.toString(listOfPeopleSelected));
-            for (int i = 0; i < listOfPeopleSelected.length; i++) {
-                listOfPeopleSelected[i] = PeopleManager.getPeopleLastNameByPeople(aaaa[i]) + " " + PeopleManager.getPeopleFirstNameById(aaaa[i]);
+            listOfPeopleSelected = removeNullValue(aaaa);
+            listOfIdSelected = removeNullValue(aaaa);
+            Log.i(TAG, "Array of people selected : " + Arrays.toString(listOfIdSelected));
+            for (int i = 0; i < listOfIdSelected.length; i++) {
+                listOfPeopleSelected[i] = PeopleManager.getPeopleLastNameById(listOfIdSelected[i]) + " " + PeopleManager.getPeopleFirstNameById(listOfIdSelected[i]);
             }
 
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOfPeopleSelected);
@@ -152,8 +169,38 @@ public class AddWorksiteFragment extends Fragment {
         mWorksiteType.setAdapter(spinnerAdapter);
     }
 
-    public void createWorksite(String name, String type, double latitude, double longitude, List<String> listPeople) {
+    public void createWorksite(String name, String type, double latitude, double longitude, String[] listOfIdSelected) {
+        List<String> employees = new ArrayList<>();
+        for (String aListOfIdSelected : listOfIdSelected) {
+            employees.add(aListOfIdSelected);
+        }
 
+        Map<String, String> otherDocs = new HashMap<String, String>();
+        otherDocs.put("carteAmers", "amers.pdf ");
+        otherDocs.put("etudeSol", "sol.pdf ");
+        otherDocs.put("ficheLoc", " ");
+        otherDocs.put("noteCalcul", "");
+        otherDocs.put("predimMassif", " ");
+
+        Map<String, String> secuDocs = new HashMap<String, String>();
+        secuDocs.put("APD", " ");
+        secuDocs.put("PGC", " ");
+        secuDocs.put("VTDI", " ");
+
+        Map<String, String> planDocs = new HashMap<String, String>();
+        planDocs.put("APD", " ");
+        planDocs.put("APS", " ");
+        planDocs.put("Serrurerie", " ");
+
+        Map<String, String> ppspsDocs = new HashMap<String, String>();
+        for (String aListOfIdSelected : listOfIdSelected) {
+            ppspsDocs.put(PeopleManager.getPeopleCompanyById(aListOfIdSelected), " ");
+        }
+
+        Date dateVicProvisoire = new Date();
+
+        WorkSite w1 = new WorkSite(dateVicProvisoire.getTime(), employees, latitude, longitude, name, otherDocs, planDocs, secuDocs, ppspsDocs, type);
+        worksiteDBHelper.pushWorksite(w1);
     }
 
     public void getLocation(String address) {

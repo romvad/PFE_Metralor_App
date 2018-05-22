@@ -22,11 +22,15 @@ public class PeopleManager {
         return people;
     }
 
-    public static String getPeopleLastNameByPeople(String id) {
+    public static String getPeopleLastNameById(String id) {
         return getPeopleById(id).getLastname();
     }
 
     public static String getPeopleFirstNameById(String id) {
         return getPeopleById(id).getFirstname();
+    }
+
+    public static String getPeopleCompanyById(String id){
+        return getPeopleById(id).getIdCompany();
     }
 }
