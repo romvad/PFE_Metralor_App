@@ -5,5 +5,19 @@ package com.example.rvadam.pfe.Model;
  */
 
 public enum TechnicalEquipmentsPhotoTypes {
-    TECHNICAL_EQUIPMENTS_PLACES,DIVISIONARY_BOARD,COURSES_DIVERS
+    TECHNICAL_EQUIPMENTS_PLACES("EMPLACEMENT DES EQUIPEMENTS TECHNIQUES"),DIVISIONARY_BOARD("TABLEAU DIVISIONNAIRE"),COURSES_DIVERS("CHEMINEMENT/DIVERS");
+
+    private String type;
+
+    TechnicalEquipmentsPhotoTypes(String type){
+        this.type = type;
+    }
+
+    public String getName(){
+        return type;
+    }
+
+    private void setCategory(String category){
+        this.type = category;
+    }
 }

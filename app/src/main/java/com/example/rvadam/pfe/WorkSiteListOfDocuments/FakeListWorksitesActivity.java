@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBWorkSitesHelper;
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.WriteImagesInPDF.WriteImagesInPDFActivity;
 
 public class FakeListWorksitesActivity extends AppCompatActivity {
 
@@ -18,6 +19,7 @@ public class FakeListWorksitesActivity extends AppCompatActivity {
 
         Button button=(Button) findViewById(R.id.buttonToListsofDocuments);
         Button button1=(Button) findViewById(R.id.buttonToListsofPhotos);
+        Button button2=(Button) findViewById(R.id.buttonToPrintPhotos);
         //Retrivement of worksites list, normally called in List of Worksites activity
         FirebaseDBWorkSitesHelper.getListOfWorkSites();
 
@@ -33,6 +35,13 @@ public class FakeListWorksitesActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent tabsOfPhotosActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSitePhotoGallery.TabsOfPhotosActivity.class);
                 startActivity(tabsOfPhotosActivityCall);
+            }
+        });
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent writeImagesInPDFActivityCall= new Intent(getActivity(), WriteImagesInPDFActivity.class);
+                startActivity(writeImagesInPDFActivityCall);
             }
         });
     }

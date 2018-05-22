@@ -20,14 +20,24 @@ import android.print.PrintDocumentInfo;
 import android.print.PrintManager;
 import android.print.pdf.PrintedPdfDocument;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Space;
 import android.widget.Toast;
 
+import com.example.rvadam.pfe.FirebaseStorageHelper.FirebaseStoragePhotosHelpers;
+import com.example.rvadam.pfe.Login.LoginContract;
+import com.example.rvadam.pfe.Model.ListOfPhotosSingleton;
+import com.example.rvadam.pfe.Model.PhotoCategories;
+import com.example.rvadam.pfe.Model.SpacePhoto;
+import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
+import com.example.rvadam.pfe.Utils.GeneratedPDFDocumentSizes;
+import com.example.rvadam.pfe.Utils.ListOfPhotosSingletonManager;
+import com.example.rvadam.pfe.Utils.WorkSitesManager;
+import com.example.rvadam.pfe.Utils.WriteImagesInPDFTools;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -39,26 +49,34 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
+import java.util.Map;
 
-public class WriteImagesInPDFActivity extends Activity {
-private List<Bitmap> bitmap;
-private  Button button;
+public class WriteImagesInPDFActivity extends Activity implements View.OnClickListener {
+private Map<SpacePhoto,Bitmap> bitmaps;
+private List<SpacePhoto> listMapKeys;
+private String[] urlsArray;
 private ProgressDialog progressDialog;
 private static final String TAG = "WriteImagesInPDFAc";
 private boolean isWholeUrlsDownloadsRetrieved=false;
+private String idWorksite;
+private String worksiteName;
 
     public ProgressDialog getProgressDialog() {
         return progressDialog;
     }
 
-    public Button getButton() {
-        return button;
+    public Map<SpacePhoto, Bitmap> getBitmaps() {
+        return bitmaps;
     }
 
-    public List<Bitmap> getBitmap() {
-        return bitmap;
+    public String[] getUrlsArray() {
+        return urlsArray;
+    }
+
+    public List<SpacePhoto> getListMapKeys() {
+        return listMapKeys;
     }
 
     @Override
@@ -66,43 +84,13 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_write_images_in_pdf);
 
-        bitmap=new ArrayList<Bitmap>();
-        button= (Button) findViewById(R.id.buttonPrint);
-       // button.setEnabled(false);
+        bitmaps=new HashMap<SpacePhoto, Bitmap>();
+        listMapKeys = new ArrayList<SpacePhoto>();
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                StorageReference ref = FirebaseStorage.getInstance().getReference();
-                StorageReference refPhoto=ref.child("-LBw-rNjtmo9G70LUU2Z/COURSES_ACCESS/MEANS_OF_ACCESS/boite_a_cles.jpg");
-                Log.i(TAG,"refPhoto "+refPhoto);
-                final String[] strArray = new String[1];
-                refPhoto.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                    @Override
-                    public void onSuccess(Uri uri) {
-                        Log.i(TAG,"getDownloadUrl successfull");
-                        strArray[0]=uri.toString();
-                        isWholeUrlsDownloadsRetrieved=true;
-
-                        if(isWholeUrlsDownloadsRetrieved){
-                            ImageRetriever ir= new ImageRetriever(getActivity());
-                            ir.execute(strArray);
-                        }
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getActivity(),"Erreur de récupération de la photo depuis le cloud",Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                //String[] strArray= {"https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2014/05/IMG_6424-1300x866.jpg"};
-
-
-            }
-        });
-
+        //Hardcoded
+        idWorksite="-LBw-rNjtmo9G70LUU2Z";
+        WorkSite w = WorkSitesManager.getWorkSiteById(idWorksite);
+        worksiteName = w.getName();
 
     }
 
@@ -110,8 +98,29 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
         return this;
     }
 
+    public void callImageRetriever(PhotoCategories category){
+        ImageRetriever ir= new ImageRetriever(this,category);
+        List<SpacePhoto> photosOfCategory= ListOfPhotosSingletonManager.getListOfPhotosByCategory(category);
+        String[] urls= new String[photosOfCategory.size()];
+        int counter=0;
 
-        public void printDocument()
+        for(SpacePhoto photo : photosOfCategory){
+            if(photo.getDownloadURL()!=null){
+                urls[counter]=photo.getDownloadURL();
+                //In the keys of the hashmap bitmaps, we store each photo object (already uploaded) that matches each bitmap to organize the pdf document
+                bitmaps.put(photo,null);
+                listMapKeys.add(photo);
+                counter++;
+            }
+
+        }
+        ir.execute(urls);//Launch the ImageRetriever AsyncTask
+
+
+    }
+
+
+        public void printDocument(PhotoCategories category)
         {//First method executed
 
             PrintManager printManager = (PrintManager) this
@@ -120,26 +129,66 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
             String jobName = this.getString(R.string.app_name) +
                     " Document";
 
-            printManager.print(jobName, new MyPrintDocumentAdapter(this),
+            printManager.print(jobName, new MyPrintDocumentAdapter(this,category,worksiteName),
                     null);
         }
 
-        public class MyPrintDocumentAdapter extends PrintDocumentAdapter
+    @Override
+    public void onClick(View view) {
+        FirebaseStoragePhotosHelpers helper=new FirebaseStoragePhotosHelpers(this);
+        bitmaps.clear();
+        listMapKeys.clear();
+        switch (view.getId()){
+
+            case R.id.buttonPrintCoursesAccess:
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.COURSES_ACCESS);
+                break;
+            case R.id.buttonPrintMaltAdductions:
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.MALT_ADDUCTIONS);
+                break;
+            case R.id.buttonPrintSecurity:
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.SECURITY);
+                break;
+            case R.id.buttonPrintTechnicalEquipments:
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.TECHNICAL_EQUIPMENTS);
+                break;
+            case R.id.buttonPrintGeneralView:
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.GENERAL_VIEW_ACCESS);
+                break;
+            default:;
+
+        }
+    }
+
+    public class MyPrintDocumentAdapter extends PrintDocumentAdapter
         {
             Context context;
             private int pageHeight;
             private int pageWidth;
             public PdfDocument myPdfDocument;
-            public int totalpages = 4;
+            public int totalpages = 0;
+            private boolean isGeneralAccessPhotosPrinted=false;
+            private String worksiteName;
+            private PhotoCategories category;
+            List<String> photoToWriteTypes;
 
-            public MyPrintDocumentAdapter(Context context)
+            int nbTypesProcessed=0; //allows us to know what is the current type of photo that is written
+            int nbPreviousDrawPhotoPageCallForTheSameType=0;//allows us to know how many photos are waiting to be write for the current type of photo
+
+
+            public MyPrintDocumentAdapter(Context context, PhotoCategories category, String worksiteName)
             {
                 this.context = context;
+                this.worksiteName = worksiteName;
+                if(category==PhotoCategories.GENERAL_VIEW_ACCESS){
+                    this.totalpages = 4;
+                    isGeneralAccessPhotosPrinted=true;
+                } else {
+                    this.photoToWriteTypes= ListOfPhotosSingletonManager.getTypesByCategory(category);
+                    this.totalpages = WriteImagesInPDFTools.getTotalOfPagesByCategory(category);
+                }
+
             }
-
-
-
-
 
             private boolean pageInRange(PageRange[] pageRanges, int page)
             {
@@ -152,20 +201,83 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
                 return false;
             }
 
-            private void drawPage(PdfDocument.Page page,
+            private void drawFirstPage(PdfDocument.Page page){
+                Canvas canvas = page.getCanvas();
+
+
+
+                Paint paint = new Paint();
+                paint.setColor(Color.BLACK);
+                //Write header of the page
+                paint.setTextSize(GeneratedPDFDocumentSizes.SIZE_TEXT_HEADER.getSize());
+                canvas.drawText(
+                        worksiteName,
+                        GeneratedPDFDocumentSizes.MARGIN_LEFT.getSize(),
+                        GeneratedPDFDocumentSizes.MARGIN_TOP_HEADER.getSize(),
+                        paint);
+
+                canvas.drawText(
+                        Integer.toString(1),//page number 1
+                        WriteImagesInPDFTools.calculateXPageNumberHeader(),
+                        GeneratedPDFDocumentSizes.MARGIN_TOP_HEADER.getSize(),
+                        paint
+                );
+
+                //Write the title of the document
+
+                    paint.setTextSize(GeneratedPDFDocumentSizes.SIZE_TITLE.getSize());
+                    canvas.drawText(
+                            category.getName(),
+                            GeneratedPDFDocumentSizes.MARGIN_LEFT.getSize(),
+                            WriteImagesInPDFTools.calculateYTitle(pageHeight),
+                            paint);
+
+            }
+
+           /* private void drawPage(PdfDocument.Page page,
                                   int pagenumber) {
                 Canvas canvas = page.getCanvas();
 
                 pagenumber++; // Make sure page numbers start at 1
 
-                int titleBaseLine = 72;
-                int leftMargin = 54;
-
                 Paint paint = new Paint();
                 paint.setColor(Color.BLACK);
+                //Write header of the page
+                paint.setTextSize(GeneratedPDFDocumentSizes.SIZE_TEXT_HEADER.getSize());
+                canvas.drawText(
+                        worksiteName,
+                        GeneratedPDFDocumentSizes.MARGIN_LEFT.getSize(),
+                        GeneratedPDFDocumentSizes.MARGIN_TOP_HEADER.getSize(),
+                        paint);
+
+                canvas.drawText(
+                        Integer.toString(pagenumber),
+                        WriteImagesInPDFTools.calculateXPageNumberHeader(),
+                        GeneratedPDFDocumentSizes.MARGIN_TOP_HEADER.getSize(),
+                        paint
+                );
+
+                //Write the title of the document
+                if(pagenumber==1){
+                    paint.setTextSize(GeneratedPDFDocumentSizes.SIZE_TITLE.getSize());
+                    canvas.drawText(
+                            category.getName(),
+                            GeneratedPDFDocumentSizes.MARGIN_LEFT.getSize(),
+                            WriteImagesInPDFTools.calculateYTitle(pageHeight),
+                            paint);
+                }
+
+                //Write the images with their names, in their type section
+
+
+               // int titleBaseLine = 72;
+                //int leftMargin = 54;
+
+
+
                 paint.setTextSize(40);
                 canvas.drawText(
-                        "Test Print Document Page " + pagenumber,
+                        worksiteName + " Page " + pagenumber,
                         leftMargin,
                         titleBaseLine,
                         paint);
@@ -184,14 +296,14 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
 
                 Paint p =new Paint();
                 Rect rectDest= new Rect(leftMargin,0,100,100);
-                canvas.drawBitmap(bitmap.get(0),null,rectDest,p);
+                canvas.drawBitmap(bitmap.get(0),null,rectDest,p);*/
                 //canvas.drawBitmap(bitmap.get(0),0,10,p);
 
                 /*canvas.drawCircle(pageInfo.getPageWidth()/2,
                         pageInfo.getPageHeight()/2,
                         150,
                         paint);*/
-            }
+           // }
 
 
             public Bitmap getBitmapFromURL(String src) {
@@ -210,6 +322,7 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
             }
 
 
+
             @Override
             public void onWrite(final PageRange[] pageRanges,
                                 final ParcelFileDescriptor destination,
@@ -218,7 +331,14 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
                                 final WriteResultCallback callback) {
 
 
+                //List<String> photoToWriteTypes= WriteImagesInPDFTools.getTypesOfPhotosToWrite(listMapKeys);
+                for(String type : photoToWriteTypes){
+
+                }
+
                 for (int i = 0; i < totalpages; i++) {
+
+
                     if (pageInRange(pageRanges, i))
                     {
                         PdfDocument.PageInfo newPage = new PdfDocument.PageInfo.Builder(pageWidth,
@@ -233,7 +353,13 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
                             myPdfDocument = null;
                             return;
                         }
-                        drawPage(page, i);
+                        if(i==0){
+                            drawFirstPage(page);
+                        }else{
+                            //String currentType=photoToWriteTypes.get(nbTypesProcessed);
+                            drawPhotoPage(page,i,nbTypesProcessed,nbPreviousDrawPhotoPageCallForTheSameType);
+                        }
+                        //drawPage(page, i);
                         myPdfDocument.finishPage(page);
                     }
                 }
@@ -250,6 +376,89 @@ private boolean isWholeUrlsDownloadsRetrieved=false;
                 }
 
                 callback.onWriteFinished(pageRanges);
+            }
+
+            private void drawPhotoPage(PdfDocument.Page page, int pagenumber, int nbTypesProcessed, int nbPreviousDrawPhotoPageCallForTheSameType) {
+                //Determine the name of the current type of photo that is processed
+
+                if(nbTypesProcessed<photoToWriteTypes.size()){
+                    String currentType= photoToWriteTypes.get(nbTypesProcessed);
+
+                List<SpacePhoto> allPhotosOfCurrentType= ListOfPhotosSingletonManager.getListOfPhotosByCategoryAndType(category,currentType);
+
+                int nbPhotosRemainingToWrite= allPhotosOfCurrentType.size() - nbPreviousDrawPhotoPageCallForTheSameType*6; //If there are previous call of this function for the same type, each call has written 6 photos
+                int nbWrittenPhotosInThisCall=0;
+
+                Canvas canvas = page.getCanvas();
+
+                pagenumber++; // Make sure page numbers start at 1
+
+                Paint paint = new Paint();
+                paint.setColor(Color.BLACK);
+                //Write header of the page
+                paint.setTextSize(GeneratedPDFDocumentSizes.SIZE_TEXT_HEADER.getSize());
+                canvas.drawText(
+                        worksiteName,
+                        GeneratedPDFDocumentSizes.MARGIN_LEFT.getSize(),
+                        GeneratedPDFDocumentSizes.MARGIN_TOP_HEADER.getSize(),
+                        paint);
+
+                canvas.drawText(
+                        Integer.toString(pagenumber),
+                        WriteImagesInPDFTools.calculateXPageNumberHeader(),
+                        GeneratedPDFDocumentSizes.MARGIN_TOP_HEADER.getSize(),
+                        paint
+                );
+
+                paint.setTextSize(GeneratedPDFDocumentSizes.SIZE_TYPE.getSize());
+                canvas.drawText(
+                        currentType,
+                        GeneratedPDFDocumentSizes.MARGIN_LEFT.getSize(),
+                        WriteImagesInPDFTools.calculateYType(),
+                        paint
+                );
+
+                for (int i=0;i<nbPhotosRemainingToWrite;i++){
+                    if(nbWrittenPhotosInThisCall<=6){
+                        SpacePhoto photoWritten = allPhotosOfCurrentType.get(allPhotosOfCurrentType.size()-nbPhotosRemainingToWrite);
+                        int numberRow = nbWrittenPhotosInThisCall /2;
+                        int numberColumn = nbWrittenPhotosInThisCall %2;
+                        paint.setTextSize(GeneratedPDFDocumentSizes.SIZE_PHOTO_NAME.getSize());
+                        canvas.drawText(
+                                photoWritten.getTitle(),
+                                WriteImagesInPDFTools.calculateXColumnOfNamesAndPhotos(pageWidth,numberColumn),
+                                WriteImagesInPDFTools.calculateYPhotoNamesRowOnPage(pageHeight,numberRow),
+                                paint
+                        );
+
+                        //Define size and place of the image
+                        Paint p =new Paint();
+                        int xImage=WriteImagesInPDFTools.calculateXColumnOfNamesAndPhotos(pageWidth,numberColumn);
+                        int yImage= WriteImagesInPDFTools.calculateYPhotoRowOnPage(pageHeight,numberRow);
+                        Rect rectDest= new Rect(xImage,yImage,xImage+ WriteImagesInPDFTools.calculatedWidthPhoto(pageWidth),WriteImagesInPDFTools.calculateHeightPhoto(pageHeight));
+                        if(listMapKeys.contains(photoWritten)){//the photo currently written has an image to draw
+                           canvas.drawBitmap(bitmaps.get(photoWritten),null,rectDest,p);
+                        }else {// The photo isn't uploaded, replaced with black rectangle
+                            p.setColor(Color.BLACK);
+                            canvas.drawRect(rectDest,p);
+                        }
+
+                        nbWrittenPhotosInThisCall++;
+
+                    }else {
+                        break;
+                    }
+
+                }
+                nbPhotosRemainingToWrite -=nbWrittenPhotosInThisCall;
+
+                if(nbPhotosRemainingToWrite==0){
+                    nbTypesProcessed++;// Awhole type of photos is now written, we now write photos from the next category
+                }else {
+
+                }
+                }
+
             }
 
             @Override

@@ -65,5 +65,10 @@
     <string name="title_local_store_photo_alert_dialog">Conservation de la photo dans l\'appareil</string>
     <string name="message_local_store_photo_alert_dialog">La photo sera sauvegardé dans le dossier \"Pictures\" de la carte SD</string>
     <string name="progress_dialog_photos_retrivement">Récupération des photos</string>
+    <string name="label_button_print_courses_access">Générer le document photos ACCES CHEMINEMENT</string>
+    <string name="label_button_print_malt_adductions">Générer le document photos MALT ADDUCTIONS</string>
+    <string name="label_button_print_security">Générer le document photos SECURITE</string>
+    <string name="label_button_print_technical_equipments">Générer le document photos EQUIPEMENT TECHNIQUES</string>
+    <string name="label_button_print_general_view">Générer le document photos VUE GENERALE</string>
 
 </resources>

@@ -18,6 +18,7 @@ public class SpacePhoto implements Parcelable {
     //private StorageReference mStorageReference;
     private String mTitle;
     private static final String TAG="SpacePhoto";
+    private String downloadURL;
 
     public SpacePhoto(String FBStorageUrl, String title, String photoType, String idWorkSite ) {
         mFBStorageUrl = FBStorageUrl;
@@ -50,21 +51,7 @@ public class SpacePhoto implements Parcelable {
         }
     };
 
-   /* public String getUrl() {
-        return mUrl;
-    }
 
-    public void setUrl(String url) {
-        mUrl = url;
-    }*/
-
-    /*public StorageReference getmStorageReference() {
-        return mStorageReference;
-    }
-
-    public void setmStorageReference(StorageReference mStorageReference) {
-        this.mStorageReference = mStorageReference;
-    }*/
 
     public String getmFBStorageUrl() {
         return mFBStorageUrl;
@@ -96,6 +83,14 @@ public class SpacePhoto implements Parcelable {
 
     public void setmIdWorkSite(String mIdWorkSite) {
         this.mIdWorkSite = mIdWorkSite;
+    }
+
+    public String getDownloadURL() {
+        return downloadURL;
+    }
+
+    public void setDownloadURL(String downloadURL) {
+        this.downloadURL = downloadURL;
     }
 
     /*public static  SpacePhoto[] getSpacePhotos() {

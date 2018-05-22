@@ -8,7 +8,19 @@ import android.os.Parcelable;
  */
 
 public enum CoursesAccessPhotoTypes {
-    WORKSITE_ACCESS ,MEANS_OF_ACCESS,AIR_ACCESS,TECHNICAL_ZONE_ACCESS,RF_MODULES;
+    WORKSITE_ACCESS("ACCES AU CHANTIER") ,MEANS_OF_ACCESS("MOYENS d'ACCES"),AIR_ACCESS("ACCESS AUX AERIENS"),TECHNICAL_ZONE_ACCESS("ACCES A LA ZONE TECHNIQUE"),RF_MODULES("MODULES RF");
 
+    private String type;
 
+    CoursesAccessPhotoTypes(String type){
+        this.type = type;
+    }
+
+    public String getName(){
+        return type;
+    }
+
+    private void setCategory(String category){
+        this.type = category;
+    }
 }

@@ -14,4 +14,9 @@
         android:layout_height="wrap_content"
         android:text="Go to list of photos"
         android:id="@+id/buttonToListsofPhotos"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Go to print photos"
+        android:id="@+id/buttonToPrintPhotos"/>
 </LinearLayout>

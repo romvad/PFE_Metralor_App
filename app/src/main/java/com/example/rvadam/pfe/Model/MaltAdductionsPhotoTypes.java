@@ -5,5 +5,19 @@ package com.example.rvadam.pfe.Model;
  */
 
 public enum MaltAdductionsPhotoTypes {
-    ENERGY,TRANSMISSION
+    ENERGY("ENERGIE"),TRANSMISSION("TRANSMISSION");
+
+    private String type;
+
+    MaltAdductionsPhotoTypes(String type){
+        this.type = type;
+    }
+
+    public String getName(){
+        return type;
+    }
+
+    private void setCategory(String category){
+        this.type = category;
+    }
 }
