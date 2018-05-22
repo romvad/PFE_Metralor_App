@@ -36,7 +36,7 @@ public class ListOfPhotosSingleton {
             Log.i(TAG, "list retrieved "+list);
             for(String s : list){
                 String FBStorageURL=String.valueOf(PhotoCategories.COURSES_ACCESS)+"/"+String.valueOf(type)+"/"+s;
-                coursesAccessPhotos.add(new SpacePhoto(FBStorageURL,s,type.getName(),""));
+                coursesAccessPhotos.add(new SpacePhoto(FBStorageURL,s,String.valueOf(type),""));
             }
 
         }
@@ -48,7 +48,7 @@ public class ListOfPhotosSingleton {
 
             for(String s : list){
                 String FBStorageURL=String.valueOf(PhotoCategories.MALT_ADDUCTIONS)+"/"+String.valueOf(type)+"/"+s;
-                maltAdductionsPhotos.add(new SpacePhoto(FBStorageURL,s,type.getName(),""));
+                maltAdductionsPhotos.add(new SpacePhoto(FBStorageURL,s,String.valueOf(type),""));
             }
 
         }
@@ -60,7 +60,7 @@ public class ListOfPhotosSingleton {
 
             for(String s : list){
                 String FBStorageURL=String.valueOf(PhotoCategories.SECURITY)+"/"+String.valueOf(type)+"/"+s;
-                securityPhotos.add(new SpacePhoto(FBStorageURL,s,type.getName(),""));
+                securityPhotos.add(new SpacePhoto(FBStorageURL,s,String.valueOf(type),""));
             }
 
         }
@@ -72,7 +72,7 @@ public class ListOfPhotosSingleton {
 
             for(String s : list){
                 String FBStorageURL=String.valueOf(PhotoCategories.TECHNICAL_EQUIPMENTS)+"/"+String.valueOf(type)+"/"+s;
-                technicalEquipmentsPhotos.add(new SpacePhoto(FBStorageURL,s,type.getName(),""));
+                technicalEquipmentsPhotos.add(new SpacePhoto(FBStorageURL,s,String.valueOf(type),""));
             }
 
         }

@@ -53,7 +53,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WriteImagesInPDFActivity extends Activity implements View.OnClickListener {
+public class WriteImagesInPDFActivity extends Activity {
 private Map<SpacePhoto,Bitmap> bitmaps;
 private List<SpacePhoto> listMapKeys;
 private String[] urlsArray;
@@ -62,6 +62,12 @@ private static final String TAG = "WriteImagesInPDFAc";
 private boolean isWholeUrlsDownloadsRetrieved=false;
 private String idWorksite;
 private String worksiteName;
+private Button buttonPrintCoursesAccess;
+private Button buttonPrintMaltAdductions;
+private Button buttonPrintSecurity;
+private Button buttonPrintTechnicalEquipments;
+private Button buttonPrintGeneralView;
+FirebaseStoragePhotosHelpers helper;
 
     public ProgressDialog getProgressDialog() {
         return progressDialog;
@@ -91,6 +97,68 @@ private String worksiteName;
         idWorksite="-LBw-rNjtmo9G70LUU2Z";
         WorkSite w = WorkSitesManager.getWorkSiteById(idWorksite);
         worksiteName = w.getName();
+
+
+        //Instanciation of the FirebaseStoragePhotosHelper to set the download URLs in each SpacePhoto object in the ListOfPhotosSingleton
+        helper=new FirebaseStoragePhotosHelpers(this);
+        //Listeners of the print button per category
+        buttonPrintCoursesAccess= (Button) findViewById(R.id.buttonPrintCoursesAccess);
+        buttonPrintCoursesAccess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
+                bitmaps.clear();
+                listMapKeys.clear();
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.COURSES_ACCESS);
+            }
+        });
+
+        buttonPrintMaltAdductions = (Button) findViewById(R.id.buttonPrintMaltAdductions);
+        buttonPrintMaltAdductions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
+                bitmaps.clear();
+                listMapKeys.clear();
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.MALT_ADDUCTIONS);
+            }
+
+            });
+        buttonPrintSecurity = (Button) findViewById(R.id.buttonPrintSecurity);
+        buttonPrintSecurity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
+                bitmaps.clear();
+                listMapKeys.clear();
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.SECURITY);
+            }
+
+        });
+
+        buttonPrintTechnicalEquipments = (Button) findViewById(R.id.buttonPrintTechnicalEquipments);
+        buttonPrintTechnicalEquipments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
+                bitmaps.clear();
+                listMapKeys.clear();
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.TECHNICAL_EQUIPMENTS);
+            }
+
+        });
+
+        buttonPrintGeneralView = (Button) findViewById(R.id.buttonPrintGeneralView);
+        buttonPrintGeneralView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
+                bitmaps.clear();
+                listMapKeys.clear();
+                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.GENERAL_VIEW_ACCESS);
+            }
+
+        });
 
     }
 
@@ -132,33 +200,6 @@ private String worksiteName;
             printManager.print(jobName, new MyPrintDocumentAdapter(this,category,worksiteName),
                     null);
         }
-
-    @Override
-    public void onClick(View view) {
-        FirebaseStoragePhotosHelpers helper=new FirebaseStoragePhotosHelpers(this);
-        bitmaps.clear();
-        listMapKeys.clear();
-        switch (view.getId()){
-
-            case R.id.buttonPrintCoursesAccess:
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.COURSES_ACCESS);
-                break;
-            case R.id.buttonPrintMaltAdductions:
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.MALT_ADDUCTIONS);
-                break;
-            case R.id.buttonPrintSecurity:
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.SECURITY);
-                break;
-            case R.id.buttonPrintTechnicalEquipments:
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.TECHNICAL_EQUIPMENTS);
-                break;
-            case R.id.buttonPrintGeneralView:
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.GENERAL_VIEW_ACCESS);
-                break;
-            default:;
-
-        }
-    }
 
     public class MyPrintDocumentAdapter extends PrintDocumentAdapter
         {
