@@ -71,11 +71,12 @@
     <string name="select_people">Choisir des personnes</string>
     <string name="choose_persons">Valider mon choix</string>
     <string name="worksite_people">Personnes</string>
-    <string name="date_vic">VIC</string>
+    <string name="date_vic">VIC : </string>
     <string name="save">Sauvegarder</string>
     <string name="generate_pdf">Générer PDF</string>
     <string name="access_docs">Documents</string>
     <string name="access_photos">Photos</string>
     <string name="worksite_list_people">Personnes</string>
+    <string name="date_vic_created">01/02/2018</string>
 
 </resources>

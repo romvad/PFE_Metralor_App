@@ -13,14 +13,19 @@ import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.rvadam.pfe.LocationHelper.LocationHelper;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.Utils.PeopleManager;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,9 +39,11 @@ public class WorksiteFragment extends Fragment {
     private ArrayAdapter<String> adapter;
     private static final String DESCRIBABLE_KEY = "describable_key";
     private WorkSite innerWorksite;
+    String address = "";
 
     TextView worksite_name;
-    EditText worksite_vic;
+    TextView worksite_vic;
+    ImageButton image_date_picker;
     TextView worksite_type;
     TextView worksite_address;
     ListView woksite_people;
@@ -69,6 +76,7 @@ public class WorksiteFragment extends Fragment {
 
         worksite_name = getActivity().findViewById(R.id.worksite_name);
         worksite_vic = getActivity().findViewById(R.id.worksite_vic);
+        image_date_picker = getActivity().findViewById(R.id.image_date_picker);
         worksite_type = getActivity().findViewById(R.id.worksite_type);
         worksite_address = getActivity().findViewById(R.id.worksite_address);
         woksite_people = getActivity().findViewById(R.id.fourth_row);
@@ -82,7 +90,8 @@ public class WorksiteFragment extends Fragment {
 
         worksite_name.setText(innerWorksite.getName());
         worksite_type.setText(innerWorksite.getType());
-        worksite_vic.setText(String.valueOf(dateVic));
+        getAddress(innerWorksite.getLattitude(), innerWorksite.getLongitude());
+        worksite_address.setText(address);
 
     }
 
@@ -123,7 +132,7 @@ public class WorksiteFragment extends Fragment {
         return adapter;
     }
 
-    public void setPeopleForWorksite(){
+    public void setPeopleForWorksite() {
         List<String> personsById = innerWorksite.getEmployees();
         List<String> personsByLastNameFirstName = new ArrayList<>();
         for (int i = 0; i < personsById.size(); i++) {
@@ -136,4 +145,20 @@ public class WorksiteFragment extends Fragment {
         woksite_people.setAdapter(adapter);
     }
 
+    public void getAddress(double lat, double lng) {
+        LocationHelper locationHelper = new LocationHelper(getActivity());
+        address = locationHelper.getSimplifiedAddress(lat, lng);
+        Toast.makeText(getActivity(), "latitude : " + lat + " longitude : " + lng, Toast.LENGTH_SHORT).show();
+    }
+
+    /**
+     * To set date on TextView
+     *
+     * @param calendar
+     */
+    protected void setDate(final Calendar calendar) {
+        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        worksite_vic.setText(dateFormat.format(calendar.getTime()));
+
+    }
 }

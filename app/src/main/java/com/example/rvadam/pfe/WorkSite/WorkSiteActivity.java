@@ -1,18 +1,25 @@
 package com.example.rvadam.pfe.WorkSite;
 
+import android.app.DatePickerDialog;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.DatePicker;
 
+import com.example.rvadam.pfe.DatePickerFragment;
 import com.example.rvadam.pfe.FirebaseDBHelpers.PeopleDBHelper;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 //import static com.google.android.gms.common.GoogleApiAvailabilityLight.GOOGLE_PLAY_SERVICES_VERSION_CODE;
 //import static com.google.android.gms.common.GooglePlayServicesUtilLight.isGooglePlayServicesAvailable;
 
-public class WorkSiteActivity extends AppCompatActivity {
+public class WorkSiteActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private static final String TAG = "WorkSiteActivity";
 
     private static WorkSite innerWorksite;
@@ -44,6 +51,27 @@ public class WorkSiteActivity extends AppCompatActivity {
     }
 
     public void refreshListOfPeopleForWorksite() {
-            workSiteFragment.setPeopleForWorksite();
+        workSiteFragment.setPeopleForWorksite();
     }
+
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+        Calendar cal = new GregorianCalendar(year, month, day);
+        workSiteFragment.setDate(cal);
+    }
+
+
+    /**
+     * This callback method, call DatePickerFragment class,
+     * DatePickerFragment class returns calendar view.
+     *
+     * @param view
+     */
+    public void datePicker(View view) {
+
+        DatePickerFragment fragment = new DatePickerFragment();
+        fragment.show(getFragmentManager(), "date");
+    }
+
+
 }
