@@ -11,7 +11,9 @@ import android.widget.TextView;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by rdelfoss on 09/05/2018.
@@ -50,7 +52,11 @@ public class WorksitesCustomAdapter extends ArrayAdapter<WorkSite> {
         assert workSite != null;
         viewHolder.name.setText(workSite.getName());
         viewHolder.type.setText(workSite.getType());
-        viewHolder.vic.setText(String.valueOf(workSite.getDateVIC()));
+
+        long dVIC = workSite.getDateVIC();
+        Date dateVic = new Date(dVIC);
+        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        viewHolder.vic.setText(dateFormat.format(dateVic));
 
         return convertView;
     }

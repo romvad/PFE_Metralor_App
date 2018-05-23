@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
 
-import com.example.rvadam.pfe.DatePickerFragment;
+import com.example.rvadam.pfe.DatePicker.DatePickerFragment;
 import com.example.rvadam.pfe.FirebaseDBHelpers.PeopleDBHelper;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;

@@ -15,7 +15,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rdelfoss on 17/05/2018.
@@ -48,6 +50,14 @@ public class WorksiteDBHelper {
             }
         });
 
+    }
+
+    // Update
+    public void updateVIC(WorkSite workSite, long vic){
+        DatabaseReference databaseReference = myWorksitesRef.child(workSite.getId());
+        Map<String,Object> childMap= new HashMap<String, Object>();
+        childMap.put("dateVIC",vic);
+        databaseReference.updateChildren(childMap);
     }
 
     // Read

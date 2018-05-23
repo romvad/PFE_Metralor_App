@@ -2,6 +2,7 @@ package com.example.rvadam.pfe.WorkSite;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rvadam.pfe.FirebaseDBHelpers.WorksiteDBHelper;
+import com.example.rvadam.pfe.ListWorkSites.ListWorkSiteActivity;
 import com.example.rvadam.pfe.LocationHelper.LocationHelper;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
@@ -40,6 +43,8 @@ public class WorksiteFragment extends Fragment {
     private static final String DESCRIBABLE_KEY = "describable_key";
     private WorkSite innerWorksite;
     String address = "";
+    Date dateVic;
+    WorksiteDBHelper worksiteDBHelper;
 
     TextView worksite_name;
     TextView worksite_vic;
@@ -65,6 +70,10 @@ public class WorksiteFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         innerWorksite = (WorkSite) getArguments().getSerializable(DESCRIBABLE_KEY);
 
+        ListWorkSiteActivity listWorkSiteActivity = new ListWorkSiteActivity();
+
+        worksiteDBHelper = new WorksiteDBHelper("workSites/", listWorkSiteActivity);
+
         return inflater.inflate(R.layout.fragment_worksite, container, false);
     }
 
@@ -86,7 +95,7 @@ public class WorksiteFragment extends Fragment {
         save_worksite = getActivity().findViewById(R.id.save_worksite);
 
         long dVIC = innerWorksite.getDateVIC();
-        Date dateVic = getDateFromTimestamp(dVIC);
+        dateVic = getDateFromTimestamp(dVIC);
         final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
 
 
@@ -96,6 +105,17 @@ public class WorksiteFragment extends Fragment {
 
         getAddress(innerWorksite.getLattitude(), innerWorksite.getLongitude());
         worksite_address.setText(address);
+
+        save_worksite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                long vic = dateVic.getTime();
+                worksiteDBHelper.updateVIC(innerWorksite, vic);
+
+                Intent intent = new Intent(getActivity(), ListWorkSiteActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -162,7 +182,8 @@ public class WorksiteFragment extends Fragment {
      */
     protected void setDate(final Calendar calendar) {
         final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
-        worksite_vic.setText(dateFormat.format(calendar.getTime()));
+        dateVic = calendar.getTime();
+        worksite_vic.setText(dateFormat.format(dateVic));
 
     }
 }
