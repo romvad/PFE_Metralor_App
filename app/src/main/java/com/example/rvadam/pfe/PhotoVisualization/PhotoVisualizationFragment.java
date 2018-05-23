@@ -174,11 +174,11 @@ public class PhotoVisualizationFragment extends Fragment {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             filePath=data.getData();
-            displayPhotoWithUri(filePath);
+            displayPhotoWithUri(filePath,false);
 
         }else if (requestCode==TAKE_PHOTO_REQUEST && resultCode == RESULT_OK){
             filePath=PictureHistory.getInstance().getLastPicturePathUri();
-            displayPhotoWithUri(filePath);
+            displayPhotoWithUri(filePath,true);
         } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
@@ -187,14 +187,24 @@ public class PhotoVisualizationFragment extends Fragment {
         uploadChoosedPhotoButton.setEnabled(true);
     }
 
-    private void displayPhotoWithUri(Uri data) {
+    private void displayPhotoWithUri(Uri data, boolean afterTakingPhoto) {
 
-        GlideApp.with(getActivity().getApplicationContext())
-                .load(data)
-                .placeholder(R.mipmap.ic_image_not_available)
-                .error(R.mipmap.ic_image_not_available)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(mImageView);
+        if(!afterTakingPhoto){
+            GlideApp.with(getActivity().getApplicationContext())
+                    .load(data)
+                    .placeholder(R.mipmap.ic_image_not_available)
+                    .error(R.mipmap.ic_image_not_available)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(mImageView);
+        } else {
+            GlideApp.with(getActivity().getApplicationContext())
+                    .load(data)
+                    .placeholder(R.mipmap.ic_image_not_available)
+                    .error(R.mipmap.ic_image_not_available)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(mImageView);
+        }
+
     }
 
     private void uploadPhoto() {
