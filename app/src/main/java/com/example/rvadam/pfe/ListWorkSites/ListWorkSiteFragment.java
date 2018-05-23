@@ -52,8 +52,8 @@ public class ListWorkSiteFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Toast.makeText(getActivity(), "Nom : " + listOfPeople.get(position).getLastname(), Toast.LENGTH_SHORT).show();
-                WorkSite peopleSelected = (WorkSite) listOfWorksites.get(position);
-                WorkSiteActivity.setWorkSite(peopleSelected);
+                WorkSite workSiteSelected = (WorkSite) listOfWorksites.get(position);
+                WorkSiteActivity.setInnerWorksite(workSiteSelected);
 
                 Intent intent = new Intent(getActivity(), WorkSiteActivity.class);
                 startActivity(intent);

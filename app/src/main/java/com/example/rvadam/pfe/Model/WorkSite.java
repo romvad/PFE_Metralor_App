@@ -1,5 +1,6 @@
 package com.example.rvadam.pfe.Model;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ import java.util.Map;
  * Created by rvadam on 07/05/2018.
  */
 
-public class WorkSite {
+public class WorkSite implements Serializable {
 
     private String id;
     private long dateVIC;

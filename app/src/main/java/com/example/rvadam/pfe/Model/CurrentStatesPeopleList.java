@@ -14,6 +14,7 @@ public class CurrentStatesPeopleList {
     private static final CurrentStatesPeopleList instance = new CurrentStatesPeopleList();
 
     private CurrentStatesPeopleList() {
+
     }
 
     public static CurrentStatesPeopleList getInstance() {

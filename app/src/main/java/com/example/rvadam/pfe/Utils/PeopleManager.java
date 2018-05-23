@@ -30,7 +30,7 @@ public class PeopleManager {
         return getPeopleById(id).getFirstname();
     }
 
-    public static String getPeopleCompanyById(String id){
+    public static String getPeopleCompanyById(String id) {
         return getPeopleById(id).getIdCompany();
     }
 }
