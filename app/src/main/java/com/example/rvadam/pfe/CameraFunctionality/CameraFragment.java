@@ -418,10 +418,13 @@ public class CameraFragment extends Fragment implements View.OnClickListener {
         try {
             mState = STATE_WAIT_LOCK;
             // This is how to tell the camera to lock focus.
+            Thread.sleep(1000);
             mPreviewRequestBuilder.set(CaptureRequest.CONTROL_AF_TRIGGER, CameraMetadata.CONTROL_AF_TRIGGER_START);
             // Tell #mCaptureCallback to wait for the lock.
             mCaptureSession.capture(mPreviewRequestBuilder.build(), mCaptureCallback, mBackgroundHandler);
         } catch (CameraAccessException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }

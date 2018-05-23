@@ -20,6 +20,28 @@ public class WorkSite {
     private Map<String,String> planDocumentsMap;
     private Map<String,String> securityDocumentsMap;
     private Map<String,String> ppspsDocumentsMap;
+    /*private Map<String,String> worksiteAccessPhotosMap;
+    private Map<String,String> meansOfAccessPhotosMap;
+    private Map<String,String> airAccessPhotosMap;
+    private Map<String,String> technicalZoneAccessPhotosMap;
+    private Map<String,String> rfModulesPhotosMap;
+    private Map<String,String> energyPhotosMap;
+    private Map<String,String> transmissionPhotosMap;
+    private Map<String,String> antiIntrusionPhotosMap;
+    private Map<String,String> antiFallPhotosMap;
+    private Map<String,String> securityPerimeterPhotosMap;
+    private Map<String,String> signaleticsPhotosMap;
+    private Map<String,String> lightsPhotosMap;
+    private Map<String,String> groundsPhotosMap;
+    private Map<String,String> diversPhotosMap;
+    private Map<String,String> technicalEquipmentsPlacesPhotosMap;
+    private Map<String,String> divisionaryBoardPhotosMap;
+    private Map<String,String> coursesDiversPhotosMap;*/
+    private Map<String,String> coursesAccessPhotosMap;
+    private Map<String,String> securityPhotosMap;
+    private Map<String,String> technicalEquipmentsPhotosMap;
+    private Map<String,String> generalViewAccessPhotosMap;
+    private Map<String,String> maltAdductionsPhotosMap;
     private List<Document> otherDocuments=new ArrayList<Document>();
     private List<Document> planDocuments=new ArrayList<Document>();
     private List<Document> securityDocuments=new ArrayList<Document>();

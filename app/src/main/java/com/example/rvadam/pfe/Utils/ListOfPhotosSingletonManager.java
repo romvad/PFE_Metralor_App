@@ -153,4 +153,18 @@ public class ListOfPhotosSingletonManager {
             default: return result;
         }
     }
+
+    public static SpacePhoto getPhotoByName(String category, String photoName){
+
+        PhotoCategories categ = PhotoCategories.valueOf(category);
+        List<SpacePhoto> photosOfCategory = getListOfPhotosByCategory(categ);
+
+        for(SpacePhoto photo : photosOfCategory){
+            if(photo.getTitle().equals(photoName)){
+                return photo;
+            }
+        }
+
+        return null;
+    }
 }

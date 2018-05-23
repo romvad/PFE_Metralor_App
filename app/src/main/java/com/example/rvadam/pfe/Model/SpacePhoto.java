@@ -19,12 +19,14 @@ public class SpacePhoto implements Parcelable {
     private String mTitle;
     private static final String TAG="SpacePhoto";
     private String downloadURL;
+    private String mCategory;
 
-    public SpacePhoto(String FBStorageUrl, String title, String photoType, String idWorkSite ) {
+    public SpacePhoto(String FBStorageUrl,String mCategory, String title, String photoType, String idWorkSite) {
         mFBStorageUrl = FBStorageUrl;
         mTitle = title;
         mphotoType=photoType;
         mIdWorkSite=idWorkSite;
+        this.mCategory=mCategory;
     }
     /*public SpacePhoto(StorageReference mStorageReference, String title) {
         mStorageReference = mStorageReference;
@@ -34,6 +36,7 @@ public class SpacePhoto implements Parcelable {
     protected SpacePhoto(Parcel in) {
         mFBStorageUrl = in.readString();
         //mStorageReference=in.readString();
+        mCategory = in.readString();
         mTitle = in.readString();
         mphotoType = in.readString();
         mIdWorkSite = in.readString();
@@ -93,6 +96,10 @@ public class SpacePhoto implements Parcelable {
         this.downloadURL = downloadURL;
     }
 
+    public String getmCategory() {
+        return mCategory;
+    }
+
     /*public static  SpacePhoto[] getSpacePhotos() {
 
         /*StorageReference mStorageRef= FirebaseStorage.getInstance().getReference("The other one/documents/SECURITY_DOCUMENTS");
@@ -116,8 +123,10 @@ public class SpacePhoto implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(mFBStorageUrl);
+        parcel.writeString(mCategory);
         parcel.writeString(mTitle);
         parcel.writeString(mphotoType);
         parcel.writeString(mIdWorkSite);
+
     }
 }

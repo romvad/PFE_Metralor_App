@@ -68,6 +68,7 @@ private Button buttonPrintSecurity;
 private Button buttonPrintTechnicalEquipments;
 private Button buttonPrintGeneralView;
 FirebaseStoragePhotosHelpers helper;
+private int nbPhotosToPrint;
 
     public ProgressDialog getProgressDialog() {
         return progressDialog;
@@ -85,6 +86,10 @@ FirebaseStoragePhotosHelpers helper;
         return listMapKeys;
     }
 
+    public int getNbPhotosToPrint() {
+        return nbPhotosToPrint;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,6 +104,8 @@ FirebaseStoragePhotosHelpers helper;
         worksiteName = w.getName();
 
 
+
+
         //Instanciation of the FirebaseStoragePhotosHelper to set the download URLs in each SpacePhoto object in the ListOfPhotosSingleton
         helper=new FirebaseStoragePhotosHelpers(this);
         //Listeners of the print button per category
@@ -109,7 +116,9 @@ FirebaseStoragePhotosHelpers helper;
                 //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
                 bitmaps.clear();
                 listMapKeys.clear();
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.COURSES_ACCESS);
+                //determination of the number of photos
+                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.COURSES_ACCESS).size();
+                helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.COURSES_ACCESS,idWorksite);
             }
         });
 
@@ -120,7 +129,9 @@ FirebaseStoragePhotosHelpers helper;
                 //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
                 bitmaps.clear();
                 listMapKeys.clear();
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.MALT_ADDUCTIONS);
+                //determination of the number of photos
+                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.MALT_ADDUCTIONS).size();
+                helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.MALT_ADDUCTIONS,idWorksite);
             }
 
             });
@@ -131,7 +142,9 @@ FirebaseStoragePhotosHelpers helper;
                 //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
                 bitmaps.clear();
                 listMapKeys.clear();
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.SECURITY);
+                //determination of the number of photos
+                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.SECURITY).size();
+                helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.SECURITY,idWorksite);
             }
 
         });
@@ -143,7 +156,9 @@ FirebaseStoragePhotosHelpers helper;
                 //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
                 bitmaps.clear();
                 listMapKeys.clear();
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.TECHNICAL_EQUIPMENTS);
+                //determination of the number of photos
+                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.TECHNICAL_EQUIPMENTS).size();
+                helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.TECHNICAL_EQUIPMENTS,idWorksite);
             }
 
         });
@@ -155,7 +170,9 @@ FirebaseStoragePhotosHelpers helper;
                 //we reset the list of bitmaps and the local list of photos that have an image, to avoid printing photos of a another category for which the button has been clicked before
                 bitmaps.clear();
                 listMapKeys.clear();
-                helper.defineSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.GENERAL_VIEW_ACCESS);
+                //determination of the number of photos
+                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.GENERAL_VIEW_ACCESS).size();
+                helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.GENERAL_VIEW_ACCESS,idWorksite);
             }
 
         });
@@ -167,22 +184,26 @@ FirebaseStoragePhotosHelpers helper;
     }
 
     public void callImageRetriever(PhotoCategories category){
-        ImageRetriever ir= new ImageRetriever(this,category);
-        List<SpacePhoto> photosOfCategory= ListOfPhotosSingletonManager.getListOfPhotosByCategory(category);
-        String[] urls= new String[photosOfCategory.size()];
-        int counter=0;
 
+        List<SpacePhoto> photosOfCategory= ListOfPhotosSingletonManager.getListOfPhotosByCategory(category);
+        //String[] urls= new String[photosOfCategory.size()];
+        String[] url = new String[1];
+        int nbOfRetrieverCall=0;
         for(SpacePhoto photo : photosOfCategory){
             if(photo.getDownloadURL()!=null){
-                urls[counter]=photo.getDownloadURL();
+                ImageRetriever ir= new ImageRetriever(this,category,nbOfRetrieverCall);
+                //urls[counter]=photo.getDownloadURL();
+                url[0] = photo.getDownloadURL();
                 //In the keys of the hashmap bitmaps, we store each photo object (already uploaded) that matches each bitmap to organize the pdf document
                 bitmaps.put(photo,null);
                 listMapKeys.add(photo);
-                counter++;
+                ir.execute(url[0]);
+                nbOfRetrieverCall++;
             }
 
         }
-        ir.execute(urls);//Launch the ImageRetriever AsyncTask
+        progressDialog.dismiss();
+        //ir.execute(urls);//Launch the ImageRetriever AsyncTask
 
 
     }
@@ -227,6 +248,7 @@ FirebaseStoragePhotosHelpers helper;
                 } else {
                     this.photoToWriteTypes= ListOfPhotosSingletonManager.getTypesByCategory(category);
                     this.totalpages = WriteImagesInPDFTools.getTotalOfPagesByCategory(category);
+                    this.category = category;
                 }
 
             }
@@ -494,7 +516,7 @@ FirebaseStoragePhotosHelpers helper;
                 nbPhotosRemainingToWrite -=nbWrittenPhotosInThisCall;
 
                 if(nbPhotosRemainingToWrite==0){
-                    nbTypesProcessed++;// Awhole type of photos is now written, we now write photos from the next category
+                    nbTypesProcessed++;// A whole type of photos is now written, we now write photos from the next category
                 }else {
 
                 }

@@ -25,8 +25,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!--android:largeHeap="true"
+    android:hardwareAccelerated="false"-->
 
-        <!-- Intent filter to capture System Browser calling back to our app after Sign In -->
+    <!-- Intent filter to capture System Browser calling back to our app after Sign In -->
         <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

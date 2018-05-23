@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rvadam.pfe.AppGlideModule.GlideApp;
 import com.example.rvadam.pfe.CameraFunctionality.CameraFunctionalityActivity;
+import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBImagesHelpers;
 import com.example.rvadam.pfe.Model.FileStatus;
 import com.example.rvadam.pfe.Model.SpacePhoto;
 import com.example.rvadam.pfe.Model.WorkSite;
@@ -211,6 +212,7 @@ public class PhotoVisualizationFragment extends Fragment {
                     updatePhotoStatus(FileStatus.UPLOADED);
                     uploadChoosedPhotoButton.setEnabled(false);
                 }
+                FirebaseDBImagesHelpers.updateDownloadUrlForPhoto(getActivity(),photoAtStake.getmIdWorkSite(),photoAtStake.getmCategory(),photoAtStake.getTitle(),taskSnapshot.getDownloadUrl().toString());
 
             }
         }).addOnFailureListener(new OnFailureListener() {
@@ -308,6 +310,7 @@ public class PhotoVisualizationFragment extends Fragment {
         fullRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
+                Log.i(TAG,"url dl "+uri.toString());
                 isPhotoUploaded = true;
             }
         });
