@@ -87,9 +87,13 @@ public class WorksiteFragment extends Fragment {
 
         long dVIC = innerWorksite.getDateVIC();
         Date dateVic = getDateFromTimestamp(dVIC);
+        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+
 
         worksite_name.setText(innerWorksite.getName());
         worksite_type.setText(innerWorksite.getType());
+        worksite_vic.setText(dateFormat.format(dateVic));
+
         getAddress(innerWorksite.getLattitude(), innerWorksite.getLongitude());
         worksite_address.setText(address);
 
