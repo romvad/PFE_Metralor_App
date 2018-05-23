@@ -1,8 +1,11 @@
 package com.example.rvadam.pfe.FirebaseDBHelpers;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.example.rvadam.pfe.AddPeople.AddPeopleActivity;
 import com.example.rvadam.pfe.ListPeople.ListPeopleActivity;
+import com.example.rvadam.pfe.Model.CurrentStateRolesList;
 import com.example.rvadam.pfe.Model.CurrentStatesPeopleList;
 import com.example.rvadam.pfe.Model.Role;
 import com.google.firebase.database.DataSnapshot;
@@ -11,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,13 +23,12 @@ import java.util.Map;
 
 public class RoleDBHelper {
     private static final String TAG = "RoleDBHelper";
+    private final Context context;
     private DatabaseReference myRoleRef;
 
-    private static ListPeopleActivity listPeopleActivity;
-
-    public RoleDBHelper(String node, ListPeopleActivity listPeopleActivity) {
+    public RoleDBHelper(String node, Context context) {
         this.myRoleRef = FirebaseDatabase.getInstance().getReference(node);
-        RoleDBHelper.listPeopleActivity = listPeopleActivity;
+        this.context = context;
     }
 
     // Read
@@ -47,16 +50,24 @@ public class RoleDBHelper {
         CurrentStatesPeopleList currentStatesPeopleList = CurrentStatesPeopleList.getInstance();
         Map<String, String> mapRoles = currentStatesPeopleList.getRolesMap();
 
+        CurrentStateRolesList currentStateRolesList = CurrentStateRolesList.getInstance();
+        List<Role> listRoles = currentStateRolesList.getCurrentRolesList();
+
         Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
         mapRoles.clear();
+        listRoles.clear();
 
         for (DataSnapshot snapshot : dataList) {
             Role role = snapshot.getValue(Role.class);
-            //Log.i(TAG, "Role name : " + Role.getTitle());
             assert role != null;
+            listRoles.add(role);
             mapRoles.put(role.getId(), role.getTitle());
         }
-        listPeopleActivity.refreshListOfPeople();
+        if (context instanceof ListPeopleActivity) {
+            ((ListPeopleActivity) context).refreshListOfPeople();
+        } else if (context instanceof AddPeopleActivity) {
+            ((AddPeopleActivity) context).refresh();
+        }
     }
 
 }

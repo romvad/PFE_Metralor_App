@@ -56,6 +56,7 @@
     <string name="personsCompany">Entreprise</string>
     <string name="personsRole">Role</string>
     <string name="personsPhone">Numero de téléphone</string>
+    <string name="personsEmail">Email</string>
     <string name="firstname">Prénom</string>
     <string name="lastname">Nom de famille</string>
     <string name="phone">Numéro</string>
@@ -63,7 +64,7 @@
     <string name="company">Entreprise</string>
     <string name="role">Rôle</string>
     <string name="editPeople">Modifier</string>
-    <string name="manage_people">Gérer les personnes</string>
+    <string name="create_people">Ajouter un employé</string>
 
     <string name="create">Créer</string>
     <string name="deselect">Desélectionner</string>

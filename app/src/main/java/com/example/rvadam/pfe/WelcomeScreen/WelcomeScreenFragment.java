@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.rvadam.pfe.ListPeople.ListPeopleActivity;
+import com.example.rvadam.pfe.AddPeople.AddPeopleActivity;
 import com.example.rvadam.pfe.ListWorkSites.ListWorkSiteActivity;
 import com.example.rvadam.pfe.R;
 
@@ -20,7 +20,7 @@ import com.example.rvadam.pfe.R;
 public class WelcomeScreenFragment extends Fragment {
 
     private Button mManageWorksitesButton;
-    private Button mManagePeopleButton;
+    private Button mCreatePeopleButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class WelcomeScreenFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mManageWorksitesButton = (Button) getActivity().findViewById(R.id.manage_worksites);
-        mManagePeopleButton = (Button) getActivity().findViewById(R.id.manage_people);
+        mCreatePeopleButton = (Button) getActivity().findViewById(R.id.manage_people);
 
         mManageWorksitesButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,10 +41,10 @@ public class WelcomeScreenFragment extends Fragment {
                 startActivity(listWorksitesCall);
             }
         });
-        mManagePeopleButton.setOnClickListener(new View.OnClickListener() {
+        mCreatePeopleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent listPeopleCall = new Intent(getActivity(), ListPeopleActivity.class);
+                Intent listPeopleCall = new Intent(getActivity(), AddPeopleActivity.class);
                 startActivity(listPeopleCall);
             }
         });

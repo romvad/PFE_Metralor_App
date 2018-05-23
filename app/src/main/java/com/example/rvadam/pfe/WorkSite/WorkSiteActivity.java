@@ -32,7 +32,7 @@ public class WorkSiteActivity extends AppCompatActivity implements DatePickerDia
         setContentView(R.layout.activity_worksite);
 
         peopleDBHelper = new PeopleDBHelper("people", this);
-        peopleDBHelper.retrievePeopleBis();
+        peopleDBHelper.retrievePeople();
 
         if (findViewById(R.id.worksiteFragment_container) != null) {
             if (savedInstanceState != null) {

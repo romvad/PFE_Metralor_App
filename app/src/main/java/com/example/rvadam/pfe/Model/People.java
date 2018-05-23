@@ -29,6 +29,15 @@ public class People implements Serializable {
         this.phone = phone;
     }
 
+    public People(String firstname, String lastname, String email, String idCompany, String idRole, String phone) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.idCompany = idCompany;
+        this.idRole = idRole;
+        this.phone = phone;
+    }
+
     public String getId() {
         return id;
     }

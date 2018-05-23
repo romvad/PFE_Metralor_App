@@ -1,11 +1,16 @@
 package com.example.rvadam.pfe.FirebaseDBHelpers;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.rvadam.pfe.ListPeople.ListPeopleActivity;
 import com.example.rvadam.pfe.Model.CurrentStatesPeopleList;
 import com.example.rvadam.pfe.Model.People;
 import com.example.rvadam.pfe.WorkSite.WorkSiteActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,51 +25,31 @@ import java.util.List;
 
 public class PeopleDBHelper {
     private static final String TAG = "PeopleDBHelper";
+    private final Context context;
     private DatabaseReference myPeopleRef;
 
-    private static ListPeopleActivity listPeopleActivity;
-    private static WorkSiteActivity workSiteActivity;
 
-    public PeopleDBHelper(String node, ListPeopleActivity listPeopleActivity) {
+    public PeopleDBHelper(String node, Context context) {
         this.myPeopleRef = FirebaseDatabase.getInstance().getReference(node);
-        PeopleDBHelper.listPeopleActivity = listPeopleActivity;
+        this.context = context;
     }
 
-    public PeopleDBHelper(String people, WorkSiteActivity workSiteActivity) {
-        this.myPeopleRef = FirebaseDatabase.getInstance().getReference(people);
-        PeopleDBHelper.workSiteActivity = workSiteActivity;
-    }
-
-    // Read
-    public void retrievePeopleBis() {
-        myPeopleRef.addValueEventListener(new ValueEventListener() {
+    // Write
+    public void pushPeople(People people) {
+        DatabaseReference newRef = myPeopleRef.push();
+        people.setId(newRef.getKey());
+        newRef.setValue(people).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                fetchDataBis(dataSnapshot);
-                Log.i(TAG, "azertyuiopqsdfghjklm");
+            public void onComplete(@NonNull Task<Void> task) {
+                Log.i(TAG, "onComplete");
             }
-
+        }).addOnFailureListener(new OnFailureListener() {
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.w(TAG, "Failed to read value.", databaseError.toException());
+            public void onFailure(@NonNull Exception e) {
+                Log.i(TAG, "onCancelled");
             }
         });
 
-    }
-
-    private void fetchDataBis(DataSnapshot dataSnapshot) {
-        CurrentStatesPeopleList currentStatesPeopleList = CurrentStatesPeopleList.getInstance();
-        List<People> listPeople = currentStatesPeopleList.getCurrentPeopleList();
-
-        Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
-        listPeople.clear();
-
-        for (DataSnapshot snapshot : dataList) {
-            People people = snapshot.getValue(People.class);
-            listPeople.add(people);
-
-        }
-        workSiteActivity.refreshListOfPeopleForWorksite();
     }
 
     // Read
@@ -95,7 +80,12 @@ public class PeopleDBHelper {
             listPeople.add(people);
 
         }
-        listPeopleActivity.refreshListOfPeople();
+        if (context instanceof WorkSiteActivity) {
+            ((WorkSiteActivity) context).refreshListOfPeopleForWorksite();
+        } else if (context instanceof ListPeopleActivity) {
+            ((ListPeopleActivity) context).refreshListOfPeople();
+        }
+
     }
 
 }

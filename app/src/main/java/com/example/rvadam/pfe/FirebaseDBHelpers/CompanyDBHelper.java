@@ -1,9 +1,12 @@
 package com.example.rvadam.pfe.FirebaseDBHelpers;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.example.rvadam.pfe.AddPeople.AddPeopleActivity;
 import com.example.rvadam.pfe.ListPeople.ListPeopleActivity;
 import com.example.rvadam.pfe.Model.Company;
+import com.example.rvadam.pfe.Model.CurrentStatesCompaniesList;
 import com.example.rvadam.pfe.Model.CurrentStatesPeopleList;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,6 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -19,13 +23,12 @@ import java.util.Map;
 
 public class CompanyDBHelper {
     private static final String TAG = "CompanyDBHelper";
+    private final Context context;
     private DatabaseReference myCompanyRef;
 
-    private static ListPeopleActivity listPeopleActivity;
-
-    public CompanyDBHelper(String node, ListPeopleActivity listPeopleActivity) {
+    public CompanyDBHelper(String node, Context context) {
         this.myCompanyRef = FirebaseDatabase.getInstance().getReference(node);
-        CompanyDBHelper.listPeopleActivity = listPeopleActivity;
+        this.context = context;
     }
 
     // Read
@@ -47,16 +50,24 @@ public class CompanyDBHelper {
         CurrentStatesPeopleList currentStatesPeopleList = CurrentStatesPeopleList.getInstance();
         Map<String, String> mapCompanies = currentStatesPeopleList.getCompaniesMap();
 
+        CurrentStatesCompaniesList currentStatesCompaniesList = CurrentStatesCompaniesList.getInstance();
+        List<Company> listCompanies = currentStatesCompaniesList.getCurrentCompaniesList();
+
         Iterable<DataSnapshot> dataList = dataSnapshot.getChildren();
         mapCompanies.clear();
+        listCompanies.clear();
 
         for (DataSnapshot snapshot : dataList) {
             Company company = snapshot.getValue(Company.class);
-            //Log.i(TAG, "Company name : " + company.getName());
             assert company != null;
+            listCompanies.add(company);
             mapCompanies.put(company.getId(), company.getName());
         }
-        listPeopleActivity.refreshListOfPeople();
+        if (context instanceof ListPeopleActivity) {
+            ((ListPeopleActivity) context).refreshListOfPeople();
+        } else if (context instanceof AddPeopleActivity) {
+            ((AddPeopleActivity) context).refresh();
+        }
     }
 
 }

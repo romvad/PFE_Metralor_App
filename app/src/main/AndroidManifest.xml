@@ -70,6 +70,7 @@
         <activity android:name=".WorkSite.WorkSiteActivity" />
         <activity android:name=".ListWorkSites.ListWorkSiteActivity" />
         <activity android:name=".AddWorksite.AddWorksiteActivity" />
+        <activity android:name=".AddPeople.AddPeopleActivity"/>
         <activity android:name=".WelcomeScreen.WelcomeScreenActivity" />
         <activity android:name=".ListPeople.ListPeopleActivity" />
         <activity android:name=".People.PeopleActivity" />
