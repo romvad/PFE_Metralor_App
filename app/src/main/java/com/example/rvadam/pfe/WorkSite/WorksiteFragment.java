@@ -159,11 +159,13 @@ public class WorksiteFragment extends Fragment {
     public void setPeopleForWorksite() {
         List<String> personsById = innerWorksite.getEmployees();
         List<String> personsByLastNameFirstName = new ArrayList<>();
-        for (int i = 0; i < personsById.size(); i++) {
-            String pId = personsById.get(i);
-            String a = PeopleManager.getPeopleLastNameById(pId);
-            String b = PeopleManager.getPeopleFirstNameById(pId);
-            personsByLastNameFirstName.add(a + " " + b);
+        if (personsById.size()>0) {
+            for (int i = 0; i < personsById.size(); i++) {
+                String pId = personsById.get(i);
+                String a = PeopleManager.getPeopleLastNameById(pId);
+                String b = PeopleManager.getPeopleFirstNameById(pId);
+                personsByLastNameFirstName.add(a + " " + b);
+            }
         }
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, personsByLastNameFirstName);
         woksite_people.setAdapter(adapter);

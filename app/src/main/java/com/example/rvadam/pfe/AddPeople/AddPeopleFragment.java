@@ -155,7 +155,6 @@ public class AddPeopleFragment extends Fragment {
         firstname = String.valueOf(editPersonFirstName.getText());
         lastname = String.valueOf(editPersonLastName.getText());
         email = String.valueOf(editPersonEmail.getText());
-        ;
         idCompany = lCompaniesObject.get(positionCompany).getId();
         idRole = lRolesObject.get(positionRole).getId();
         phone = String.valueOf(editPersonPhone.getText());

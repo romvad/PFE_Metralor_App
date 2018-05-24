@@ -57,6 +57,26 @@ public class WorkSite implements Serializable {
     private List<SpacePhoto> securityPhotos=new ArrayList<SpacePhoto>();
     private String type;
 
+    // constructor with all param
+    public WorkSite(String id, long dateVIC, List<String> employees, double lattitude, double longitude, String name, Map<String, String> otherDocumentsMap, Map<String, String> planDocumentsMap, Map<String, String> securityDocumentsMap, Map<String, String> ppspsDocumentsMap, Map<String, String> coursesAccessPhotosMap, Map<String, String> securityPhotosMap, Map<String, String> technicalEquipmentsPhotosMap, Map<String, String> generalViewAccessPhotosMap, Map<String, String> maltAdductionsPhotosMap, String type) {
+        this.id = id;
+        this.dateVIC = dateVIC;
+        this.employees = employees;
+        this.lattitude = lattitude;
+        this.longitude = longitude;
+        this.name = name;
+        this.otherDocumentsMap = otherDocumentsMap;
+        this.planDocumentsMap = planDocumentsMap;
+        this.securityDocumentsMap = securityDocumentsMap;
+        this.ppspsDocumentsMap = ppspsDocumentsMap;
+        this.coursesAccessPhotosMap = coursesAccessPhotosMap;
+        this.securityPhotosMap = securityPhotosMap;
+        this.technicalEquipmentsPhotosMap = technicalEquipmentsPhotosMap;
+        this.generalViewAccessPhotosMap = generalViewAccessPhotosMap;
+        this.maltAdductionsPhotosMap = maltAdductionsPhotosMap;
+        this.type = type;
+    }
+
     public WorkSite(String id, long dateVIC, double lattitude, double longitude, String name, Map<String, String> otherDocumentsMap, Map<String, String> planDocumentsMap, Map<String, String> securityDocumentsMap, Map<String, String> ppspsDocumentsMap, String type) {
         this.id = id;
         this.dateVIC = dateVIC;
@@ -110,54 +130,52 @@ public class WorkSite implements Serializable {
         this.type = type;
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public long getDateVIC() {
         return dateVIC;
     }
 
-    public List<Document> getPlanDocuments() {
-        return planDocuments;
-    }
-
-    public List<Document> getSecurityDocuments() {
-        return securityDocuments;
-    }
-
-    public List<Document> getPpspsDocuments() {
-        return ppspsDocuments;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getId() {
-        return id;
+    public void setDateVIC(long dateVIC) {
+        this.dateVIC = dateVIC;
     }
 
     public List<String> getEmployees() {
         return employees;
     }
 
+    public void setEmployees(List<String> employees) {
+        this.employees = employees;
+    }
+
     public double getLattitude() {
         return lattitude;
+    }
+
+    public void setLattitude(double lattitude) {
+        this.lattitude = lattitude;
     }
 
     public double getLongitude() {
         return longitude;
     }
 
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
     public String getName() {
         return name;
     }
 
-    public List<Document> getOtherDocuments() {
-        return otherDocuments;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Map<String, String> getOtherDocumentsMap() {
@@ -192,23 +210,123 @@ public class WorkSite implements Serializable {
         this.ppspsDocumentsMap = ppspsDocumentsMap;
     }
 
+    public Map<String, String> getCoursesAccessPhotosMap() {
+        return coursesAccessPhotosMap;
+    }
+
+    public void setCoursesAccessPhotosMap(Map<String, String> coursesAccessPhotosMap) {
+        this.coursesAccessPhotosMap = coursesAccessPhotosMap;
+    }
+
+    public Map<String, String> getSecurityPhotosMap() {
+        return securityPhotosMap;
+    }
+
+    public void setSecurityPhotosMap(Map<String, String> securityPhotosMap) {
+        this.securityPhotosMap = securityPhotosMap;
+    }
+
+    public Map<String, String> getTechnicalEquipmentsPhotosMap() {
+        return technicalEquipmentsPhotosMap;
+    }
+
+    public void setTechnicalEquipmentsPhotosMap(Map<String, String> technicalEquipmentsPhotosMap) {
+        this.technicalEquipmentsPhotosMap = technicalEquipmentsPhotosMap;
+    }
+
+    public Map<String, String> getGeneralViewAccessPhotosMap() {
+        return generalViewAccessPhotosMap;
+    }
+
+    public void setGeneralViewAccessPhotosMap(Map<String, String> generalViewAccessPhotosMap) {
+        this.generalViewAccessPhotosMap = generalViewAccessPhotosMap;
+    }
+
+    public Map<String, String> getMaltAdductionsPhotosMap() {
+        return maltAdductionsPhotosMap;
+    }
+
+    public void setMaltAdductionsPhotosMap(Map<String, String> maltAdductionsPhotosMap) {
+        this.maltAdductionsPhotosMap = maltAdductionsPhotosMap;
+    }
+
+    public List<Document> getOtherDocuments() {
+        return otherDocuments;
+    }
+
+    public void setOtherDocuments(List<Document> otherDocuments) {
+        this.otherDocuments = otherDocuments;
+    }
+
+    public List<Document> getPlanDocuments() {
+        return planDocuments;
+    }
+
+    public void setPlanDocuments(List<Document> planDocuments) {
+        this.planDocuments = planDocuments;
+    }
+
+    public List<Document> getSecurityDocuments() {
+        return securityDocuments;
+    }
+
+    public void setSecurityDocuments(List<Document> securityDocuments) {
+        this.securityDocuments = securityDocuments;
+    }
+
+    public List<Document> getPpspsDocuments() {
+        return ppspsDocuments;
+    }
+
+    public void setPpspsDocuments(List<Document> ppspsDocuments) {
+        this.ppspsDocuments = ppspsDocuments;
+    }
+
     public List<SpacePhoto> getCoursesAccessPhotos() {
         return coursesAccessPhotos;
+    }
+
+    public void setCoursesAccessPhotos(List<SpacePhoto> coursesAccessPhotos) {
+        this.coursesAccessPhotos = coursesAccessPhotos;
     }
 
     public List<SpacePhoto> getGeneralViewAccessPhotos() {
         return generalViewAccessPhotos;
     }
 
+    public void setGeneralViewAccessPhotos(List<SpacePhoto> generalViewAccessPhotos) {
+        this.generalViewAccessPhotos = generalViewAccessPhotos;
+    }
+
     public List<SpacePhoto> getTechnicalEquipmentsPhotos() {
         return technicalEquipmentsPhotos;
+    }
+
+    public void setTechnicalEquipmentsPhotos(List<SpacePhoto> technicalEquipmentsPhotos) {
+        this.technicalEquipmentsPhotos = technicalEquipmentsPhotos;
     }
 
     public List<SpacePhoto> getMaltAdductionsPhotos() {
         return maltAdductionsPhotos;
     }
 
+    public void setMaltAdductionsPhotos(List<SpacePhoto> maltAdductionsPhotos) {
+        this.maltAdductionsPhotos = maltAdductionsPhotos;
+    }
+
     public List<SpacePhoto> getSecurityPhotos() {
         return securityPhotos;
+    }
+
+    public void setSecurityPhotos(List<SpacePhoto> securityPhotos) {
+        this.securityPhotos = securityPhotos;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
