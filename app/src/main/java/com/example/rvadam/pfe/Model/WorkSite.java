@@ -1,6 +1,10 @@
 package com.example.rvadam.pfe.Model;
 
+
 import java.util.ArrayList;
+
+import java.io.Serializable;
+
 import java.util.List;
 import java.util.Map;
 
@@ -8,7 +12,7 @@ import java.util.Map;
  * Created by rvadam on 07/05/2018.
  */
 
-public class WorkSite {
+public class WorkSite implements Serializable {
 
     private String id;
     private long dateVIC;
@@ -81,16 +85,16 @@ public class WorkSite {
     }
 
     //Constructor without ID, used when we create a worksite to be able to generate a unique ID in Firebase DB
-    public WorkSite(long dateVIC, List<String> employees, double lattitude, double longitude, String name, List<Document> otherDocuments, List<Document> planDocuments, List<Document> securityDocuments, List<Document> ppspsDocuments, String type) {
+    public WorkSite(long dateVIC, List<String> employees, double lattitude, double longitude, String name, Map<String,String> otherDocuments, Map<String,String> planDocuments, Map<String,String> securityDocuments, Map<String,String> ppspsDocuments, String type) {
         this.dateVIC = dateVIC;
         this.employees = employees;
         this.lattitude = lattitude;
         this.longitude = longitude;
         this.name = name;
-        this.otherDocuments = otherDocuments;
-        this.planDocuments = planDocuments;
-        this.securityDocuments = securityDocuments;
-        this.ppspsDocuments = ppspsDocuments;
+        this.otherDocumentsMap = otherDocuments;
+        this.planDocumentsMap = planDocuments;
+        this.securityDocumentsMap = securityDocuments;
+        this.ppspsDocumentsMap = ppspsDocuments;
         this.type = type;
     }
 

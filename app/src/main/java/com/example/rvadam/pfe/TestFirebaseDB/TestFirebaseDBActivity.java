@@ -1,7 +1,7 @@
 package com.example.rvadam.pfe.TestFirebaseDB;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.rvadam.pfe.R;

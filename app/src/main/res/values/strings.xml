@@ -71,4 +71,56 @@
     <string name="label_button_print_technical_equipments">Générer le document photos EQUIPEMENT TECHNIQUES</string>
     <string name="label_button_print_general_view">Générer le document photos VUE GENERALE</string>
 
+    <string name="choose">Choisir</string>
+
+    <!-- Strings related to worksite -->
+    <string name="worksite_name">Nom du chantier</string>
+    <string name="edit_worksite_name">XXX</string>
+    <string name="worksite_type">Type du chantier</string>
+    <string name="choose_worksite_type">Type</string>
+    <string name="worksite_address">Adresse</string>
+    <string name="worksite_address_number">Numéro de rue</string>
+    <string name="edit_worksite_address_number">12</string>
+    <string name="worksite_address_road">Nom de rue</string>
+    <string name="edit_worksite_address_road">Rue ....</string>
+    <string name="worksite_address_city">Ville</string>
+    <string name="edit_worksite_address_city">Abcd</string>
+    <string name="worksite_address_code">Code postal</string>
+    <string name="edit_worksite_address_code">01234</string>
+
+    <string name="worksite_vic">VIC non renseignée</string>
+    <string name="create_worksite">Créer ce chantier</string>
+    <string name="manage_worksites">Gérer les chantiers</string>
+
+    <!-- Strings related to people -->
+    <string name="personsLastname">Nom</string>
+    <string name="personsFirstname">Prénom</string>
+    <string name="personsCompany">Entreprise</string>
+    <string name="personsRole">Role</string>
+    <string name="personsPhone">Numero de téléphone</string>
+    <string name="personsEmail">Email</string>
+    <string name="firstname">Prénom</string>
+    <string name="lastname">Nom de famille</string>
+    <string name="phone">Numéro</string>
+    <string name="idPeople">ID</string>
+    <string name="company">Entreprise</string>
+    <string name="role">Rôle</string>
+    <string name="editPeople">Modifier</string>
+    <string name="create_people">Ajouter un employé</string>
+
+    <string name="create">Créer</string>
+    <string name="deselect">Desélectionner</string>
+    <string name="select">Selectionner</string>
+    <string name="select_people">Choisir des personnes</string>
+    <string name="choose_persons">Valider mon choix</string>
+    <string name="worksite_people">Personnes</string>
+    <string name="date_vic">VIC : </string>
+    <string name="save">Sauvegarder</string>
+    <string name="generate_pdf">Générer PDF</string>
+    <string name="access_docs">Documents</string>
+    <string name="access_photos">Photos</string>
+    <string name="worksite_list_people">Personnes</string>
+    <string name="date_vic_created">01/02/2018</string>
+
+
 </resources>

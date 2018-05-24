@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PFE.iml" filepath="$PROJECT_DIR$/PFE.iml" />
+      <module fileurl="file://C:\Users\rdelfoss\Documents\Alternance\PFE\PFE_Metralor_App\PFE.iml" filepath="C:\Users\rdelfoss\Documents\Alternance\PFE\PFE_Metralor_App\PFE.iml" />
+      <module fileurl="file://C:\Users\rvadam\AndroidStudioProjects\PFE\PFE_Metralor_App.iml" filepath="C:\Users\rvadam\AndroidStudioProjects\PFE\PFE_Metralor_App.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

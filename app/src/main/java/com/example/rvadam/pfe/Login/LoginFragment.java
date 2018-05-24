@@ -30,10 +30,13 @@ import android.widget.TextView;
 
 import com.example.rvadam.pfe.CameraFunctionality.CameraFunctionalityActivity;
 import com.example.rvadam.pfe.R;
-import com.example.rvadam.pfe.WelcomeListWorkSites.WelcomeListWorkSite;
+
 import com.example.rvadam.pfe.WorkSitePhotoGallery.PhotoGalleryActivity;
 import com.example.rvadam.pfe.WorkSitePhotoGallery.TabsOfPhotosActivity;
 import com.example.rvadam.pfe.WriteImagesInPDF.WriteImagesInPDFActivity;
+
+import com.example.rvadam.pfe.WelcomeScreen.WelcomeScreenActivity;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,35 +113,9 @@ public class LoginFragment extends Fragment implements LoginContract.View, Loade
             @Override
             public void onClick(View view) {
                 // attemptLogin(); TO DISCOMMENT later, comments in order to test the ListView Activities with Work Sites
-                // Intent testWebViewActivityCall= new Intent(getActivity(), WebViewActivity.class);
-                //startActivity(testWebViewActivityCall);
-                /*Intent testOneDriveActivityCall= new Intent(getActivity(), TestOneDriveActivity.class);
-                startActivity(testOneDriveActivityCall);*/
-                /*Intent testMSALLoginActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestLoginWithMSAL.LoginActivity.class);
-                startActivity(testMSALLoginActivityCall);*/
-                /*Intent FirebaseStorageActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.FirebaseStorageActivity.class);
-                startActivity(FirebaseStorageActivityCall);*/
-                /*Intent testDLFirebaseStorageActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.TestDLFirebaseStorageActivity.class);
-                startActivity(testDLFirebaseStorageActivityCall);*/
-                /*Intent testFirebaseDBActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseDB.TestFirebaseDBActivity.class);
-                startActivity(testFirebaseDBActivityCall);*/
-                /*Intent welcomeListWorkSiteCall = new Intent(getActivity(), WelcomeListWorkSite.class);
-                startActivity(welcomeListWorkSiteCall);*/
-                /*Intent testFirebaseStorageBisActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.TestFirebaseStorage.TestFirebaseStorageBisActivity.class);
-                startActivity(testFirebaseStorageBisActivityCall);*/
-                /*Intent testTabsOfListOfDocumentsActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity.class);
-                startActivity(testTabsOfListOfDocumentsActivityCall);*/
-                Intent fakeListOfWorksitesActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.FakeListWorksitesActivity.class);
-                startActivity(fakeListOfWorksitesActivityCall);
-                /*Intent photoGalleryActivityCall= new Intent(getActivity(), PhotoGalleryActivity.class);
-                startActivity(photoGalleryActivityCall);*/
-                /*Intent tabsOfPhotoActivityCall= new Intent(getActivity(), TabsOfPhotosActivity.class);
-                startActivity(tabsOfPhotoActivityCall);*/
-                /*Intent cameraFunctionalityActivityCall= new Intent(getActivity(), CameraFunctionalityActivity.class);
-                startActivity(cameraFunctionalityActivityCall);*/
-                /*Intent writeImagesInPDFActivityCall= new Intent(getActivity(), WriteImagesInPDFActivity.class);
-                startActivity(writeImagesInPDFActivityCall);*/
 
+                Intent welcomeScreenCall = new Intent(getActivity(), WelcomeScreenActivity.class);
+                startActivity(welcomeScreenCall);
 
 
             }
