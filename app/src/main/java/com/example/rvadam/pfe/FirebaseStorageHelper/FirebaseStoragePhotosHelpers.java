@@ -87,7 +87,7 @@ public class FirebaseStoragePhotosHelpers {
                 while (it.hasNext()) {
                     DataSnapshot snap = it.next();
                     String photoName = snap.getKey();
-                    SpacePhoto photo = ListOfPhotosSingletonManager.getPhotoByName(String.valueOf(category),photoName);
+                    SpacePhoto photo = ListOfPhotosSingletonManager.getPhotoByName(String.valueOf(category),replaceSemiColumWithPoint(photoName));
                     photo.setDownloadURL(replaceTremaWithSlashUrl(snap.getValue(String.class)));
                 }
 
@@ -105,6 +105,10 @@ public class FirebaseStoragePhotosHelpers {
 
     private String replaceTremaWithSlashUrl(String url){
         return url.replace("¨","/");
+    }
+
+    private static String replaceSemiColumWithPoint(String key){
+        return key.replace(";",".");
     }
 
 

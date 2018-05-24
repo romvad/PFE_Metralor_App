@@ -53,6 +53,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.rvadam.pfe.Utils.WriteImagesInPDFTools.getNbPhotosToPrintByCategory;
+
 public class WriteImagesInPDFActivity extends Activity {
 private Map<SpacePhoto,Bitmap> bitmaps;
 private List<SpacePhoto> listMapKeys;
@@ -117,7 +119,7 @@ private int nbPhotosToPrint;
                 bitmaps.clear();
                 listMapKeys.clear();
                 //determination of the number of photos
-                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.COURSES_ACCESS).size();
+                nbPhotosToPrint=getNbPhotosToPrintByCategory(PhotoCategories.COURSES_ACCESS);
                 helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.COURSES_ACCESS,idWorksite);
             }
         });
@@ -130,7 +132,7 @@ private int nbPhotosToPrint;
                 bitmaps.clear();
                 listMapKeys.clear();
                 //determination of the number of photos
-                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.MALT_ADDUCTIONS).size();
+                nbPhotosToPrint=getNbPhotosToPrintByCategory(PhotoCategories.MALT_ADDUCTIONS);
                 helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.MALT_ADDUCTIONS,idWorksite);
             }
 
@@ -143,7 +145,7 @@ private int nbPhotosToPrint;
                 bitmaps.clear();
                 listMapKeys.clear();
                 //determination of the number of photos
-                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.SECURITY).size();
+                nbPhotosToPrint=getNbPhotosToPrintByCategory(PhotoCategories.SECURITY);
                 helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.SECURITY,idWorksite);
             }
 
@@ -157,7 +159,7 @@ private int nbPhotosToPrint;
                 bitmaps.clear();
                 listMapKeys.clear();
                 //determination of the number of photos
-                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.TECHNICAL_EQUIPMENTS).size();
+                nbPhotosToPrint=getNbPhotosToPrintByCategory(PhotoCategories.TECHNICAL_EQUIPMENTS);
                 helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.TECHNICAL_EQUIPMENTS,idWorksite);
             }
 
@@ -171,7 +173,7 @@ private int nbPhotosToPrint;
                 bitmaps.clear();
                 listMapKeys.clear();
                 //determination of the number of photos
-                nbPhotosToPrint=ListOfPhotosSingletonManager.getListOfPhotosByCategory(PhotoCategories.GENERAL_VIEW_ACCESS).size();
+                nbPhotosToPrint=getNbPhotosToPrintByCategory(PhotoCategories.GENERAL_VIEW_ACCESS);
                 helper.retrieveSpacePhotoUrlDownloadsByPhotoCategories(PhotoCategories.GENERAL_VIEW_ACCESS,idWorksite);
             }
 
@@ -202,7 +204,6 @@ private int nbPhotosToPrint;
             }
 
         }
-        progressDialog.dismiss();
         //ir.execute(urls);//Launch the ImageRetriever AsyncTask
 
 

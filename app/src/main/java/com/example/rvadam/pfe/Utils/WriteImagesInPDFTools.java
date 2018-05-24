@@ -173,4 +173,15 @@ public class WriteImagesInPDFTools {
         }
     }
 
+    public static int getNbPhotosToPrintByCategory(PhotoCategories category){
+        List<SpacePhoto> list = ListOfPhotosSingletonManager.getListOfPhotosByCategory(category);
+        int res=0;
+        for(SpacePhoto photo : list){
+            if(photo.getDownloadURL()!=null){
+                res++;
+            }
+        }
+        return res;
+    }
+
 }
