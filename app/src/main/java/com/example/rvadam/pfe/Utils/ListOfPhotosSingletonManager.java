@@ -129,25 +129,25 @@ public class ListOfPhotosSingletonManager {
             case COURSES_ACCESS:
                 CoursesAccessPhotoTypes[] array= CoursesAccessPhotoTypes.values();
                 for(int i=0; i<array.length;i++){
-                    result.add(array[i].getName());
+                    result.add(array[i].name());
                 }
                 return result;
             case SECURITY:
                 SecurityPhotoTypes[] array1=SecurityPhotoTypes.values();
                 for(int i=0; i<array1.length;i++){
-                    result.add(array1[i].getName());
+                    result.add(array1[i].name());
                 }
                 return result;
             case MALT_ADDUCTIONS:
                 MaltAdductionsPhotoTypes[] array2=MaltAdductionsPhotoTypes.values();
                 for(int i=0; i<array2.length;i++){
-                    result.add(array2[i].getName());
+                    result.add(array2[i].name());
                 }
                 return result;
             case TECHNICAL_EQUIPMENTS:
                 TechnicalEquipmentsPhotoTypes[] array3=TechnicalEquipmentsPhotoTypes.values();
                 for(int i=0; i<array3.length;i++){
-                    result.add(array3[i].getName());
+                    result.add(array3[i].name());
                 }
                 return result;
             default: return result;
