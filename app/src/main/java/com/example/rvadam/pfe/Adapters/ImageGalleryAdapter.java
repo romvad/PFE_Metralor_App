@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 //import com.example.rvadam.pfe.AppGlideModule.GlideApp;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -35,6 +36,8 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
     private static final String TAG="ImageGalleryAdapter";
 
     ImageView imageView;
+    TextView photoName;
+    SpacePhoto spacePhoto;
 
 
     @Override
@@ -45,13 +48,15 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View photoView = inflater.inflate(R.layout.item_photo_gallery, parent, false);
         ImageGalleryAdapter.MyViewHolder viewHolder = new ImageGalleryAdapter.MyViewHolder(photoView);
+
+
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ImageGalleryAdapter.MyViewHolder holder, int position) {
 
-        SpacePhoto spacePhoto = mSpacePhotos.get(position);
+        spacePhoto = mSpacePhotos.get(position);
        // ImageView imageView = holder.mPhotoImageView;*/
        // SpacePhoto photo = mPhotoList.get(position);
         imageView = holder.mPhotoImageView;
@@ -64,7 +69,6 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         StorageReference fullRef=ref.child(absolutePath);
 
         //Log.i(TAG,"storage ref "+fullRef);
-
 
         //To avoid displaying a former picture for an item because of the cache storing, we decide to deactivate cache when there is internet connection
         if(!InternetConnectionTools.isNetworkAvailable((AppCompatActivity)mContext)){
@@ -98,6 +102,8 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
 
             super(itemView);
             mPhotoImageView = (ImageView) itemView.findViewById(R.id.iv_photo);
+            photoName = (TextView) itemView.findViewById(R.id.photoTitle);
+            photoName.setText(spacePhoto.getTitle());
             itemView.setOnClickListener(this);
         }
 

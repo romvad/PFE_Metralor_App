@@ -25,10 +25,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--android:largeHeap="true"
-    android:hardwareAccelerated="false"-->
 
-    <!-- Intent filter to capture System Browser calling back to our app after Sign In -->
+        <!--
+    android:largeHeap="true"
+    android:hardwareAccelerated="false"
+        -->
+
+
+        <!-- Intent filter to capture System Browser calling back to our app after Sign In -->
         <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -85,8 +89,11 @@
             android:name=".WorkSitePhotoGallery.TabsOfPhotosActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".CameraFunctionality.CameraFunctionalityActivity" />
-        <activity android:name=".PhotoVisualization.PhotoVisualizationActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-        <activity android:name=".WriteImagesInPDF.WriteImagesInPDFActivity"></activity>
+        <activity
+            android:name=".PhotoVisualization.PhotoVisualizationActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".WriteImagesInPDF.WriteImagesInPDFActivity" />
+        <activity android:name=".DocumentVisualization.DocumentVisualizationActivity"></activity>
     </application>
 
 </manifest>
