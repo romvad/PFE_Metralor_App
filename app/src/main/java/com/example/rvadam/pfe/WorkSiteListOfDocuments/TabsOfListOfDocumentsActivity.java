@@ -35,6 +35,7 @@ import com.example.rvadam.pfe.Utils.DownloadTask;
 import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.example.rvadam.pfe.Utils.MicrosoftLogin;
 import com.example.rvadam.pfe.Utils.WorkSitesManager;
+import com.example.rvadam.pfe.WorkSite.WorkSiteActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -115,8 +116,9 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         //Retrivement of worksites list, normally called in List of Worksites activity
        // FirebaseDBWorkSitesHelper.getListOfWorkSites();
 
-        //we suppose we create this activity with the following work site ID
-        idWorkSite="-LBw-rNjtmo9G70LUU2Z";
+        Intent intent = getIntent();
+        idWorkSite=intent.getBundleExtra(WorkSiteActivity.EXTRA_WORKSITE).getString(WorkSiteActivity.ID_WORKSITE_READ);
+        //idWorkSite="-LBw-rNjtmo9G70LUU2Z";
 
         //Store of our firebase DB reference
         storageReference = FirebaseStorage.getInstance().getReference();

@@ -3,6 +3,7 @@ package com.example.rvadam.pfe.WriteImagesInPDF;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -38,6 +39,7 @@ import com.example.rvadam.pfe.Utils.GeneratedPDFDocumentSizes;
 import com.example.rvadam.pfe.Utils.ListOfPhotosSingletonManager;
 import com.example.rvadam.pfe.Utils.WorkSitesManager;
 import com.example.rvadam.pfe.Utils.WriteImagesInPDFTools;
+import com.example.rvadam.pfe.WorkSite.WorkSiteActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -100,8 +102,9 @@ private int nbPhotosToPrint;
         bitmaps=new HashMap<SpacePhoto, Bitmap>();
         listMapKeys = new ArrayList<SpacePhoto>();
 
-        //Hardcoded
-        idWorksite="-LBw-rNjtmo9G70LUU2Z";
+        Intent intent = getIntent();
+        idWorksite=intent.getBundleExtra(WorkSiteActivity.EXTRA_WORKSITE).getString(WorkSiteActivity.ID_WORKSITE_READ);
+        //idWorksite="-LBw-rNjtmo9G70LUU2Z";
         WorkSite w = WorkSitesManager.getWorkSiteById(idWorksite);
         worksiteName = w.getName();
 

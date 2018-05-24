@@ -1,5 +1,6 @@
 package com.example.rvadam.pfe.WorkSitePhotoGallery;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.util.Log;
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.Utils.ListOfPhotosSingletonManager;
 import com.example.rvadam.pfe.Utils.WorkSitesManager;
+import com.example.rvadam.pfe.WorkSite.WorkSiteActivity;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
@@ -42,8 +44,10 @@ public class TabsOfPhotosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_tabs_of_photos);
 
 
-        //We retrieve the worksite ID and update of this id in each photos
-        idWorkSite="-LBw-rNjtmo9G70LUU2Z";
+        Intent intent = getIntent();
+        idWorkSite=intent.getBundleExtra(WorkSiteActivity.EXTRA_WORKSITE).getString(WorkSiteActivity.ID_WORKSITE_READ);
+        //idWorkSite="-LBw-rNjtmo9G70LUU2Z";
+
         ListOfPhotosSingletonManager.updateWorkSiteIdListOfPhotosSingleton(idWorkSite);
         //String nameWorkSite= WorkSitesManager.getWorkSiteById(idWorkSite).getName();
 
