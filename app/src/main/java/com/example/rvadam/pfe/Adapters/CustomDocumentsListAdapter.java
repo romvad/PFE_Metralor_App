@@ -49,6 +49,7 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
 
 
     private static final String TAG="CustomDocumentsAdapter";
+    private TextView statusChoosedFile;
 
     public CustomDocumentsListAdapter(@NonNull Context context, int resource, @NonNull List<Document> listOfDocs, DocumentTypes typeOfDocs) {
         super(context, resource, listOfDocs);
@@ -82,7 +83,7 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
         Button chooseButton = (Button) row.findViewById(R.id.chooseButton);
         Button uploadButton = (Button) row.findViewById(R.id.uploadButton);
         TextView nameChoosedFile = (TextView) row.findViewById(R.id.nameChoosedFile);
-        TextView statusChoosedFile = (TextView) row.findViewById(R.id.statusChoosedFile);
+        statusChoosedFile = (TextView) row.findViewById(R.id.statusChoosedFile);
         TextView nameSavedFile= (TextView) row.findViewById(R.id.nameUploadedFile);
         TextView nameDocument =(TextView) row.findViewById(R.id.nameDocument);
 
@@ -181,6 +182,13 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
         //((Activity)context).startActivityForResult(Intent.createChooser(intent, "select an image"), PICK_IMAGE_REQUEST);
         tabsOfListOfDocumentsActivity.startActivityForResult(Intent.createChooser(intent, "select an image"), PICK_IMAGE_REQUEST);
     }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
+
 
 
 

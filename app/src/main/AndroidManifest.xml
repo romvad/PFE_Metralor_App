@@ -85,7 +85,7 @@
             android:name=".WorkSitePhotoGallery.TabsOfPhotosActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".CameraFunctionality.CameraFunctionalityActivity" />
-        <activity android:name=".PhotoVisualization.PhotoVisualizationActivity" />
+        <activity android:name=".PhotoVisualization.PhotoVisualizationActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".WriteImagesInPDF.WriteImagesInPDFActivity"></activity>
     </application>
 

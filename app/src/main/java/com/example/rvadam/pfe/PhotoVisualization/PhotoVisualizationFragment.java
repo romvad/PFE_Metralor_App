@@ -14,6 +14,7 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,12 +159,22 @@ public class PhotoVisualizationFragment extends Fragment {
     }
 
     private void displayPhotoWithStorageReference(StorageReference fullRef) {
-        GlideApp.with(getActivity().getApplicationContext())
-                .load(fullRef)
-                .placeholder(R.mipmap.ic_image_not_available)
-                .error(R.mipmap.ic_image_not_available)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(mImageView);
+        if(!InternetConnectionTools.isNetworkAvailable((AppCompatActivity) getActivity())){
+            GlideApp.with(getActivity().getApplicationContext())
+                    .load(fullRef)
+                    .placeholder(R.mipmap.ic_image_not_available)
+                    .error(R.mipmap.ic_image_not_available)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(mImageView);
+        } else {
+            GlideApp.with(getActivity().getApplicationContext())
+                    .load(fullRef)
+                    .placeholder(R.mipmap.ic_image_not_available)
+                    .error(R.mipmap.ic_image_not_available)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(mImageView);
+        }
+
     }
 
 
@@ -189,7 +200,7 @@ public class PhotoVisualizationFragment extends Fragment {
 
     private void displayPhotoWithUri(Uri data, boolean afterTakingPhoto) {
 
-        if(!afterTakingPhoto){
+        if(!afterTakingPhoto || ! InternetConnectionTools.isNetworkAvailable((AppCompatActivity) getActivity())){
             GlideApp.with(getActivity().getApplicationContext())
                     .load(data)
                     .placeholder(R.mipmap.ic_image_not_available)

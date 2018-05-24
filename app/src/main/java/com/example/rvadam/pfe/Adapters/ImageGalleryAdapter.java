@@ -3,6 +3,7 @@ package com.example.rvadam.pfe.Adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import com.example.rvadam.pfe.AppGlideModule.GlideApp;
 import com.example.rvadam.pfe.Model.SpacePhoto;
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.PhotoVisualization.PhotoVisualizationActivity;
+import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -64,12 +66,23 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         //Log.i(TAG,"storage ref "+fullRef);
 
 
-        GlideApp.with(mContext)
-                .load(fullRef)
-                .placeholder(R.mipmap.ic_image_not_available)
-                .error(R.mipmap.ic_image_not_available)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .into(imageView);
+        //To avoid displaying a former picture for an item because of the cache storing, we decide to deactivate cache when there is internet connection
+        if(!InternetConnectionTools.isNetworkAvailable((AppCompatActivity)mContext)){
+            GlideApp.with(mContext)
+                    .load(fullRef)
+                    .placeholder(R.mipmap.ic_image_not_available)
+                    .error(R.mipmap.ic_image_not_available)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(imageView);
+        } else {
+            GlideApp.with(mContext)
+                    .load(fullRef)
+                    .placeholder(R.mipmap.ic_image_not_available)
+                    .error(R.mipmap.ic_image_not_available)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(imageView);
+        }
+
     }
 
     @Override

@@ -25,6 +25,7 @@ import java.util.List;
 
 public class TabsOfPhotosActivity extends AppCompatActivity {
 
+    public static final String ID_WORKSITE ="id worksite" ;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;

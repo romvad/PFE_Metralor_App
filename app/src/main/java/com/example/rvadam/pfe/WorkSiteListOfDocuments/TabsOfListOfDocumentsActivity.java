@@ -16,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,7 @@ import com.microsoft.onedrivesdk.picker.LinkType;
 import com.microsoft.onedrivesdk.picker.Picker;
 
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -192,6 +195,7 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
                 strNameOfChoosedFile=updateFilePathDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,data.getData(),true,idWorkSite);
                 updateStatusDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,idWorkSite,FileStatus.READY);
                 updateNameChooseFileDocument(DocumentTypes.forValue(typeOfChoosedDocument),positionChoosedDocument,idWorkSite,strNameOfChoosedFile);
+                updateFileStatusColor(positionChoosedDocument,FileStatus.READY);
             }
 
 
@@ -320,6 +324,7 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
             }else {
                 Toast.makeText(getApplicationContext(), getResources().getString(R.string.upload_file_waiting_internet_connection_1) +"\""+DocumentsManager.getFileName(filePath,getContentResolver())+"\" "+getResources().getString(R.string.upload_file_waiting_internet_connection_2), Toast.LENGTH_LONG).show();
                 updateStatusDocument(typeOfDoc,positionDocumentToUpload,idWorkSite,FileStatus.WAIT_FOR_INTERNET_CONNECTION);
+                updateFileStatusColor(positionDocumentToUpload,FileStatus.WAIT_FOR_INTERNET_CONNECTION);
                 //updateFileStatusTextView(R.string.status_choosed_file_WAIT_FOR_INTERNET_CONNECTION);
             }
 
@@ -338,12 +343,10 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
                             if (constantsInstance.getTmpFileDLFromOneDrive().exists())
                                 constantsInstance.getTmpFileDLFromOneDrive().delete();
 
-                            //We disable the upload button and update the file status
-                            //uploadButton.setEnabled(false);
+
                             updateStatusDocument(typeOfDoc,positionDocumentToUpload,idWorkSite,FileStatus.UPLOADED);
                             updateFilePathDocument(typeOfDoc,positionDocumentToUpload,null,false,idWorkSite);
-                            ///updateFileStatusTextView(R.string.status_choosed_file_UPLOADED);
-                            //statusChoosedFile.setText(R.string.status_choosed_file_UPLOADED);
+                            updateFileStatusColor(positionDocumentToUpload, FileStatus.UPLOADED);
 
                         }
                     })
@@ -388,6 +391,37 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
 
         DocumentsManager.updateNameChooseFileDocument(type,position,idWorkSite,chooseFile);
         refreshFragmentByType(type);
+    }
+
+    private void updateFileStatusColor(int positionDocument, FileStatus status){
+
+        ListView listView = (ListView) findViewById(android.R.id.list);
+        TextView tv = (TextView) listView.getChildAt(positionDocument -
+                listView.getFirstVisiblePosition()).findViewById(R.id.statusChoosedFile);
+
+        if(tv == null)
+            return;
+
+        switch (status){
+            case NOT_UPLOADED:
+                //statusChoosedFile.setText(R.string.status_choosed_file_NOT_UPLOADED);
+                tv.setBackgroundResource(R.color.colorStatusFileNotUploaded);
+                break;
+            case READY:
+               // statusChoosedFile.setText(R.string.status_choosed_file_READY);
+                tv.setBackgroundResource(R.color.colorStatusFileReadyOrWaitingConnection);
+                break;
+            case WAIT_FOR_INTERNET_CONNECTION:
+                //statusChoosedFile.setText(R.string.status_choosed_file_WAIT_FOR_INTERNET_CONNECTION);
+                tv.setBackgroundResource(R.color.colorStatusFileReadyOrWaitingConnection);
+                break;
+            case UPLOADED:
+                //statusChoosedFile.setText(R.string.status_choosed_file_UPLOADED);
+                tv.setBackgroundResource(R.color.colorStatusFileUploaded);
+                break;
+            default:;
+
+        }
     }
 
     private String updateFilePathDocument(DocumentTypes type, int position, Uri filePath, boolean contentResolverNeeded,String idWorksite){ //return the name of the document thanks to its URI
