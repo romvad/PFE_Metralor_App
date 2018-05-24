@@ -332,7 +332,7 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
 
             String nameWorkSite= WorkSitesManager.getWorkSiteById(idWorkSite).getName();
 
-            StorageReference riversRef = storageReference.child(nameWorkSite+"/documents/"+String.valueOf(typeOfDoc)+"/"+docToUpload.getNameChoosedFile());
+            StorageReference riversRef = storageReference.child(idWorkSite+"/documents/"+String.valueOf(typeOfDoc)+"/"+docToUpload.getName()+"/"+docToUpload.getNameChoosedFile());
 
             riversRef.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
