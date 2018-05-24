@@ -22,6 +22,9 @@ import java.util.GregorianCalendar;
 public class WorkSiteActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
     private static final String TAG = "WorkSiteActivity";
 
+    public static final String ID_WORKSITE_READ="ID_WORKSITE_READ";
+    public static final String EXTRA_WORKSITE ="EXTRA_WORKSITE";
+
     private static WorkSite innerWorksite;
     private WorksiteFragment workSiteFragment;
     PeopleDBHelper peopleDBHelper;

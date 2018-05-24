@@ -25,6 +25,7 @@ import com.example.rvadam.pfe.LocationHelper.LocationHelper;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.R;
 import com.example.rvadam.pfe.Utils.PeopleManager;
+import com.example.rvadam.pfe.WriteImagesInPDF.WriteImagesInPDFActivity;
 
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -114,6 +115,37 @@ public class WorksiteFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), ListWorkSiteActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        button_docs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tabsOfListOfDocumentsActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString(WorkSiteActivity.ID_WORKSITE_READ, innerWorksite.getId());
+                tabsOfListOfDocumentsActivityCall.putExtra(WorkSiteActivity.EXTRA_WORKSITE,bundle);
+                startActivity(tabsOfListOfDocumentsActivityCall);
+            }
+        });
+        button_photos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tabsOfPhotosActivityCall= new Intent(getActivity(), com.example.rvadam.pfe.WorkSitePhotoGallery.TabsOfPhotosActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString(WorkSiteActivity.ID_WORKSITE_READ, innerWorksite.getId());
+                tabsOfPhotosActivityCall.putExtra(WorkSiteActivity.EXTRA_WORKSITE,bundle);
+                startActivity(tabsOfPhotosActivityCall);
+            }
+        });
+        button_generate_pdf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent writeImagesInPDFActivityCall= new Intent(getActivity(), WriteImagesInPDFActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString(WorkSiteActivity.ID_WORKSITE_READ, innerWorksite.getId());
+                writeImagesInPDFActivityCall.putExtra(WorkSiteActivity.EXTRA_WORKSITE,bundle);
+                startActivity(writeImagesInPDFActivityCall);
             }
         });
 
