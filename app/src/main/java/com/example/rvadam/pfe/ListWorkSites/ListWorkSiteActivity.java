@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.rvadam.pfe.FirebaseDBHelpers.FirebaseDBWorkSitesHelper;
 import com.example.rvadam.pfe.FirebaseDBHelpers.WorksiteDBHelper;
 import com.example.rvadam.pfe.R;
 
@@ -27,6 +28,9 @@ public class ListWorkSiteActivity extends AppCompatActivity {
         // Call the diferents DBHelper that we need
         worksiteDBHelper = new WorksiteDBHelper("workSites/", this);
         worksiteDBHelper.retrieveWorksites();
+
+        //Second list of Worksites singleton to match with documents management
+        FirebaseDBWorkSitesHelper.getListOfWorkSites();
 
         // Check whether the activity is using the layout version with the fragment_container FrameLayout
         if (findViewById(R.id.listWorksiteFragment_container) != null) {

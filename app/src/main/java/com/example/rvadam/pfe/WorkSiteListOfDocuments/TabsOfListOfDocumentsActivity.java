@@ -114,7 +114,7 @@ public class TabsOfListOfDocumentsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //Retrivement of worksites list, normally called in List of Worksites activity
-       // FirebaseDBWorkSitesHelper.getListOfWorkSites();
+        //FirebaseDBWorkSitesHelper.getListOfWorkSites();
 
         Intent intent = getIntent();
         idWorkSite=intent.getBundleExtra(WorkSiteActivity.EXTRA_WORKSITE).getString(WorkSiteActivity.ID_WORKSITE_READ);

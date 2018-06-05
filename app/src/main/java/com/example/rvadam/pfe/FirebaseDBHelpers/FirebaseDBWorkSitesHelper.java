@@ -42,12 +42,12 @@ public class FirebaseDBWorkSitesHelper {
                     DataSnapshot snapshot=it.next();
                     String worksiteKey=snapshot.getKey();
 
-                    if(worksiteKey.equals("-LBw-rNjtmo9G70LUU2Z")){
+                    //if(worksiteKey.equals("-LBw-rNjtmo9G70LUU2Z")){
                         WorkSite workSite=snapshot.getValue(WorkSite.class);
                         //CurrentStatesWorkSites.getInstance().getCurrentWorkSites().add(workSite);
                         Log.i(TAG,"other doc getter "+workSite.getOtherDocuments().toString());
                         listofWorksite.add(workSite);
-                    }
+                    //}
 
                 }
                 //We set the flag meaning that all the worksites have been retrived from db (falg is read by WorkSitesManager.getWorksiteById

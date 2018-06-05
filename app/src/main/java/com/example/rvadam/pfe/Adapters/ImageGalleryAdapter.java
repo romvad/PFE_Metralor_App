@@ -68,6 +68,8 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
         String absolutePath=photoIdWorksite+"/"+relativePath;
         StorageReference fullRef=ref.child(absolutePath);
 
+        photoName.setText(spacePhoto.getTitle());
+
         //Log.i(TAG,"storage ref "+fullRef);
 
         //To avoid displaying a former picture for an item because of the cache storing, we decide to deactivate cache when there is internet connection
@@ -103,7 +105,7 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
             super(itemView);
             mPhotoImageView = (ImageView) itemView.findViewById(R.id.iv_photo);
             photoName = (TextView) itemView.findViewById(R.id.photoTitle);
-            photoName.setText(spacePhoto.getTitle());
+
             itemView.setOnClickListener(this);
         }
 

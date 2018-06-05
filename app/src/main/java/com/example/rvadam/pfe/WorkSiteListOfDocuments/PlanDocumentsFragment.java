@@ -75,7 +75,7 @@ public class PlanDocumentsFragment extends ListFragment {
         args.putString(DocumentVisualizationActivity.ID_WORKSITE,idWorkSite);
         args.putString(DocumentVisualizationActivity.DOCUMENT_NAME,doc.getName());
         args.putString(DocumentVisualizationActivity.DOCUMENT_FILE_NAME,doc.getFileName());
-        args.putString(DocumentVisualizationActivity.FB_STORAGE_RELATIVE_PATH,DocumentTypes.PLAN_DOCUMENTS.name());
+        args.putString(DocumentVisualizationActivity.DOCUMENT_CATEGORY,DocumentTypes.PLAN_DOCUMENTS.name());
         intent.putExtras(args);
 
     }

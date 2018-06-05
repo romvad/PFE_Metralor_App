@@ -9,10 +9,11 @@ import java.util.List;
 
 public class CurrentStatesWorkSites {
 
-    private static List<WorkSite> currentWorkSites=new ArrayList<WorkSite>();
+    private static List<WorkSite> currentWorkSites;
     private static final CurrentStatesWorkSites instance=new CurrentStatesWorkSites();
 
     private CurrentStatesWorkSites() {
+        currentWorkSites=new ArrayList<WorkSite>();
     }
 
     public static CurrentStatesWorkSites getInstance(){
