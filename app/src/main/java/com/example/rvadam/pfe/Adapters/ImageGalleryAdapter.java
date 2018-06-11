@@ -78,14 +78,14 @@ public class ImageGalleryAdapter extends RecyclerView.Adapter<ImageGalleryAdapte
                     .load(fullRef)
                     .placeholder(R.mipmap.ic_image_not_available)
                     .error(R.mipmap.ic_image_not_available)
-                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .into(imageView);
         } else {
             GlideApp.with(mContext)
                     .load(fullRef)
                     .placeholder(R.mipmap.ic_image_not_available)
                     .error(R.mipmap.ic_image_not_available)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(imageView);
         }
 
