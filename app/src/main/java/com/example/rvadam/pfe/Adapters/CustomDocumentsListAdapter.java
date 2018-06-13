@@ -22,7 +22,6 @@ import android.widget.Toast;
 import com.example.rvadam.pfe.Model.Document;
 import com.example.rvadam.pfe.Model.DocumentTypes;
 import com.example.rvadam.pfe.R;
-import com.example.rvadam.pfe.TestFirebaseStorage.TestFirebaseStorageBisActivity;
 import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.example.rvadam.pfe.WorkSiteListOfDocuments.TabsOfListOfDocumentsActivity;
 import com.microsoft.identity.client.PublicClientApplication;
@@ -187,10 +186,6 @@ public class CustomDocumentsListAdapter extends ArrayAdapter<Document> {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
     }
-
-
-
-
 
 
 }

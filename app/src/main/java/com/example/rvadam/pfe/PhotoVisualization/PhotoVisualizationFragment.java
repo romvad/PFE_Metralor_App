@@ -33,7 +33,6 @@ import com.example.rvadam.pfe.Model.SpacePhoto;
 import com.example.rvadam.pfe.Model.WorkSite;
 import com.example.rvadam.pfe.PhotoHandler.PictureHistory;
 import com.example.rvadam.pfe.R;
-import com.example.rvadam.pfe.TestLoginWithMSAL.LoginActivity;
 import com.example.rvadam.pfe.Utils.DocumentsManager;
 import com.example.rvadam.pfe.Utils.InternetConnectionTools;
 import com.example.rvadam.pfe.Utils.WorkSitesManager;

@@ -29,7 +29,6 @@ import com.example.rvadam.pfe.Model.Document;
 import com.example.rvadam.pfe.Model.DocumentTypes;
 import com.example.rvadam.pfe.Model.FileStatus;
 import com.example.rvadam.pfe.R;
-import com.example.rvadam.pfe.TestFirebaseStorage.TestFirebaseStorageBisActivity;
 import com.example.rvadam.pfe.Utils.DocumentsManager;
 import com.example.rvadam.pfe.Utils.DownloadTask;
 import com.example.rvadam.pfe.Utils.InternetConnectionTools;
